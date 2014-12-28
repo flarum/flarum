@@ -8,3 +8,6 @@ composer.lock
 .DS_Store
 Thumbs.db
 workbench/*
+.vagrant
+**/npm-debug.log
+public/packages/flarum

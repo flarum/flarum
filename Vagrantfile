@@ -293,7 +293,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "#{github_url}/scripts/composer.sh", privileged: false, args: composer_packages.join(" ")
 
   # Provision Laravel
-  config.vm.provision "shell", path: "#{github_url}/scripts/laravel.sh", privileged: false, args: [server_ip, laravel_root_folder, public_folder, laravel_version]
+  #config.vm.provision "shell", path: "#{github_url}/scripts/laravel.sh", privileged: false, args: [server_ip, laravel_root_folder, public_folder, laravel_version]
 
   # Provision Symfony
   # config.vm.provision "shell", path: "#{github_url}/scripts/symfony.sh", privileged: false, args: [server_ip, symfony_root_folder, public_folder]
@@ -315,7 +315,6 @@ Vagrant.configure("2") do |config|
   # Any local scripts you may want to run post-provisioning.
   # Add these to the same directory as the Vagrantfile.
   ##########
-  config.vm.provision "shell", path: "./scripts/environment.sh"
-  config.vm.provision "shell", path: "./scripts/workbench.sh"
+  config.vm.provision "shell", path: "./scripts/environment.sh", privileged: false
 
 end

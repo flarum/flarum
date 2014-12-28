@@ -32,9 +32,11 @@ alias cca='./vendor/bin/codecept Acceptance'
 alias ccf='./vendor/bin/codecept Functional'
 alias ccu='./vendor/bin/codecept run Unit'
 
+#ember/js stuff
+alias esv='ember serve --output-path="/vagrant/workbench/flarum/core/public"
+
 #function aliases
 alias ghc=ghc
-alias mkcd=mkcd
 alias grl=grl
 alias grln=grln
 alias gac=gac
@@ -66,17 +68,3 @@ gulpac() {
 }
 
 grl() { grep -rl "$1" * }
-mkcd() {
-    if [ -z $1 ]; then
-        echo -e \e[0;31;1mUsage: mkcd [directory]\e[m;
-    else
-        if [ -d $1 ]; then
-            echo Changed to $1.;
-            cd $1;
-        else
-            mkdir $1;
-            echo Created $1;
-            cd $1;
-        fi;
-    fi
-}
