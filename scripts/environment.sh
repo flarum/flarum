@@ -24,6 +24,7 @@ mysql -u root -proot -e 'create database flarum'
 cd /vagrant/workbench/flarum/core
 git clone https://github.com/flarum/core .
 composer install
+mkdir public
 cd /vagrant/workbench/flarum/core/ember
 npm install
 bower install
