@@ -33,7 +33,7 @@ alias ccf='./vendor/bin/codecept Functional'
 alias ccu='./vendor/bin/codecept run Unit'
 
 #ember/js stuff
-alias esv='ember serve --output-path="/vagrant/workbench/flarum/core/public"
+alias esv='ember serve --output-path="/vagrant/workbench/flarum/core/public"'
 
 #function aliases
 alias ghc=ghc
@@ -67,4 +67,6 @@ gulpac() {
     gulp && git add -A && git commit -m "$1"
 }
 
-grl() { grep -rl "$1" * }
+grl() { 
+    grep -rl "$1" * 
+}

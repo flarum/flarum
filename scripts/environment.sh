@@ -29,5 +29,6 @@ npm install
 bower install
 
 cd /vagrant
+composer install
 php artisan migrate --bench="flarum/core"
 php artisan db:seed --class="Flarum\Core\Support\Seeders\DatabaseSeeder"
