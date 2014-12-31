@@ -121,9 +121,9 @@ return array(
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-        'Flarum\Core\CoreServiceProvider',
-        'Flarum\Api\ApiServiceProvider',
-        'Flarum\Web\WebServiceProvider',
+		'Flarum\Core\CoreServiceProvider',
+		'Flarum\Api\ApiServiceProvider',
+		'Flarum\Web\WebServiceProvider',
 
 	),
 

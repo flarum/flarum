@@ -33,3 +33,4 @@ cd /vagrant
 composer install
 php artisan migrate --bench="flarum/core"
 php artisan db:seed --class="Flarum\Core\Support\Seeders\DatabaseSeeder"
+php artisan asset:publish --bench="flarum/core"
