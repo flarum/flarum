@@ -2,7 +2,7 @@
 
 su - vagrant
 ### Setup NPM globals and create necessary directories ###
-sudo apt-get install phantomjs zsh exuberant-ctags
+sudo apt-get install -y phantomjs zsh exuberant-ctags
 mkdir /home/vagrant/npm
 mkdir -p /vagrant/flarum/core
 sudo chown -R vagrant:vagrant /home/vagrant
