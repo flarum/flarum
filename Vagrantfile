@@ -98,12 +98,16 @@ Vagrant.configure("2") do |config|
 
   # Create a static IP
   config.vm.network :private_network, ip: server_ip
+  
+  # We can use NFS if we're not running on Windows
+  share_opts = { :id => "core" }
+  unless Vagrant::Util::Platform.windows?
+    share_opts[:nfs] = true
+    share_opts[:mount_options] = ['nolock,vers=3,udp,noatime,actimeo=1']
+  end
 
-  # Use NFS for the shared folder
-  config.vm.synced_folder ".", "/vagrant",
-            id: "core",
-            :nfs => true,
-            :mount_options => ['nolock,vers=3,udp,noatime,actimeo=1']
+  # Configure the shared folder
+  config.vm.synced_folder ".", "/vagrant", share_opts
 
   # If using VirtualBox
   config.vm.provider :virtualbox do |vb|
