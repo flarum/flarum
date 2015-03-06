@@ -23,13 +23,13 @@ mysql -u root -proot -e 'create database flarum'
 ### Setup flarum/core ###
 cd /vagrant/flarum/core
 git clone https://github.com/flarum/core .
-composer install
+composer install --prefer-dist
 mkdir public
 cd /vagrant/flarum/core/ember
 npm install
 bower install
 
 cd /vagrant
-composer install
+composer install --prefer-dist
 php artisan flarum:install
 php artisan flarum:seed
