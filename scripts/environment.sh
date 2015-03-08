@@ -6,7 +6,7 @@ sudo apt-get install -y phantomjs zsh exuberant-ctags
 mkdir /home/vagrant/npm
 mkdir -p /vagrant/flarum/core
 sudo chown -R vagrant:vagrant /home/vagrant
-npm install -g bower ember
+
 cp /vagrant/scripts/aliases ~/.aliases
 
 ### Create rc file ###

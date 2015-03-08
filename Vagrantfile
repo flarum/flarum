@@ -67,10 +67,8 @@ symfony_root_folder   = "/vagrant/symfony" # Where to install Symfony.
 
 nodejs_version        = "latest"   # By default "latest" will equal the latest stable version
 nodejs_packages       = [          # List any global NodeJS packages that you want to install
-  #"grunt-cli",
-  #"gulp",
-  #"bower",
-  #"yo",
+  "bower",
+  "ember"
 ]
 
 sphinxsearch_version  = "rel22" # rel20, rel21, rel22, beta, daily, stable
@@ -98,16 +96,16 @@ Vagrant.configure("2") do |config|
 
   # Create a static IP
   config.vm.network :private_network, ip: server_ip
-  
-  # We can use NFS if we're not running on Windows
-  share_opts = { :id => "core" }
-  unless Vagrant::Util::Platform.windows?
-    share_opts[:nfs] = true
-    share_opts[:mount_options] = ['nolock,vers=3,udp,noatime,actimeo=1']
-  end
 
-  # Configure the shared folder
-  config.vm.synced_folder ".", "/vagrant", share_opts
+  # A private dhcp network is required for NFS to work (on Windows hosts, at least)
+  # Windows users should use the winnfsd plugin: https://github.com/GM-Alex/vagrant-winnfsd
+  config.vm.network :private_network, type: "dhcp"
+
+  # Use NFS for the shared folder
+  config.vm.synced_folder ".", "/vagrant",
+            id: "core",
+            :nfs => true,
+            :mount_options => ['nolock,vers=3,udp,noatime,actimeo=1']
 
   # If using VirtualBox
   config.vm.provider :virtualbox do |vb|
@@ -126,8 +124,8 @@ Vagrant.configure("2") do |config|
     vb.customize ["guestproperty", "set", :id, "/VirtualBox/GuestAdd/VBoxService/--timesync-set-threshold", 10000]
 
     # Prevent VMs running on Ubuntu to lose internet connection
-    # vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
-    # vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
+    vb.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
+    vb.customize ["modifyvm", :id, "--natdnsproxy1", "on"]
 
   end
 
@@ -284,7 +282,7 @@ Vagrant.configure("2") do |config|
   ##########
 
   # Install Nodejs
-  config.vm.provision "shell", path: "#{github_url}/scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version, github_url)
+  config.vm.provision "shell", path: "https://raw.githubusercontent.com/franzliedke/Vaprobash/patch-1/scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version, github_url)
 
   # Install Ruby Version Manager (RVM)
   # config.vm.provision "shell", path: "#{github_url}/scripts/rvm.sh", privileged: false, args: ruby_gems.unshift(ruby_version)
