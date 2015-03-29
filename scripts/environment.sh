@@ -25,7 +25,10 @@ cd /vagrant/flarum/core
 git clone https://github.com/flarum/core .
 composer install --prefer-dist
 mkdir public
-cd /vagrant/flarum/core/ember
+cd /vagrant/flarum/core/ember/forum
+npm install
+bower install
+cd /vagrant/flarum/core/ember/admin
 npm install
 bower install
 
