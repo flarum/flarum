@@ -140,6 +140,7 @@ return [
 		'Flarum\Api\ApiServiceProvider',
 		'Flarum\Web\WebServiceProvider',
 		'Flarum\Console\ConsoleServiceProvider',
+		'Flarum\Admin\AdminServiceProvider',
 
 	],
 
