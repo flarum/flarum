@@ -6,4 +6,5 @@
 Thumbs.db
 /flarum
 .vagrant
-/public/flarum
+/public/flarum/*
+!/public/flarum/avatars
