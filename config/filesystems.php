@@ -43,7 +43,7 @@ return [
 
 	'disks' => [
 
-		'flarum.avatars' => [
+		'flarum-avatars' => [
 			'driver' => 'local',
 			'root'   => public_path('flarum/avatars')
 		],
