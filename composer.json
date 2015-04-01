@@ -7,6 +7,9 @@
 	"require": {
 		"laravel/framework": "5.0.*"
 	},
+	"require-dev": {
+		"franzl/studio": "1.0.x@dev"
+	},
 	"autoload": {
 		"psr-4": {
 			"App\\": "app/"

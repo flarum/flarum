@@ -16,8 +16,6 @@ define('LARAVEL_START', microtime(true));
 
 require __DIR__.'/../vendor/autoload.php';
 
-require __DIR__.'/../flarum/core/vendor/autoload.php';
-
 /*
 |--------------------------------------------------------------------------
 | Include The Compiled Class File
@@ -29,7 +27,7 @@ require __DIR__.'/../flarum/core/vendor/autoload.php';
 |
 */
 
-$compiledPath = __DIR__.'/../storage/framework/compiled.php';
+$compiledPath = __DIR__.'/../vendor/compiled.php';
 
 if (file_exists($compiledPath))
 {
