@@ -138,7 +138,7 @@ return [
 
 		'Flarum\Core\CoreServiceProvider',
 		'Flarum\Api\ApiServiceProvider',
-		'Flarum\Web\WebServiceProvider',
+		'Flarum\Forum\ForumServiceProvider',
 		'Flarum\Console\ConsoleServiceProvider',
 		'Flarum\Admin\AdminServiceProvider',
 
