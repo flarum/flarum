@@ -1,0 +1,3 @@
+[submodule "core"]
+	path = core
+	url = git@github.com:flarum/core.git
