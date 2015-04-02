@@ -21,23 +21,20 @@ fi
 cp /vagrant/.env.example /vagrant/.env
 mysql -u root -proot -e 'create database flarum'
 
-### Setup flarum/core ###
-composer global require franzl/studio:dev-master
-cd /vagrant/flarum/core
-git clone https://github.com/flarum/core .
+### Setup flarum/core and install dependencies ###
+cd /vagrant/core
 composer install --prefer-dist
-
-mkdir public
-cd /vagrant/flarum/core/ember/forum
-npm install
-bower install
-cd /vagrant/flarum/core/ember/admin
-npm install
-bower install
-
-### Install main project's dependencies
 cd /vagrant
 composer install --prefer-dist
+composer dump-autoload
+
+mkdir /vagrant/core/public
+cd /vagrant/core/ember/forum
+npm install
+bower install
+cd /vagrant/core/ember/admin
+npm install
+bower install
 
 ### Prepare the database
 php artisan flarum:install
