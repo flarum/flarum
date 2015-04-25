@@ -136,6 +136,7 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 
+		// 'Flarum\Support\Extensions\ExtensionsServiceProvider',
 		'Flarum\Core\CoreServiceProvider',
 		'Flarum\Api\ApiServiceProvider',
 		'Flarum\Forum\ForumServiceProvider',
