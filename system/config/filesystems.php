@@ -45,7 +45,7 @@ return [
 
 		'flarum-avatars' => [
 			'driver' => 'local',
-			'root'   => public_path('flarum/avatars')
+			'root'   => public_path('assets/avatars')
 		],
 
 	],
