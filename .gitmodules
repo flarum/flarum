@@ -1,0 +1,3 @@
+[submodule "system/core"]
+	path = system/core
+	url = https://github.com/flarum/core.git
