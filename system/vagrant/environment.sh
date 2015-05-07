@@ -4,7 +4,6 @@ su - vagrant
 ### Setup NPM globals and create necessary directories ###
 sudo apt-get install -y phantomjs zsh exuberant-ctags
 mkdir /home/vagrant/npm
-mkdir -p /vagrant/flarum/core
 sudo chown -R vagrant:vagrant /home/vagrant
 
 cp /vagrant/scripts/aliases ~/.aliases
@@ -18,24 +17,25 @@ else
 fi
 
 ### Set up environment files and database ###
-cp /vagrant/.env.example /vagrant/.env
+cp /vagrant/system/.env.example /vagrant/system/.env
 mysql -u root -proot -e 'create database flarum'
 
 ### Setup flarum/core and install dependencies ###
-cd /vagrant/core
+cd /vagrant/system/core
 composer install --prefer-dist
-cd /vagrant
+cd /vagrant/system
 composer install --prefer-dist
 composer dump-autoload
 
-mkdir /vagrant/core/public
-cd /vagrant/core/ember/forum
-npm install
+cd /vagrant/core/js
 bower install
-cd /vagrant/core/ember/admin
+cd /vagrant/core/js/forum
 npm install
-bower install
+gulp
+cd /vagrant/core/js/admin
+npm install
+gulp
 
-### Prepare the database
+php artisan vendor:publish
 php artisan flarum:install
 php artisan flarum:seed

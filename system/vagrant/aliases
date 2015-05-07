@@ -32,9 +32,6 @@ alias cca='./vendor/bin/codecept Acceptance'
 alias ccf='./vendor/bin/codecept Functional'
 alias ccu='./vendor/bin/codecept run Unit'
 
-#ember/js stuff
-alias ember='/vagrant/flarum/core/ember/forum/node_modules/ember-cli/bin/ember'
-
 #function aliases
 alias ghc=ghc
 alias grl=grl
@@ -67,6 +64,6 @@ gulpac() {
     gulp && git add -A && git commit -m "$1"
 }
 
-grl() { 
-    grep -rl "$1" * 
+grl() {
+    grep -rl "$1" *
 }
