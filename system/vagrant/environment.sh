@@ -21,6 +21,9 @@ cp /vagrant/system/.env.example /vagrant/system/.env
 mysql -u root -proot -e 'create database flarum'
 
 ### Setup flarum/core and install dependencies ###
+cd /vagrant
+git submodule init
+git submodule update
 cd /vagrant/system/core
 composer install --prefer-dist
 cd /vagrant/system
