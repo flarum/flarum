@@ -21,24 +21,22 @@ cp /vagrant/system/.env.example /vagrant/system/.env
 mysql -u root -proot -e 'create database flarum'
 
 ### Setup flarum/core and install dependencies ###
-cd /vagrant
-git submodule init
-git submodule update
 cd /vagrant/system/core
 composer install --prefer-dist
 cd /vagrant/system
 composer install --prefer-dist
 composer dump-autoload
 
-cd /vagrant/core/js
+cd /vagrant/system/core/js
 bower install
-cd /vagrant/core/js/forum
+cd /vagrant/system/core/js/forum
 npm install
 gulp
-cd /vagrant/core/js/admin
+cd /vagrant/system/core/js/admin
 npm install
 gulp
 
+cd /vagrant/system
 php artisan vendor:publish
 php artisan flarum:install
 php artisan flarum:seed

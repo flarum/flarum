@@ -69,7 +69,7 @@ symfony_root_folder   = "/vagrant/symfony" # Where to install Symfony.
 nodejs_version        = "latest"   # By default "latest" will equal the latest stable version
 nodejs_packages       = [          # List any global NodeJS packages that you want to install
   "bower",
-  "ember"
+  "gulp"
 ]
 
 sphinxsearch_version  = "rel22" # rel20, rel21, rel22, beta, daily, stable
