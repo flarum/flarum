@@ -25,7 +25,7 @@
 2. Clone this repository and set up the Vagrant box:
 
   ```sh
-  git clone https://github.com/flarum/flarum.git
+  git clone --recursive https://github.com/flarum/flarum.git
   cd flarum
   vagrant up
   ```
