@@ -10,7 +10,7 @@
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/flarum/flarum)
 
-**NOTE: We are going to be continuing development of Flarum behind closed doors (off GitHub) until it’s ready for beta in July. [See the roadmap »](https://github.com/flarum/core/issues/74)**
+**UPDATE 28/05/15: We are going to be continuing development of Flarum behind closed doors (off GitHub) until it’s ready for beta in July. [See the roadmap »](https://github.com/flarum/core/issues/74)**
 
 ## Goals
 
