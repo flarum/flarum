@@ -10,6 +10,8 @@
 
 [![Gitter](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/flarum/flarum)
 
+**NOTE: We are going to be continuing development of Flarum behind closed doors (off GitHub) until it’s ready for beta in July. [See the roadmap »](https://github.com/flarum/core/issues/74)**
+
 ## Goals
 
 - **Fast and simple.** No clutter, no bloat, no complex dependencies. Flarum is built with PHP so it's quick and easy to deploy. The interface is powered by Mithril, a highly performant JavaScript framework with a tiny footprint.
@@ -40,7 +42,7 @@
 
 Interested in contributing to Flarum? Read the [Contribution Guide](https://github.com/flarum/flarum/blob/master/CONTRIBUTING.md)!
 
-Please note that bug reports should go in [flarum/core](https://github.com/flarum/core/issues) or the [relevant extension repository](https://github.com/flarum).
+Bug reports should go in [flarum/core](https://github.com/flarum/core/issues) or the [relevant extension repository](https://github.com/flarum).
 
 ### Core Team
 
