@@ -1,13 +1,43 @@
 <?php
 
+use Psr\Http\Message\ResponseInterface as Response;
+use Psr\Http\Message\ServerRequestInterface as Request;
+use Zend\Diactoros\Server;
+use Zend\Stratigility\Http\Response as ZendResponse;
+use Zend\Stratigility\MiddlewarePipe;
+
+// Instantiate the application, register providers etc.
 $app = require __DIR__.'/system/bootstrap.php';
 
-$kernel = $app->make('Illuminate\Contracts\Http\Kernel');
+// Build a middleware pipeline for Flarum
+$flarum = new MiddlewarePipe();
+$flarum->pipe($app->make('Flarum\Forum\Middleware\LoginWithCookie'));
 
-$response = $kernel->handle(
-	$request = Illuminate\Http\Request::capture()
+$api = new MiddlewarePipe();
+$api->pipe($app->make('Flarum\Api\Middleware\ReadJsonParameters'));
+$api->pipe($app->make('Flarum\Api\Middleware\LoginWithHeader'));
+
+$admin = new MiddlewarePipe();
+$admin->pipe($app->make('Flarum\Admin\Middleware\LoginWithCookieAndCheckAdmin'));
+
+$flarum->pipe('/api', $api);
+$flarum->pipe('/admin', $admin);
+$flarum->pipe(function(Request $request, Response $response, $next) use ($app) {
+	/** @var Flarum\Http\Router $router */
+	$router = $app->make('Flarum\Http\Router');
+
+	$response = new ZendResponse($router->dispatch($request));
+
+	return $next($request, $response);
+});
+
+$server = Server::createServer(
+	$flarum,
+	$_SERVER,
+	$_GET,
+	$_POST,
+	$_COOKIE,
+	$_FILES
 );
 
-$response->send();
-
-$kernel->terminate($request, $response);
+$server->listen();

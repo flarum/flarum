@@ -8,19 +8,26 @@ $app = new Illuminate\Foundation\Application(
 );
 $app->instance('path.public', __DIR__.'/..');
 
-use Illuminate\Foundation\Http\Kernel as IlluminateHttpKernel;
+$middleware = [
+	'Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode',
+	'Illuminate\Cookie\Middleware\EncryptCookies',
+	'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
+	'Illuminate\Session\Middleware\StartSession',
+	'Illuminate\View\Middleware\ShareErrorsFromSession',
+	// 'App\Http\Middleware\VerifyCsrfToken',
+];
 
-class HttpKernel extends IlluminateHttpKernel {
-	protected $middleware = [
-		'Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode',
-		'Illuminate\Cookie\Middleware\EncryptCookies',
-		'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
-		'Illuminate\Session\Middleware\StartSession',
-		'Illuminate\View\Middleware\ShareErrorsFromSession',
-		// 'App\Http\Middleware\VerifyCsrfToken',
-	];
-	protected $routeMiddleware = [];
-}
+$bootstrappers = [
+	'Illuminate\Foundation\Bootstrap\DetectEnvironment',
+	'Illuminate\Foundation\Bootstrap\LoadConfiguration',
+	'Illuminate\Foundation\Bootstrap\ConfigureLogging',
+	//'Illuminate\Foundation\Bootstrap\HandleExceptions',
+	'Illuminate\Foundation\Bootstrap\RegisterFacades',
+	'Illuminate\Foundation\Bootstrap\RegisterProviders',
+	'Illuminate\Foundation\Bootstrap\BootProviders',
+];
+
+$app->bootstrapWith($bootstrappers);
 
 use Illuminate\Foundation\Console\Kernel as IlluminateConsoleKernel;
 
