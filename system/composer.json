@@ -5,7 +5,9 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "5.0.*"
+		"laravel/framework": "5.0.*",
+		"zendframework/zend-diactoros": "^1.0",
+		"zendframework/zend-stratigility": "^1.0"
 	},
 	"require-dev": {
 		"franzl/studio": "1.0.x@dev"
