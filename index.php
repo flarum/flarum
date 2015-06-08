@@ -26,9 +26,7 @@ $flarum->pipe(function(Request $request, Response $response, $next) use ($app) {
 	/** @var Flarum\Http\Router $router */
 	$router = $app->make('Flarum\Http\Router');
 
-	$response = new ZendResponse($router->dispatch($request));
-
-	return $next($request, $response);
+	return new ZendResponse($router->dispatch($request));
 });
 
 $server = Server::createServer(
