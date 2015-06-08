@@ -14,7 +14,7 @@ $flarum = new MiddlewarePipe();
 $flarum->pipe($app->make('Flarum\Forum\Middleware\LoginWithCookie'));
 
 $api = new MiddlewarePipe();
-$api->pipe($app->make('Flarum\Api\Middleware\ReadJsonParameters'));
+$flarum->pipe($app->make('Flarum\Api\Middleware\ReadJsonParameters'));
 $api->pipe($app->make('Flarum\Api\Middleware\LoginWithHeader'));
 
 $admin = new MiddlewarePipe();
