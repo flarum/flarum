@@ -8,26 +8,43 @@ $app = new Illuminate\Foundation\Application(
 );
 $app->instance('path.public', __DIR__.'/..');
 
-$middleware = [
-	'Illuminate\Foundation\Http\Middleware\CheckForMaintenanceMode',
-	'Illuminate\Cookie\Middleware\EncryptCookies',
-	'Illuminate\Cookie\Middleware\AddQueuedCookiesToResponse',
-	'Illuminate\Session\Middleware\StartSession',
-	'Illuminate\View\Middleware\ShareErrorsFromSession',
-	// 'App\Http\Middleware\VerifyCsrfToken',
-];
+// DetectEnvironment
+Dotenv::load($app->basePath(), $app->environmentFile());
 
+$app->detectEnvironment(function()
+{
+	return env('APP_ENV', 'production');
+});
+
+// LoadConfiguration
 $bootstrappers = [
-	'Illuminate\Foundation\Bootstrap\DetectEnvironment',
 	'Illuminate\Foundation\Bootstrap\LoadConfiguration',
-	'Illuminate\Foundation\Bootstrap\ConfigureLogging',
 	//'Illuminate\Foundation\Bootstrap\HandleExceptions',
-	'Illuminate\Foundation\Bootstrap\RegisterFacades',
-	'Illuminate\Foundation\Bootstrap\RegisterProviders',
-	'Illuminate\Foundation\Bootstrap\BootProviders',
 ];
 
 $app->bootstrapWith($bootstrappers);
+
+// ConfigureLogging
+$logger = new Monolog\Logger($app->environment());
+$logPath = $app->storagePath().'/logs/flarum.log';
+$handler = new \Monolog\Handler\StreamHandler($logPath, Monolog\Logger::DEBUG);
+$handler->setFormatter(new \Monolog\Formatter\LineFormatter(null, null, true, true));
+$logger->pushHandler($handler);
+
+$app->instance('log', $logger);
+$app->alias('log', 'Psr\Log\LoggerInterface');
+
+// RegisterFacades
+use Illuminate\Support\Facades\Facade;
+
+Facade::clearResolvedInstances();
+Facade::setFacadeApplication($app);
+
+// RegisterProviders
+$app->registerConfiguredProviders();
+
+// BootProviders
+$app->boot();
 
 use Illuminate\Foundation\Console\Kernel as IlluminateConsoleKernel;
 
