@@ -114,11 +114,9 @@ return [
 		 * Laravel Framework Service Providers...
 		 */
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
-		// 'Illuminate\Auth\AuthServiceProvider',
 		'Illuminate\Bus\BusServiceProvider',
 		'Illuminate\Cache\CacheServiceProvider',
 		'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
-		//'Illuminate\Routing\ControllerServiceProvider',
 		'Illuminate\Cookie\CookieServiceProvider',
 		'Illuminate\Database\DatabaseServiceProvider',
 		'Illuminate\Encryption\EncryptionServiceProvider',
@@ -129,20 +127,15 @@ return [
 		'Illuminate\Pagination\PaginationServiceProvider',
 		'Illuminate\Pipeline\PipelineServiceProvider',
 		'Illuminate\Queue\QueueServiceProvider',
-		'Illuminate\Redis\RedisServiceProvider',
-		'Illuminate\Auth\Passwords\PasswordResetServiceProvider',
 		'Illuminate\Session\SessionServiceProvider',
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 
-        'Flarum\Core\CoreServiceProvider',
+		'Flarum\Core\CoreServiceProvider',
 		'Flarum\Support\Extensions\ExtensionsServiceProvider',
 
-		'Flarum\Api\ApiServiceProvider',
-		'Flarum\Forum\ForumServiceProvider',
 		'Flarum\Console\ConsoleServiceProvider',
-		'Flarum\Admin\AdminServiceProvider',
 
 	],
 
