@@ -23,6 +23,7 @@ $admin->pipe($app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make(
 
 $flarum->pipe('/admin.php', $admin);
 $flarum->pipe('/index.php', $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.forum.routes')]));
+$flarum->pipe(new \Franzl\Middleware\Whoops\Middleware());
 
 $server = Server::createServer(
 	$flarum,
