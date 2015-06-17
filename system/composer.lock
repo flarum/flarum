@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "a88dd029af703576c81e0b941d2d723b",
+    "hash": "e225180cfffc4fa10fcf1fe24543fea7",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -221,6 +221,91 @@
                 "string"
             ],
             "time": "2014-12-20 21:24:13"
+        },
+        {
+            "name": "filp/whoops",
+            "version": "1.1.6",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/filp/whoops.git",
+                "reference": "37b5e653c99cbb9113108d7dc59a0ddc306acc46"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/filp/whoops/zipball/37b5e653c99cbb9113108d7dc59a0ddc306acc46",
+                "reference": "37b5e653c99cbb9113108d7dc59a0ddc306acc46",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "0.9.*"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "1.2-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Whoops": "src/"
+                },
+                "classmap": [
+                    "src/deprecated"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Filipe Dobreira",
+                    "homepage": "https://github.com/filp",
+                    "role": "Developer"
+                }
+            ],
+            "description": "php error handling for cool kids",
+            "homepage": "https://github.com/filp/whoops",
+            "keywords": [
+                "error",
+                "exception",
+                "handling",
+                "library",
+                "silex-provider",
+                "whoops",
+                "zf2"
+            ],
+            "time": "2015-05-29 15:12:07"
+        },
+        {
+            "name": "franzl/whoops-middleware",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/franzliedke/whoops-middleware.git",
+                "reference": "f3c940b293ceaba859392196d641b3fab7573bf9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/franzliedke/whoops-middleware/zipball/f3c940b293ceaba859392196d641b3fab7573bf9",
+                "reference": "f3c940b293ceaba859392196d641b3fab7573bf9",
+                "shasum": ""
+            },
+            "require": {
+                "filp/whoops": "^1.1",
+                "zendframework/zend-diactoros": "^1.1@dev"
+            },
+            "type": "library",
+            "autoload": {
+                "psr-4": {
+                    "Franzl\\Middleware\\Whoops\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "time": "2015-06-16 23:56:05"
         },
         {
             "name": "ircmaxell/password-compat",
@@ -1801,20 +1886,20 @@
         },
         {
             "name": "zendframework/zend-diactoros",
-            "version": "1.0.0",
+            "version": "dev-develop",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "9fd285ecc32edfa015dd7cc91e18f6c1c07618a7"
+                "reference": "a6b66c7d70a0fd50b932528c33041ab64520a37a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/9fd285ecc32edfa015dd7cc91e18f6c1c07618a7",
-                "reference": "9fd285ecc32edfa015dd7cc91e18f6c1c07618a7",
+                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/a6b66c7d70a0fd50b932528c33041ab64520a37a",
+                "reference": "a6b66c7d70a0fd50b932528c33041ab64520a37a",
                 "shasum": ""
             },
             "require": {
-                "php": ">=5.5",
+                "php": ">=5.4",
                 "psr/http-message": "~1.0"
             },
             "provide": {
@@ -1822,7 +1907,7 @@
             },
             "require-dev": {
                 "phpunit/phpunit": "~4.6",
-                "squizlabs/php_codesniffer": "~2.0"
+                "squizlabs/php_codesniffer": "^2.3.1"
             },
             "type": "library",
             "extra": {
@@ -1847,7 +1932,7 @@
                 "psr",
                 "psr-7"
             ],
-            "time": "2015-05-21 16:37:54"
+            "time": "2015-06-12 17:11:33"
         },
         {
             "name": "zendframework/zend-escaper",
@@ -1958,7 +2043,7 @@
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/franzliedke/studio/zipball/57149538080b08d6ea74f2a97f566cfb30aaa5e3",
+                "url": "https://api.github.com/repos/franzliedke/studio/zipball/6dd32e0c09a08b492cbc4b66f3b2bb2ccc2c25fe",
                 "reference": "57149538080b08d6ea74f2a97f566cfb30aaa5e3",
                 "shasum": ""
             },
@@ -2007,6 +2092,8 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
+        "zendframework/zend-diactoros": 20,
+        "franzl/whoops-middleware": 20,
         "franzl/studio": 20
     },
     "prefer-stable": false,
