@@ -13,7 +13,7 @@ $app->register('Flarum\Admin\AdminServiceProvider');
 
 $admin = new MiddlewarePipe();
 $admin->pipe($app->make('Flarum\Admin\Middleware\LoginWithCookieAndCheckAdmin'));
-$admin->pipe($app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.admin.routes')]));
+$admin->pipe('/admin.php', $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.admin.routes')]));
 $admin->pipe(new \Franzl\Middleware\Whoops\Middleware());
 
 $server = Server::createServer(

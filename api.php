@@ -16,7 +16,7 @@ $api = new MiddlewarePipe();
 $api->pipe($app->make('Flarum\Api\Middleware\ReadJsonParameters'));
 $api->pipe($app->make('Flarum\Api\Middleware\LoginWithHeader'));
 
-$api->pipe($app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.api.routes')]));
+$api->pipe('/api.php', $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.api.routes')]));
 $api->pipe(new \Franzl\Middleware\Whoops\Middleware());
 
 $server = Server::createServer(
