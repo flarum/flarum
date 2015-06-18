@@ -133,7 +133,6 @@ return [
 		'Illuminate\View\ViewServiceProvider',
 
 		'Flarum\Core\CoreServiceProvider',
-		'Flarum\Support\Extensions\ExtensionsServiceProvider',
 
 		'Flarum\Console\ConsoleServiceProvider',
 

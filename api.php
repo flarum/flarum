@@ -9,7 +9,9 @@ use Zend\Stratigility\MiddlewarePipe;
 $app = require __DIR__.'/system/bootstrap.php';
 
 // Set up everything we need for the API
+$app->instance('type', 'api');
 $app->register('Flarum\Api\ApiServiceProvider');
+$app->register('Flarum\Support\Extensions\ExtensionsServiceProvider');
 
 // Build a middleware pipeline for the API
 $api = new MiddlewarePipe();

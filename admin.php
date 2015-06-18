@@ -9,7 +9,9 @@ use Zend\Stratigility\MiddlewarePipe;
 $app = require __DIR__.'/system/bootstrap.php';
 
 // Set up everything we need for the frontend
+$app->instance('type', 'admin');
 $app->register('Flarum\Admin\AdminServiceProvider');
+$app->register('Flarum\Support\Extensions\ExtensionsServiceProvider');
 
 $admin = new MiddlewarePipe();
 $admin->pipe($app->make('Flarum\Admin\Middleware\LoginWithCookieAndCheckAdmin'));

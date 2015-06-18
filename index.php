@@ -9,7 +9,9 @@ use Zend\Stratigility\MiddlewarePipe;
 $app = require __DIR__.'/system/bootstrap.php';
 
 // Set up everything we need for the frontend
+$app->instance('type', 'forum');
 $app->register('Flarum\Forum\ForumServiceProvider');
+$app->register('Flarum\Support\Extensions\ExtensionsServiceProvider');
 
 // Build a middleware pipeline for Flarum
 $flarum = new MiddlewarePipe();
