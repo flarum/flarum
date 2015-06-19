@@ -3,6 +3,9 @@
 
 $app = require_once __DIR__.'/bootstrap.php';
 
+$app->instance('type', '');
+$app->register('Flarum\Support\Extensions\ExtensionsServiceProvider');
+
 $kernel = $app->make('Illuminate\Contracts\Console\Kernel');
 
 $status = $kernel->handle(
