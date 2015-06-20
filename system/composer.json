@@ -20,16 +20,16 @@
 	},
 	"scripts": {
 		"post-install-cmd": [
-			"php artisan clear-compiled",
-			"php artisan optimize"
+			"php flarum clear-compiled",
+			"php flarum optimize"
 		],
 		"post-update-cmd": [
-			"php artisan clear-compiled",
-			"php artisan optimize"
+			"php flarum clear-compiled",
+			"php flarum optimize"
 		],
 		"post-create-project-cmd": [
 			"php -r \"copy('.env.example', '.env');\"",
-			"php artisan key:generate"
+			"php flarum key:generate"
 		]
 	},
 	"config": {
