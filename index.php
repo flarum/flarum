@@ -1,5 +1,6 @@
 <?php
 
+use Flarum\Core;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Zend\Diactoros\Server;
@@ -18,7 +19,13 @@ $flarum = new MiddlewarePipe();
 $flarum->pipe($app->make('Flarum\Forum\Middleware\LoginWithCookie'));
 $flarum->pipe($app->make('Flarum\Api\Middleware\ReadJsonParameters'));
 $flarum->pipe('/', $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.forum.routes')]));
-$flarum->pipe(new \Franzl\Middleware\Whoops\Middleware());
+
+// Handle errors
+if (Core::inDebugMode()) {
+	$flarum->pipe(new \Franzl\Middleware\Whoops\Middleware());
+} else {
+	$flarum->pipe(new \Flarum\Forum\Middleware\HandleErrors(base_path('error')));
+}
 
 $server = Server::createServer(
 	$flarum,

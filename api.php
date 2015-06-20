@@ -21,6 +21,7 @@ $api->pipe($app->make('Flarum\Api\Middleware\LoginWithHeader'));
 
 $api->pipe('/api', $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.api.routes')]));
 
+// Handle errors
 if (Core::inDebugMode()) {
 	$api->pipe(new \Franzl\Middleware\Whoops\Middleware());
 } else {
