@@ -1,5 +1,4 @@
 #! /bin/bash
-su - vagrant
 
 block="
     server {
@@ -53,8 +52,8 @@ block="
     }
 "
 
-echo "$block" > "/etc/nginx/sites-available/vagrant"
-service nginx restart
+echo "$block" | sudo tee /etc/nginx/sites-available/vagrant
+sudo service nginx restart
 
 ### Setup NPM globals and create necessary directories ###
 sudo apt-get install -y phantomjs zsh exuberant-ctags
