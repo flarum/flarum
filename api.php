@@ -1,5 +1,6 @@
 <?php
 
+use Flarum\Core;
 use Psr\Http\Message\ResponseInterface as Response;
 use Psr\Http\Message\ServerRequestInterface as Request;
 use Zend\Diactoros\Server;
@@ -19,7 +20,12 @@ $api->pipe($app->make('Flarum\Api\Middleware\ReadJsonParameters'));
 $api->pipe($app->make('Flarum\Api\Middleware\LoginWithHeader'));
 
 $api->pipe('/api', $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.api.routes')]));
-$api->pipe(new \Flarum\Api\Middleware\JsonApiErrors());
+
+if (Core::inDebugMode()) {
+	$api->pipe(new \Franzl\Middleware\Whoops\Middleware());
+} else {
+	$api->pipe(new \Flarum\Api\Middleware\JsonApiErrors());
+}
 
 $server = Server::createServer(
 	$api,
