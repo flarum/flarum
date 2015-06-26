@@ -1,7 +1,7 @@
 {
-	"name": "laravel/laravel",
-	"description": "The Laravel Framework.",
-	"keywords": ["framework", "laravel"],
+	"name": "flarum/flarum",
+	"description": "The Flarum forum skeleton.",
+	"keywords": ["forum", "flarum"],
 	"license": "MIT",
 	"type": "project",
 	"require": {
@@ -11,25 +11,6 @@
 	},
 	"require-dev": {
 		"franzl/studio": "1.0.x@dev"
-	},
-	"autoload": {
-		"psr-4": {
-			"App\\": "app/"
-		}
-	},
-	"scripts": {
-		"post-install-cmd": [
-			"php flarum clear-compiled",
-			"php flarum optimize"
-		],
-		"post-update-cmd": [
-			"php flarum clear-compiled",
-			"php flarum optimize"
-		],
-		"post-create-project-cmd": [
-			"php -r \"copy('.env.example', '.env');\"",
-			"php flarum key:generate"
-		]
 	},
 	"config": {
 		"preferred-install": "dist"
