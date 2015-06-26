@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "e225180cfffc4fa10fcf1fe24543fea7",
+    "hash": "516febe26192342f3d9614a044fe076f",
     "packages": [
         {
             "name": "classpreloader/classpreloader",
@@ -1883,16 +1883,16 @@
         },
         {
             "name": "zendframework/zend-diactoros",
-            "version": "dev-develop",
+            "version": "1.1.1",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-diactoros.git",
-                "reference": "a6b66c7d70a0fd50b932528c33041ab64520a37a"
+                "reference": "eeedadd333b80bb5d93559e2285047463fe4fe33"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/a6b66c7d70a0fd50b932528c33041ab64520a37a",
-                "reference": "a6b66c7d70a0fd50b932528c33041ab64520a37a",
+                "url": "https://api.github.com/repos/zendframework/zend-diactoros/zipball/eeedadd333b80bb5d93559e2285047463fe4fe33",
+                "reference": "eeedadd333b80bb5d93559e2285047463fe4fe33",
                 "shasum": ""
             },
             "require": {
@@ -1929,7 +1929,7 @@
                 "psr",
                 "psr-7"
             ],
-            "time": "2015-06-12 17:11:33"
+            "time": "2015-06-25 18:07:28"
         },
         {
             "name": "zendframework/zend-escaper",
@@ -1977,16 +1977,16 @@
         },
         {
             "name": "zendframework/zend-stratigility",
-            "version": "1.0.1",
+            "version": "1.1.0",
             "source": {
                 "type": "git",
                 "url": "https://github.com/zendframework/zend-stratigility.git",
-                "reference": "ecc54a0290e0b526a154072e9410d3bd1d2b9b16"
+                "reference": "47a8cd2348b44afa9ec750c678ba4cbf7b07b2b0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/zendframework/zend-stratigility/zipball/ecc54a0290e0b526a154072e9410d3bd1d2b9b16",
-                "reference": "ecc54a0290e0b526a154072e9410d3bd1d2b9b16",
+                "url": "https://api.github.com/repos/zendframework/zend-stratigility/zipball/47a8cd2348b44afa9ec750c678ba4cbf7b07b2b0",
+                "reference": "47a8cd2348b44afa9ec750c678ba4cbf7b07b2b0",
                 "shasum": ""
             },
             "require": {
@@ -2025,7 +2025,7 @@
                 "middleware",
                 "psr-7"
             ],
-            "time": "2015-06-16 12:58:05"
+            "time": "2015-06-25 15:07:30"
         }
     ],
     "packages-dev": [
@@ -2088,7 +2088,6 @@
     "aliases": [],
     "minimum-stability": "stable",
     "stability-flags": {
-        "zendframework/zend-diactoros": 20,
         "franzl/whoops-middleware": 20,
         "franzl/studio": 20
     },

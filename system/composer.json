@@ -6,8 +6,7 @@
 	"type": "project",
 	"require": {
 		"laravel/framework": "5.0.*",
-		"zendframework/zend-diactoros": "^1.1@dev",
-		"zendframework/zend-stratigility": "^1.0",
+		"zendframework/zend-stratigility": "^1.1",
 		"franzl/whoops-middleware": "dev-master"
 	},
 	"require-dev": {
