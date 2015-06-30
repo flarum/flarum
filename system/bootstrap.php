@@ -17,12 +17,54 @@ $app->detectEnvironment(function()
 });
 
 // LoadConfiguration
-$bootstrappers = [
-	'Illuminate\Foundation\Bootstrap\LoadConfiguration',
-	//'Illuminate\Foundation\Bootstrap\HandleExceptions',
-];
+if (file_exists($configFile = __DIR__.'/../config.php')) {
+	$app->instance('flarum.config', include __DIR__.'/../config.php');
+}
 
-$app->bootstrapWith($bootstrappers);
+$app->instance('config', new \Illuminate\Config\Repository([
+	'view' => [
+		'paths' => [
+			realpath(base_path('resources/views'))
+		],
+		'compiled' => realpath(storage_path().'/framework/views'),
+	],
+	'mail' => [
+		'driver' => env('MAIL_DRIVER', 'smtp'),
+		'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
+		'port' => env('MAIL_PORT', 587),
+		'from' => ['address' => 'noreply@localhost', 'name' => 'Flarum Demo Forum'],
+		'encryption' => 'tls',
+		'username' => env('MAIL_USERNAME'),
+		'password' => env('MAIL_PASSWORD'),
+		'sendmail' => '/usr/sbin/sendmail -bs',
+		'pretend' => false,
+	],
+	'queue' => [
+		'default' => 'sync',
+		'connections' => [
+			'sync' => [
+				'driver' => 'sync',
+			],
+		],
+		'failed' => [
+			'database' => 'mysql', 'table' => 'failed_jobs',
+		],
+	],
+	'session' => [
+		'driver' => env('SESSION_DRIVER', 'file'),
+		'lifetime' => 120,
+		'expire_on_close' => false,
+		'encrypt' => false,
+		'files' => storage_path().'/framework/sessions',
+		'connection' => null,
+		'table' => 'sessions',
+		'lottery' => [2, 100],
+		'cookie' => 'laravel_session',
+		'path' => '/',
+		'domain' => null,
+		'secure' => false,
+	],
+]));
 
 // ConfigureLogging
 $logger = new Monolog\Logger($app->environment());
@@ -41,7 +83,34 @@ Facade::clearResolvedInstances();
 Facade::setFacadeApplication($app);
 
 // RegisterProviders
-$app->registerConfiguredProviders();
+$serviceProviders = [
+
+	'Illuminate\Bus\BusServiceProvider',
+	'Illuminate\Cache\CacheServiceProvider',
+	'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
+	'Illuminate\Cookie\CookieServiceProvider',
+	'Illuminate\Encryption\EncryptionServiceProvider',
+	'Illuminate\Filesystem\FilesystemServiceProvider',
+	'Illuminate\Foundation\Providers\FoundationServiceProvider',
+	'Illuminate\Hashing\HashServiceProvider',
+	'Illuminate\Mail\MailServiceProvider',
+	'Illuminate\Pagination\PaginationServiceProvider',
+	'Illuminate\Pipeline\PipelineServiceProvider',
+	'Illuminate\Queue\QueueServiceProvider',
+	'Illuminate\Session\SessionServiceProvider',
+	'Illuminate\Translation\TranslationServiceProvider',
+	'Illuminate\Validation\ValidationServiceProvider',
+	'Illuminate\View\ViewServiceProvider',
+
+	'Flarum\Core\CoreServiceProvider',
+	'Flarum\Core\DatabaseServiceProvider',
+	'Flarum\Console\ConsoleServiceProvider',
+
+];
+
+foreach ($serviceProviders as $provider) {
+	$app->register(new $provider($app));
+}
 
 // BootProviders
 $app->boot();
