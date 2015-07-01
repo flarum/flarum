@@ -1,6 +1,7 @@
 <?php
 
 return [
+	'debug'    => true,
 	'database' => [
 		'driver'    => 'mysql',
 		'host'      => 'localhost',
