@@ -59,6 +59,26 @@ $app->instance('config', new \Illuminate\Config\Repository([
 		'domain' => null,
 		'secure' => false,
 	],
+	'cache' => [
+		'default' => 'file',
+		'stores' => [
+			'file' => [
+				'driver' => 'file',
+				'path'   => storage_path().'/framework/cache',
+			],
+		],
+		'prefix' => 'flarum',
+	],
+	'filesystems' => [
+		'default' => 'local',
+		'cloud' => 's3',
+		'disks' => [
+			'flarum-avatars' => [
+				'driver' => 'local',
+				'root'   => public_path('assets/avatars')
+			],
+		],
+	],
 ]));
 
 // ConfigureLogging
