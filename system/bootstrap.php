@@ -8,12 +8,10 @@ $app = new Illuminate\Foundation\Application(
 );
 $app->instance('path.public', __DIR__.'/..');
 
-// DetectEnvironment
-Dotenv::load($app->basePath(), $app->environmentFile());
-
+// TODO: Remove
 $app->detectEnvironment(function()
 {
-	return env('APP_ENV', 'production');
+	return 'production';
 });
 
 // LoadConfiguration
@@ -29,13 +27,13 @@ $app->instance('config', new \Illuminate\Config\Repository([
 		'compiled' => realpath(storage_path().'/framework/views'),
 	],
 	'mail' => [
-		'driver' => env('MAIL_DRIVER', 'smtp'),
-		'host' => env('MAIL_HOST', 'smtp.mailgun.org'),
-		'port' => env('MAIL_PORT', 587),
+		'driver' => 'smtp',
+		'host' => 'smtp.mailgun.org',
+		'port' => 587,
 		'from' => ['address' => 'noreply@localhost', 'name' => 'Flarum Demo Forum'],
 		'encryption' => 'tls',
-		'username' => env('MAIL_USERNAME'),
-		'password' => env('MAIL_PASSWORD'),
+		'username' => null,
+		'password' => null,
 		'sendmail' => '/usr/sbin/sendmail -bs',
 		'pretend' => false,
 	],
@@ -46,12 +44,9 @@ $app->instance('config', new \Illuminate\Config\Repository([
 				'driver' => 'sync',
 			],
 		],
-		'failed' => [
-			'database' => 'mysql', 'table' => 'failed_jobs',
-		],
 	],
 	'session' => [
-		'driver' => env('SESSION_DRIVER', 'file'),
+		'driver' => 'file',
 		'lifetime' => 120,
 		'expire_on_close' => false,
 		'encrypt' => false,
