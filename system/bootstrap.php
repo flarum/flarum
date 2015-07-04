@@ -146,9 +146,4 @@ $app->singleton(
 	'ConsoleKernel'
 );
 
-$app->singleton(
-	'Illuminate\Contracts\Debug\ExceptionHandler',
-	'Illuminate\Foundation\Exceptions\Handler'
-);
-
 return $app;
