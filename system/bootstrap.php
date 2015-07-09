@@ -136,6 +136,7 @@ use Illuminate\Foundation\Console\Kernel as IlluminateConsoleKernel;
 
 class ConsoleKernel extends IlluminateConsoleKernel {
 	protected $commands = [];
+	protected $bootstrappers = [];
 }
 
 $app->singleton(
