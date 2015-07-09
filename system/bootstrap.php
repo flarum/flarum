@@ -117,11 +117,13 @@ $serviceProviders = [
 	'Illuminate\Validation\ValidationServiceProvider',
 	'Illuminate\View\ViewServiceProvider',
 
-	'Flarum\Core\CoreServiceProvider',
-	'Flarum\Core\DatabaseServiceProvider',
-	'Flarum\Console\ConsoleServiceProvider',
-
 ];
+
+if (Core::isInstalled()) {
+	$serviceProviders[] = 'Flarum\Core\CoreServiceProvider';
+	$serviceProviders[] = 'Flarum\Core\DatabaseServiceProvider';
+	$serviceProviders[] = 'Flarum\Console\ConsoleServiceProvider';
+}
 
 foreach ($serviceProviders as $provider) {
 	$app->register(new $provider($app));
