@@ -97,12 +97,31 @@ use Illuminate\Support\Facades\Facade;
 Facade::clearResolvedInstances();
 Facade::setFacadeApplication($app);
 
+// Register some services
+use Flarum\Core;
+use Illuminate\Cache\FileStore;
+use Illuminate\Cache\Repository;
+use Illuminate\Filesystem\Filesystem;
+use Illuminate\Queue\Connectors\SyncConnector;
+
+$app->singleton('cache.store', function($app) {
+	$store = new FileStore(new Filesystem(), storage_path('framework/cache'));
+	$repository = new Repository($store);
+	$repository->setEventDispatcher($app->make('events'));
+	return $repository;
+});
+$app->alias('cache.store', 'Illuminate\Contracts\Cache\Store');
+
+$app->singleton('queue.connection', function($app) {
+	$connector = new SyncConnector();
+	return $connector->connect([]);
+});
+$app->alias('queue.connection', 'Illuminate\Contracts\Queue\Queue');
+
 // RegisterProviders
 $serviceProviders = [
 
 	'Illuminate\Bus\BusServiceProvider',
-	'Illuminate\Cache\CacheServiceProvider',
-	'Illuminate\Foundation\Providers\ConsoleSupportServiceProvider',
 	'Illuminate\Cookie\CookieServiceProvider',
 	'Illuminate\Encryption\EncryptionServiceProvider',
 	'Illuminate\Filesystem\FilesystemServiceProvider',
@@ -111,7 +130,6 @@ $serviceProviders = [
 	'Illuminate\Mail\MailServiceProvider',
 	'Illuminate\Pagination\PaginationServiceProvider',
 	'Illuminate\Pipeline\PipelineServiceProvider',
-	'Illuminate\Queue\QueueServiceProvider',
 	'Illuminate\Session\SessionServiceProvider',
 	'Illuminate\Translation\TranslationServiceProvider',
 	'Illuminate\Validation\ValidationServiceProvider',
