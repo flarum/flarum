@@ -16,10 +16,10 @@ $app->detectEnvironment(function()
 
 // LoadConfiguration
 if (file_exists($configFile = __DIR__.'/../config.php')) {
-	$app->instance('flarum.config', include __DIR__.'/../config.php');
+	$app->instance('flarum.config', $configFile);
 }
 
-$app->instance('config', new \Illuminate\Config\Repository([
+$app->instance('config', $config = new \Illuminate\Config\Repository([
 	'view' => [
 		'paths' => [
 			realpath(base_path('resources/views'))
