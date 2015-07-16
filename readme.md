@@ -1,3 +1,7 @@
+**We're working on some big changes and will be pushing a major update in a few weeks. Stay tuned!**
+
+---
+
 # Flarum
 
 **Delightfully simple forums.** [Flarum](http://flarum.org) is the next-generation forum software that makes online discussion fun again.
