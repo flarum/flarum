@@ -16,7 +16,7 @@ $app->detectEnvironment(function()
 
 // LoadConfiguration
 if (file_exists($configFile = __DIR__.'/../config.php')) {
-	$app->instance('flarum.config', $configFile);
+	$app->instance('flarum.config', include $configFile);
 }
 
 $app->instance('config', $config = new \Illuminate\Config\Repository([
