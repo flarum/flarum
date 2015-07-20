@@ -138,9 +138,12 @@ $serviceProviders = [
 ];
 
 if (Core::isInstalled()) {
-	$serviceProviders[] = 'Flarum\Core\CoreServiceProvider';
-	$serviceProviders[] = 'Flarum\Core\DatabaseServiceProvider';
-	$serviceProviders[] = 'Flarum\Console\ConsoleServiceProvider';
+    $serviceProviders[] = 'Flarum\Core\DatabaseServiceProvider';
+	$serviceProviders[] = 'Flarum\Core\Settings\SettingsServiceProvider';
+    $serviceProviders[] = 'Flarum\Support\ExtensionsServiceProvider';
+    $serviceProviders[] = 'Flarum\Core\CoreServiceProvider';
+	$serviceProviders[] = 'Flarum\Locale\LocaleServiceProvider';
+    $serviceProviders[] = 'Flarum\Console\ConsoleServiceProvider';
 }
 
 foreach ($serviceProviders as $provider) {
