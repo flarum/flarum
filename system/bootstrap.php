@@ -104,13 +104,13 @@ use Illuminate\Cache\Repository;
 use Illuminate\Filesystem\Filesystem;
 use Illuminate\Queue\Connectors\SyncConnector;
 
-$app->singleton('cache.store', function($app) {
+$app->singleton('cache', function($app) {
 	$store = new FileStore(new Filesystem(), storage_path('framework/cache'));
 	$repository = new Repository($store);
 	$repository->setEventDispatcher($app->make('events'));
 	return $repository;
 });
-$app->alias('cache.store', 'Illuminate\Contracts\Cache\Store');
+$app->alias('cache', 'Illuminate\Contracts\Cache\Repository');
 
 $app->singleton('queue.connection', function($app) {
 	$connector = new SyncConnector();
