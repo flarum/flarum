@@ -91,6 +91,5 @@ npm install
 gulp
 
 cd /vagrant/system
-php flarum vendor:publish
-php flarum install
-php flarum seed
+#php flarum vendor:publish
+php flarum install --defaults

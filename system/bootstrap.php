@@ -135,10 +135,11 @@ $serviceProviders = [
 	'Illuminate\Validation\ValidationServiceProvider',
 	'Illuminate\View\ViewServiceProvider',
 
+	'Flarum\Core\DatabaseServiceProvider',
+
 ];
 
 if (Core::isInstalled()) {
-    $serviceProviders[] = 'Flarum\Core\DatabaseServiceProvider';
 	$serviceProviders[] = 'Flarum\Core\Settings\SettingsServiceProvider';
     $serviceProviders[] = 'Flarum\Support\ExtensionsServiceProvider';
     $serviceProviders[] = 'Flarum\Core\CoreServiceProvider';

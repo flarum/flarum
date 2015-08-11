@@ -5,13 +5,7 @@ $app = require_once __DIR__.'/bootstrap.php';
 
 $app->register('Flarum\Console\ConsoleServiceProvider');
 
-$kernel = $app->make('Illuminate\Contracts\Console\Kernel');
+$console = new \Symfony\Component\Console\Application('Flarum', '1.0-dev');
+$console->add(new \Flarum\Install\Console\InstallCommand($app));
 
-$status = $kernel->handle(
-	$input = new Symfony\Component\Console\Input\ArgvInput,
-	new Symfony\Component\Console\Output\ConsoleOutput
-);
-
-$kernel->terminate($input, $status);
-
-exit($status);
+exit($console->run());
