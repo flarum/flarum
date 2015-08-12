@@ -3,16 +3,16 @@ define('LARAVEL_START', microtime(true));
 
 require __DIR__.'/vendor/autoload.php';
 
-$app = new Illuminate\Foundation\Application(
+// Temp while studio doesn't autoload files
+require __DIR__.'/core/src/helpers.php';
+require __DIR__.'/core/vendor/swiftmailer/swiftmailer/lib/swift_required.php';
+
+$app = new Flarum\Core\Application(
 	realpath(__DIR__)
 );
 $app->instance('path.public', __DIR__.'/..');
 
-// TODO: Remove
-$app->detectEnvironment(function()
-{
-	return 'production';
-});
+Illuminate\Container\Container::setInstance($app);
 
 // LoadConfiguration
 if (file_exists($configFile = __DIR__.'/../config.php')) {
@@ -36,28 +36,6 @@ $app->instance('config', $config = new \Illuminate\Config\Repository([
 		'password' => 'a6949720835285',
 		'sendmail' => '/usr/sbin/sendmail -bs',
 		'pretend' => false,
-	],
-	'queue' => [
-		'default' => 'sync',
-		'connections' => [
-			'sync' => [
-				'driver' => 'sync',
-			],
-		],
-	],
-	'session' => [
-		'driver' => 'file',
-		'lifetime' => 120,
-		'expire_on_close' => false,
-		'encrypt' => false,
-		'files' => storage_path().'/framework/sessions',
-		'connection' => null,
-		'table' => 'sessions',
-		'lottery' => [2, 100],
-		'cookie' => 'laravel_session',
-		'path' => '/',
-		'domain' => null,
-		'secure' => false,
 	],
 	'cache' => [
 		'default' => 'file',
@@ -91,18 +69,11 @@ $logger->pushHandler($handler);
 $app->instance('log', $logger);
 $app->alias('log', 'Psr\Log\LoggerInterface');
 
-// RegisterFacades
-use Illuminate\Support\Facades\Facade;
-
-Facade::clearResolvedInstances();
-Facade::setFacadeApplication($app);
-
 // Register some services
 use Flarum\Core;
 use Illuminate\Cache\FileStore;
 use Illuminate\Cache\Repository;
 use Illuminate\Filesystem\Filesystem;
-use Illuminate\Queue\Connectors\SyncConnector;
 
 $app->singleton('cache', function($app) {
 	$store = new FileStore(new Filesystem(), storage_path('framework/cache'));
@@ -112,26 +83,14 @@ $app->singleton('cache', function($app) {
 });
 $app->alias('cache', 'Illuminate\Contracts\Cache\Repository');
 
-$app->singleton('queue.connection', function($app) {
-	$connector = new SyncConnector();
-	return $connector->connect([]);
-});
-$app->alias('queue.connection', 'Illuminate\Contracts\Queue\Queue');
-
 // RegisterProviders
 $serviceProviders = [
 
-	'Illuminate\Bus\BusServiceProvider',
-	'Illuminate\Cookie\CookieServiceProvider',
-	'Illuminate\Encryption\EncryptionServiceProvider',
-	'Illuminate\Filesystem\FilesystemServiceProvider',
-	'Illuminate\Foundation\Providers\FoundationServiceProvider',
-	'Illuminate\Hashing\HashServiceProvider',
-	'Illuminate\Mail\MailServiceProvider',
-	'Illuminate\Pagination\PaginationServiceProvider',
-	'Illuminate\Pipeline\PipelineServiceProvider',
-	'Illuminate\Session\SessionServiceProvider',
-	'Illuminate\Translation\TranslationServiceProvider',
+    'Illuminate\Bus\BusServiceProvider',
+    'Illuminate\Filesystem\FilesystemServiceProvider',
+    'Illuminate\Hashing\HashServiceProvider',
+	'Illuminate\Events\EventServiceProvider',
+    'Illuminate\Mail\MailServiceProvider',
 	'Illuminate\Validation\ValidationServiceProvider',
 	'Illuminate\View\ViewServiceProvider',
 
@@ -141,9 +100,9 @@ $serviceProviders = [
 
 if (Core::isInstalled()) {
 	$serviceProviders[] = 'Flarum\Core\Settings\SettingsServiceProvider';
+	$serviceProviders[] = 'Flarum\Locale\LocaleServiceProvider';
     $serviceProviders[] = 'Flarum\Support\ExtensionsServiceProvider';
     $serviceProviders[] = 'Flarum\Core\CoreServiceProvider';
-	$serviceProviders[] = 'Flarum\Locale\LocaleServiceProvider';
     $serviceProviders[] = 'Flarum\Console\ConsoleServiceProvider';
 }
 
@@ -153,27 +112,5 @@ foreach ($serviceProviders as $provider) {
 
 // BootProviders
 $app->boot();
-
-use Illuminate\Foundation\Console\Kernel as IlluminateConsoleKernel;
-
-class ConsoleKernel extends IlluminateConsoleKernel {
-	protected $commands = [];
-	protected $bootstrappers = [];
-}
-
-$app->singleton(
-	'Illuminate\Contracts\Http\Kernel',
-	'HttpKernel'
-);
-
-$app->singleton(
-	'Illuminate\Contracts\Console\Kernel',
-	'ConsoleKernel'
-);
-
-$app->singleton(
-	'Illuminate\Contracts\Debug\ExceptionHandler',
-	'Illuminate\Foundation\Exceptions\Handler'
-);
 
 return $app;

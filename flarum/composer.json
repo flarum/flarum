@@ -5,7 +5,8 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "5.1.*",
+		"illuminate/container": "5.1.*",
+		"monolog/monolog": "^1.16.0",
 		"zendframework/zend-stratigility": "^1.1",
 		"franzl/whoops-middleware": "dev-master",
     "flarum/core": "0.1.x@dev"
