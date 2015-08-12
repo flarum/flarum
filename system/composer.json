@@ -5,7 +5,7 @@
 	"license": "MIT",
 	"type": "project",
 	"require": {
-		"laravel/framework": "5.0.*",
+		"laravel/framework": "5.1.*",
 		"zendframework/zend-stratigility": "^1.1",
 		"franzl/whoops-middleware": "dev-master"
 	},
