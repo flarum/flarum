@@ -7,7 +7,8 @@
 	"require": {
 		"laravel/framework": "5.1.*",
 		"zendframework/zend-stratigility": "^1.1",
-		"franzl/whoops-middleware": "dev-master"
+		"franzl/whoops-middleware": "dev-master",
+    "flarum/core": "0.1.x@dev"
 	},
 	"require-dev": {
 		"franzl/studio": "1.0.x@dev"

@@ -7,7 +7,7 @@ use Zend\Diactoros\Server;
 use Zend\Stratigility\MiddlewarePipe;
 
 // Instantiate the application, register providers etc.
-$app = require __DIR__.'/system/bootstrap.php';
+$app = require __DIR__.'/flarum/bootstrap.php';
 
 // Set up everything we need for the API
 $app->register('Flarum\Api\ApiServiceProvider');
