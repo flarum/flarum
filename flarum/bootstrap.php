@@ -3,9 +3,11 @@ define('LARAVEL_START', microtime(true));
 
 require __DIR__.'/vendor/autoload.php';
 
-// Temp while studio doesn't autoload files
-require __DIR__.'/core/src/helpers.php';
-require __DIR__.'/core/vendor/swiftmailer/swiftmailer/lib/swift_required.php';
+// Temp while franzliedke/studio doesn't autoload files
+if (file_exists(__DIR__.'/core')) {
+    require __DIR__.'/core/src/helpers.php';
+    require __DIR__.'/core/vendor/swiftmailer/swiftmailer/lib/swift_required.php';
+}
 
 $app = new Flarum\Core\Application(
 	realpath(__DIR__)
