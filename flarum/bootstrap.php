@@ -10,7 +10,7 @@ if (file_exists(__DIR__.'/core')) {
 }
 
 $app = new Flarum\Core\Application(
-	realpath(__DIR__)
+    realpath(__DIR__)
 );
 $app->instance('path.public', __DIR__.'/..');
 
@@ -18,47 +18,47 @@ Illuminate\Container\Container::setInstance($app);
 
 // LoadConfiguration
 if (file_exists($configFile = __DIR__.'/../config.php')) {
-	$app->instance('flarum.config', include $configFile);
+    $app->instance('flarum.config', include $configFile);
 }
 
 $app->instance('config', $config = new \Illuminate\Config\Repository([
-	'view' => [
-		'paths' => [
-			realpath(base_path('resources/views'))
-		],
-		'compiled' => realpath(storage_path().'/framework/views'),
-	],
-	'mail' => [
-		'driver' => 'smtp',
-		'host' => 'mailtrap.io',
-		'port' => 25,
-		'from' => ['address' => 'noreply@flarum.org', 'name' => 'Flarum Demo Forum'],
-		'encryption' => 'tls',
-		'username' => '3041435124c4c166c',
-		'password' => 'a6949720835285',
-		'sendmail' => '/usr/sbin/sendmail -bs',
-		'pretend' => false,
-	],
-	'cache' => [
-		'default' => 'file',
-		'stores' => [
-			'file' => [
-				'driver' => 'file',
-				'path'   => storage_path().'/framework/cache',
-			],
-		],
-		'prefix' => 'flarum',
-	],
-	'filesystems' => [
-		'default' => 'local',
-		'cloud' => 's3',
-		'disks' => [
-			'flarum-avatars' => [
-				'driver' => 'local',
-				'root'   => public_path('assets/avatars')
-			],
-		],
-	],
+    'view' => [
+        'paths' => [
+            realpath(base_path('resources/views'))
+        ],
+        'compiled' => realpath(storage_path().'/framework/views'),
+    ],
+    'mail' => [
+        'driver' => 'smtp',
+        'host' => 'mailtrap.io',
+        'port' => 25,
+        'from' => ['address' => 'noreply@flarum.org', 'name' => 'Flarum Demo Forum'],
+        'encryption' => 'tls',
+        'username' => '',
+        'password' => '',
+        'sendmail' => '/usr/sbin/sendmail -bs',
+        'pretend' => false,
+    ],
+    'cache' => [
+        'default' => 'file',
+        'stores' => [
+            'file' => [
+                'driver' => 'file',
+                'path'   => storage_path().'/framework/cache',
+            ],
+        ],
+        'prefix' => 'flarum',
+    ],
+    'filesystems' => [
+        'default' => 'local',
+        'cloud' => 's3',
+        'disks' => [
+            'flarum-avatars' => [
+                'driver' => 'local',
+                'root'   => public_path('assets/avatars')
+            ],
+        ],
+    ],
 ]));
 
 // ConfigureLogging
@@ -78,38 +78,36 @@ use Illuminate\Cache\Repository;
 use Illuminate\Filesystem\Filesystem;
 
 $app->singleton('cache', function($app) {
-	$store = new FileStore(new Filesystem(), storage_path('framework/cache'));
-	$repository = new Repository($store);
-	$repository->setEventDispatcher($app->make('events'));
-	return $repository;
+    $store = new FileStore(new Filesystem(), storage_path('framework/cache'));
+    $repository = new Repository($store);
+    $repository->setEventDispatcher($app->make('events'));
+    return $repository;
 });
 $app->alias('cache', 'Illuminate\Contracts\Cache\Repository');
 
 // RegisterProviders
 $serviceProviders = [
+    'Flarum\Core\DatabaseServiceProvider',
+    'Flarum\Core\Settings\SettingsServiceProvider',
+    'Flarum\Locale\LocaleServiceProvider',
 
     'Illuminate\Bus\BusServiceProvider',
     'Illuminate\Filesystem\FilesystemServiceProvider',
     'Illuminate\Hashing\HashServiceProvider',
-	'Illuminate\Events\EventServiceProvider',
     'Illuminate\Mail\MailServiceProvider',
-	'Illuminate\Validation\ValidationServiceProvider',
-	'Illuminate\View\ViewServiceProvider',
-
-	'Flarum\Core\DatabaseServiceProvider',
-
+    'Illuminate\View\ViewServiceProvider',
+    'Illuminate\Events\EventServiceProvider',
+    'Illuminate\Validation\ValidationServiceProvider',
 ];
 
 if (Core::isInstalled()) {
-	$serviceProviders[] = 'Flarum\Core\Settings\SettingsServiceProvider';
-	$serviceProviders[] = 'Flarum\Locale\LocaleServiceProvider';
-    $serviceProviders[] = 'Flarum\Support\ExtensionsServiceProvider';
     $serviceProviders[] = 'Flarum\Core\CoreServiceProvider';
     $serviceProviders[] = 'Flarum\Console\ConsoleServiceProvider';
+    $serviceProviders[] = 'Flarum\Support\ExtensionsServiceProvider';
 }
 
 foreach ($serviceProviders as $provider) {
-	$app->register(new $provider($app));
+    $app->register(new $provider($app));
 }
 
 // BootProviders
