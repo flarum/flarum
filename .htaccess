@@ -1,0 +1,10 @@
+<IfModule mod_rewrite.c>
+  RewriteEngine on
+
+  RewriteRule ^api(.*)$ api.php [QSA,L]
+  RewriteRule ^admin(.*)$ admin.php [QSA,L]
+
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
+  RewriteRule ^(.*)$ index.php [QSA,L]
+</IfModule>
