@@ -14,7 +14,9 @@ $app->register('Flarum\Forum\ForumServiceProvider');
 $flarum = new MiddlewarePipe();
 $flarum->pipe($app->make('Flarum\Forum\Middleware\LoginWithCookie'));
 $flarum->pipe($app->make('Flarum\Api\Middleware\ReadJsonParameters'));
-$flarum->pipe('/', $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.forum.routes')]));
+
+$basePath = parse_url(Core::config('base_url'), PHP_URL_PATH);
+$flarum->pipe($basePath, $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.forum.routes')]));
 
 // Handle errors
 if (Core::inDebugMode()) {
