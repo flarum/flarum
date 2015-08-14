@@ -3,9 +3,10 @@
 
 $app = require_once __DIR__.'/bootstrap.php';
 
-$app->register('Flarum\Console\ConsoleServiceProvider');
+$console = new \Symfony\Component\Console\Application('Flarum', '0.1.0-beta');
 
-$console = new \Symfony\Component\Console\Application('Flarum', '1.0-dev');
 $console->add(new \Flarum\Install\Console\InstallCommand($app));
+$console->add(new \Flarum\Console\UpgradeCommand($app));
+$console->add(new \Flarum\Console\GenerateExtensionCommand($app));
 
 exit($console->run());
