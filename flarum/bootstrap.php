@@ -28,17 +28,6 @@ $app->instance('config', $config = new \Illuminate\Config\Repository([
         ],
         'compiled' => realpath(storage_path().'/framework/views'),
     ],
-    'mail' => [
-        'driver' => 'smtp',
-        'host' => 'mailtrap.io',
-        'port' => 25,
-        'from' => ['address' => 'noreply@flarum.org', 'name' => 'Flarum Demo Forum'],
-        'encryption' => 'tls',
-        'username' => '',
-        'password' => '',
-        'sendmail' => '/usr/sbin/sendmail -bs',
-        'pretend' => false,
-    ],
     'cache' => [
         'default' => 'file',
         'stores' => [
@@ -102,12 +91,24 @@ $serviceProviders = [
 
 if (Core::isInstalled()) {
     $serviceProviders[] = 'Flarum\Core\CoreServiceProvider';
-    $serviceProviders[] = 'Flarum\Console\ConsoleServiceProvider';
-    $serviceProviders[] = 'Flarum\Support\ExtensionsServiceProvider';
 }
 
 foreach ($serviceProviders as $provider) {
     $app->register(new $provider($app));
+}
+
+if (Core::isInstalled()) {
+    $config->set('mail.driver', Core::config('mail_driver'));
+    $config->set('mail.host', Core::config('mail_host'));
+    $config->set('mail.port', Core::config('mail_port'));
+    $config->set('mail.from.address', Core::config('mail_from'));
+    $config->set('mail.from.name', Core::config('forum_title'));
+    $config->set('mail.encryption', Core::config('mail_encryption'));
+    $config->set('mail.username', Core::config('mail_username'));
+    $config->set('mail.password', Core::config('mail_password'));
+
+    // Register extensions and tell them to listen for events
+    $app->register(new \Flarum\Support\ExtensionsServiceProvider($app));
 }
 
 // BootProviders
