@@ -28,7 +28,9 @@ if ($app->bound('flarum.config')) {
     $app->register('Flarum\Install\InstallServiceProvider');
 
     $flarum = new MiddlewarePipe();
-    $flarum->pipe('/', $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.install.routes')]));
+
+    $basePath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+    $flarum->pipe($basePath, $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.install.routes')]));
     $flarum->pipe(new \Franzl\Middleware\Whoops\Middleware());
 }
 
