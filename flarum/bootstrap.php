@@ -28,6 +28,9 @@ $app->instance('config', $config = new \Illuminate\Config\Repository([
         ],
         'compiled' => realpath(storage_path().'/framework/views'),
     ],
+    'mail' => [
+        'driver' => 'mail',
+    ],
     'cache' => [
         'default' => 'file',
         'stores' => [
