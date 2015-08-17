@@ -7,22 +7,29 @@ use Zend\Stratigility\MiddlewarePipe;
 // Instantiate the application, register providers etc.
 $app = require __DIR__.'/flarum/bootstrap.php';
 
-// Set up everything we need for the frontend
-$app->register('Flarum\Forum\ForumServiceProvider');
+if ($app->bound('flarum.config')) {
+    $app->register('Flarum\Forum\ForumServiceProvider');
 
-// Build a middleware pipeline for Flarum
-$flarum = new MiddlewarePipe();
-$flarum->pipe($app->make('Flarum\Forum\Middleware\LoginWithCookie'));
-$flarum->pipe($app->make('Flarum\Api\Middleware\ReadJsonParameters'));
+    // Build a middleware pipeline for Flarum
+    $flarum = new MiddlewarePipe();
+    $flarum->pipe($app->make('Flarum\Forum\Middleware\LoginWithCookie'));
+    $flarum->pipe($app->make('Flarum\Api\Middleware\ReadJsonParameters'));
 
-$basePath = parse_url(Core::config('base_url'), PHP_URL_PATH);
-$flarum->pipe($basePath, $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.forum.routes')]));
+    $basePath = parse_url(Core::config('base_url'), PHP_URL_PATH);
+    $flarum->pipe($basePath, $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.forum.routes')]));
 
-// Handle errors
-if (Core::inDebugMode()) {
-	$flarum->pipe(new \Franzl\Middleware\Whoops\Middleware());
+    // Handle errors
+    if (Core::inDebugMode()) {
+    	$flarum->pipe(new \Franzl\Middleware\Whoops\Middleware());
+    } else {
+    	$flarum->pipe(new \Flarum\Forum\Middleware\HandleErrors(base_path('error')));
+    }
 } else {
-	$flarum->pipe(new \Flarum\Forum\Middleware\HandleErrors(base_path('error')));
+    $app->register('Flarum\Install\InstallServiceProvider');
+
+    $flarum = new MiddlewarePipe();
+    $flarum->pipe('/', $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.install.routes')]));
+    $flarum->pipe(new \Franzl\Middleware\Whoops\Middleware());
 }
 
 $server = Server::createServer(
