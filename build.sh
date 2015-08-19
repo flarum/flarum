@@ -28,7 +28,7 @@ composer require flarum/core:dev-master@dev --prefer-dist --update-no-dev
 cp -R /tmp/flarum-release/flarum/vendor/flarum/core/public/* /tmp/flarum-release/assets
 
 # Install frontend dependencies
-# Assumes: npm install -g gulp flarum-gulp
+# Assumes: npm install -g gulp flarum-gulp babel-core
 cd /tmp/flarum-release/flarum/vendor/flarum/core/js
 bower install
 
@@ -53,14 +53,21 @@ for extension in bbcode emoji likes lock markdown mentions pusher sticky subscri
   composer install --prefer-dist --optimize-autoloader --ignore-platform-reqs --no-dev
 
   cd "/tmp/flarum-release/extensions/${extension}/js"
-  bower install
+
+  if [ -f bower.json ]; then
+    bower install
+  fi
 
   for app in forum admin; do
     cd "/tmp/flarum-release/extensions/${extension}/js"
 
     if [ -d $app ]; then
       cd $app
-      bower install
+
+      if [ -f bower.json ]; then
+        bower install
+      fi
+
       npm link gulp flarum-gulp
       gulp --production
       rm -rf node_modules bower_components
