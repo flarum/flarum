@@ -8,3 +8,7 @@
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^(.*)$ index.php [QSA,L]
 </IfModule>
+
+<IfModule mod_wsgi.c>
+  WSGIPassAuthorization On
+</IfModule>
