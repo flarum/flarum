@@ -23,7 +23,7 @@ $admin = new MiddlewarePipe();
 $admin->pipe($app->make('Flarum\Api\Middleware\ReadJsonParameters'));
 $admin->pipe($app->make('Flarum\Admin\Middleware\LoginWithCookieAndCheckAdmin'));
 
-$adminPath = parse_url(Core::config('admin_url'), PHP_URL_PATH);
+$adminPath = parse_url(Core::url('admin'), PHP_URL_PATH);
 $router = $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.admin.routes')]);
 
 $admin->pipe($adminPath, $router);

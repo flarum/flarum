@@ -23,7 +23,7 @@ $api = new MiddlewarePipe();
 $api->pipe($app->make('Flarum\Api\Middleware\ReadJsonParameters'));
 $api->pipe($app->make('Flarum\Api\Middleware\LoginWithHeader'));
 
-$apiPath = parse_url(Core::config('api_url'), PHP_URL_PATH);
+$apiPath = parse_url(Core::url('api'), PHP_URL_PATH);
 $router = $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.api.routes')]);
 
 $api->pipe($apiPath, $router);
