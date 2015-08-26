@@ -1,37 +1,46 @@
 <?php
 
+/*
+ * This file is part of Flarum.
+ *
+ * (c) Toby Zerner <toby.zerner@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
 use Flarum\Core;
+use Flarum\Forum\Middleware\HandleErrors;
+use Franzl\Middleware\Whoops\Middleware as WhoopsMiddleware;
 use Zend\Diactoros\Server;
 use Zend\Stratigility\MiddlewarePipe;
 
-// Instantiate the application, register providers etc.
 $app = require __DIR__.'/flarum/bootstrap.php';
 
-// Set up everything we need for the frontend
 $app->register('Flarum\Admin\AdminServiceProvider');
 
-// Build a middleware pipeline for Flarum
 $admin = new MiddlewarePipe();
 $admin->pipe($app->make('Flarum\Api\Middleware\ReadJsonParameters'));
 $admin->pipe($app->make('Flarum\Admin\Middleware\LoginWithCookieAndCheckAdmin'));
 
 $adminPath = parse_url(Core::config('admin_url'), PHP_URL_PATH);
-$admin->pipe($adminPath, $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.admin.routes')]));
+$router = $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.admin.routes')]);
 
-// Handle errors
+$admin->pipe($adminPath, $router);
+
 if (Core::inDebugMode()) {
-    $admin->pipe(new \Franzl\Middleware\Whoops\Middleware());
+    $admin->pipe(new WhoopsMiddleware());
 } else {
-    $admin->pipe(new \Flarum\Forum\Middleware\HandleErrors(base_path('error')));
+    $admin->pipe(new HandleErrors(base_path('error')));
 }
 
 $server = Server::createServer(
-	$admin,
-	$_SERVER,
-	$_GET,
-	$_POST,
-	$_COOKIE,
-	$_FILES
+    $admin,
+    $_SERVER,
+    $_GET,
+    $_POST,
+    $_COOKIE,
+    $_FILES
 );
 
 $server->listen();

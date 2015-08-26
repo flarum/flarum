@@ -1,20 +1,20 @@
 {
-	"name": "flarum/flarum",
-	"description": "The Flarum forum skeleton.",
-	"keywords": ["forum", "flarum"],
-	"license": "MIT",
-	"type": "project",
-	"require": {
-		"illuminate/container": "5.1.*",
-		"monolog/monolog": "^1.16.0",
-		"zendframework/zend-stratigility": "^1.1",
-		"franzl/whoops-middleware": "dev-master",
-    "flarum/core": "0.1.x@dev"
-	},
-	"require-dev": {
-		"franzl/studio": "1.0.x@dev"
-	},
-	"config": {
-		"preferred-install": "dist"
-	}
+    "name": "flarum/flarum",
+    "description": "The Flarum forum skeleton.",
+    "keywords": ["forum", "flarum"],
+    "license": "MIT",
+    "type": "project",
+    "require": {
+        "illuminate/container": "5.1.*",
+        "monolog/monolog": "^1.16.0",
+        "zendframework/zend-stratigility": "^1.1",
+        "franzl/whoops-middleware": "dev-master",
+        "flarum/core": "0.1.x@dev"
+    },
+    "require-dev": {
+        "franzl/studio": "1.0.x@dev"
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
 }

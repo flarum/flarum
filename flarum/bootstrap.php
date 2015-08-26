@@ -1,27 +1,43 @@
 <?php
-define('LARAVEL_START', microtime(true));
 
-require __DIR__.'/vendor/autoload.php';
+/*
+ * This file is part of Flarum.
+ *
+ * (c) Toby Zerner <toby.zerner@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
 
-// Temp while franzliedke/studio doesn't autoload files
-if (file_exists(__DIR__.'/core')) {
-    require __DIR__.'/core/src/helpers.php';
-    require __DIR__.'/core/vendor/swiftmailer/swiftmailer/lib/swift_required.php';
+use Flarum\Core;
+use Flarum\Core\Application;
+use Illuminate\Cache\FileStore;
+use Illuminate\Cache\Repository;
+use Illuminate\Config\Repository as ConfigRepository;
+use Illuminate\Filesystem\Filesystem;
+
+define('FLARUM_START', microtime(true));
+
+require __DIR__ . '/vendor/autoload.php';
+
+// franzliedke/studio currently doesn't autoload files (see issue below), so we
+// will need to load them manually if we're using studio.
+// https://github.com/franzliedke/studio/issues/29
+if (file_exists(__DIR__ . '/core')) {
+    require __DIR__ . '/core/src/helpers.php';
+    require __DIR__ . '/core/vendor/swiftmailer/swiftmailer/lib/swift_required.php';
 }
 
-$app = new Flarum\Core\Application(
-    realpath(__DIR__)
-);
+$app = new Application(realpath(__DIR__));
 $app->instance('path.public', __DIR__.'/..');
 
 Illuminate\Container\Container::setInstance($app);
 
-// LoadConfiguration
 if (file_exists($configFile = __DIR__.'/../config.php')) {
     $app->instance('flarum.config', include $configFile);
 }
 
-$app->instance('config', $config = new \Illuminate\Config\Repository([
+$app->instance('config', $config = new ConfigRepository([
     'view' => [
         'paths' => [
             realpath(base_path('resources/views'))
@@ -53,9 +69,8 @@ $app->instance('config', $config = new \Illuminate\Config\Repository([
     ],
 ]));
 
-// ConfigureLogging
 $logger = new Monolog\Logger($app->environment());
-$logPath = $app->storagePath().'/logs/flarum.log';
+$logPath = $app->storagePath() . '/logs/flarum.log';
 $handler = new \Monolog\Handler\StreamHandler($logPath, Monolog\Logger::DEBUG);
 $handler->setFormatter(new \Monolog\Formatter\LineFormatter(null, null, true, true));
 $logger->pushHandler($handler);
@@ -63,13 +78,7 @@ $logger->pushHandler($handler);
 $app->instance('log', $logger);
 $app->alias('log', 'Psr\Log\LoggerInterface');
 
-// Register some services
-use Flarum\Core;
-use Illuminate\Cache\FileStore;
-use Illuminate\Cache\Repository;
-use Illuminate\Filesystem\Filesystem;
-
-$app->singleton('cache', function($app) {
+$app->singleton('cache', function ($app) {
     $store = new FileStore(new Filesystem(), storage_path('framework/cache'));
     $repository = new Repository($store);
     $repository->setEventDispatcher($app->make('events'));
@@ -77,7 +86,6 @@ $app->singleton('cache', function($app) {
 });
 $app->alias('cache', 'Illuminate\Contracts\Cache\Repository');
 
-// RegisterProviders
 $serviceProviders = [
     'Flarum\Core\DatabaseServiceProvider',
     'Flarum\Core\Settings\SettingsServiceProvider',
@@ -114,7 +122,6 @@ if (Core::isInstalled()) {
     $app->register(new \Flarum\Support\ExtensionsServiceProvider($app));
 }
 
-// BootProviders
 $app->boot();
 
 return $app;

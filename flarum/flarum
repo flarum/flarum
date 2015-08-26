@@ -1,12 +1,26 @@
 #!/usr/bin/env php
 <?php
 
+/*
+ * This file is part of Flarum.
+ *
+ * (c) Toby Zerner <toby.zerner@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+use Flarum\Console\GenerateExtensionCommand;
+use Flarum\Console\UpgradeCommand;
+use Flarum\Install\Console\InstallCommand;
+use Symfony\Component\Console\Application;
+
 $app = require_once __DIR__.'/bootstrap.php';
 
-$console = new \Symfony\Component\Console\Application('Flarum', '0.1.0-beta');
+$console = new Application('Flarum', $app::VERSION);
 
-$console->add(new \Flarum\Install\Console\InstallCommand($app));
-$console->add(new \Flarum\Console\UpgradeCommand($app));
-$console->add(new \Flarum\Console\GenerateExtensionCommand($app));
+$console->add(new InstallCommand($app));
+$console->add(new UpgradeCommand($app));
+$console->add(new GenerateExtensionCommand($app));
 
 exit($console->run());

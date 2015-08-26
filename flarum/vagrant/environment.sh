@@ -70,26 +70,26 @@ else
     echo "source ~/.aliases" >> ~/.bashrc
 fi
 
-### Set up environment files and database ###
-cp /vagrant/system/.env.example /vagrant/system/.env
 mysql -u root -proot -e 'create database flarum'
 
 ### Setup flarum/core and install dependencies ###
-cd /vagrant/system/core
+cd /vagrant/flarum/core
 composer install --prefer-dist
-cd /vagrant/system
+
+cd /vagrant/flarum
 composer install --prefer-dist
 composer dump-autoload
 
-cd /vagrant/system/core/js
+cd /vagrant/flarum/core/js
 bower install
-cd /vagrant/system/core/js/forum
+
+cd /vagrant/flarum/core/js/forum
 npm install
 gulp
-cd /vagrant/system/core/js/admin
+
+cd /vagrant/flarum/core/js/admin
 npm install
 gulp
 
 cd /vagrant/system
-#php flarum vendor:publish
 php flarum install --defaults

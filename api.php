@@ -1,37 +1,46 @@
 <?php
 
+/*
+ * This file is part of Flarum.
+ *
+ * (c) Toby Zerner <toby.zerner@gmail.com>
+ *
+ * For the full copyright and license information, please view the LICENSE
+ * file that was distributed with this source code.
+ */
+
+use Flarum\Api\Middleware\JsonApiErrors;
 use Flarum\Core;
+use Franzl\Middleware\Whoops\Middleware as WhoopsMiddleware;
 use Zend\Diactoros\Server;
 use Zend\Stratigility\MiddlewarePipe;
 
-// Instantiate the application, register providers etc.
 $app = require __DIR__.'/flarum/bootstrap.php';
 
-// Set up everything we need for the API
 $app->register('Flarum\Api\ApiServiceProvider');
 
-// Build a middleware pipeline for the API
 $api = new MiddlewarePipe();
 $api->pipe($app->make('Flarum\Api\Middleware\ReadJsonParameters'));
 $api->pipe($app->make('Flarum\Api\Middleware\LoginWithHeader'));
 
 $apiPath = parse_url(Core::config('api_url'), PHP_URL_PATH);
-$api->pipe($apiPath, $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.api.routes')]));
+$router = $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('flarum.api.routes')]);
 
-// Handle errors
+$api->pipe($apiPath, $router);
+
 if (Core::inDebugMode()) {
-	$api->pipe(new \Franzl\Middleware\Whoops\Middleware());
+    $api->pipe(new WhoopsMiddleware());
 } else {
-	$api->pipe(new \Flarum\Api\Middleware\JsonApiErrors());
+    $api->pipe(new JsonApiErrors());
 }
 
 $server = Server::createServer(
-	$api,
-	$_SERVER,
-	$_GET,
-	$_POST,
-	$_COOKIE,
-	$_FILES
+    $api,
+    $_SERVER,
+    $_GET,
+    $_POST,
+    $_COOKIE,
+    $_FILES
 );
 
 $server->listen();
