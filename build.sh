@@ -78,3 +78,7 @@ for extension in bbcode emoji likes lock markdown mentions pusher sticky subscri
   rm -rf "${release}/extensions/${extension}/js/bower_components"
   wait
 done
+
+# Finally, create the release archive
+cd ${release}
+zip -r release.zip ./
