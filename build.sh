@@ -1,65 +1,66 @@
 #!/usr/bin/env bash
 
 base=${PWD}
+release=/tmp/flarum-release
 
-rm -rf /tmp/flarum-release
-mkdir /tmp/flarum-release
+rm -rf ${release}
+mkdir ${release}
 
-git archive --format zip --worktree-attributes HEAD > /tmp/flarum-release/release.zip
+git archive --format zip --worktree-attributes HEAD > ${release}/release.zip
 
-cd /tmp/flarum-release
+cd ${release}
 unzip release.zip -d ./
 rm release.zip
 
 # Delete files
-rm -rf /tmp/flarum-release/build.sh
-rm -rf /tmp/flarum-release/Vagrantfile
-rm -rf /tmp/flarum-release/flarum/vagrant
-rm -rf /tmp/flarum-release/flarum/core
-rm -rf /tmp/flarum-release/flarum/studio.json
+rm -rf ${release}/build.sh
+rm -rf ${release}/Vagrantfile
+rm -rf ${release}/flarum/vagrant
+rm -rf ${release}/flarum/core
+rm -rf ${release}/flarum/studio.json
 
 # Install all Composer dependencies
-cd /tmp/flarum-release/flarum
+cd ${release}/flarum
 composer install --prefer-dist --optimize-autoloader --ignore-platform-reqs --no-dev
 composer config repositories.flarum git https://github.com/flarum/core-private.git
 composer require flarum/core:dev-master@dev --prefer-dist --update-no-dev
 
 # Copy public files
-cp -R /tmp/flarum-release/flarum/vendor/flarum/core/public/* /tmp/flarum-release/assets
+cp -R ${release}/flarum/vendor/flarum/core/public/* ${release}/assets
 
 # Install frontend dependencies
 # Assumes: npm install -g gulp flarum-gulp babel-core
-cd /tmp/flarum-release/flarum/vendor/flarum/core/js
+cd ${release}/flarum/vendor/flarum/core/js
 bower install
 
 for app in forum admin; do
-  cd "/tmp/flarum-release/flarum/vendor/flarum/core/js/${app}"
+  cd "${release}/flarum/vendor/flarum/core/js/${app}"
   npm link gulp flarum-gulp babel-core
   gulp --production
-  rm -rf "/tmp/flarum-release/flarum/vendor/flarum/core/js/${app}/node_modules"
+  rm -rf "${release}/flarum/vendor/flarum/core/js/${app}/node_modules"
 done
 
-rm -rf /tmp/flarum-release/flarum/vendor/flarum/core/js/bower_components
+rm -rf ${release}/flarum/vendor/flarum/core/js/bower_components
 
 # Bundle extensions
 for extension in bbcode emoji likes lock markdown mentions pusher sticky subscriptions suspend tags; do
-  mkdir "/tmp/flarum-release/extensions/${extension}"
+  mkdir "${release}/extensions/${extension}"
   cd "${base}/extensions/${extension}"
-  git archive --format zip --worktree-attributes HEAD > "/tmp/flarum-release/extensions/${extension}/release.zip"
+  git archive --format zip --worktree-attributes HEAD > "${release}/extensions/${extension}/release.zip"
 
-  cd "/tmp/flarum-release/extensions/${extension}"
+  cd "${release}/extensions/${extension}"
   unzip release.zip -d ./
   rm release.zip
   composer install --prefer-dist --optimize-autoloader --ignore-platform-reqs --no-dev
 
-  cd "/tmp/flarum-release/extensions/${extension}/js"
+  cd "${release}/extensions/${extension}/js"
 
   if [ -f bower.json ]; then
     bower install
   fi
 
   for app in forum admin; do
-    cd "/tmp/flarum-release/extensions/${extension}/js"
+    cd "${release}/extensions/${extension}/js"
 
     if [ -d $app ]; then
       cd $app
@@ -74,6 +75,6 @@ for extension in bbcode emoji likes lock markdown mentions pusher sticky subscri
     fi
   done
 
-  rm -rf "/tmp/flarum-release/extensions/${extension}/js/bower_components"
+  rm -rf "${release}/extensions/${extension}/js/bower_components"
   wait
 done
