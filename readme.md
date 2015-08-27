@@ -26,7 +26,7 @@ Flarum is the combined successor of [esoTalk](http://esotalk.org) and [FluxBB](h
 
 > **Flarum is currently in beta and should not be used in production.** It is being developed openly on GitHub. Check out the [Roadmap](http://flarum.org/roadmap) to follow along with our progress.
 
-To give Flarum a spin, go to the [Download](http://flarum.org/download) page. You'll need a server with **PHP 5.5+** and **MySQL 5.x**.
+To give Flarum a spin, go to the [Download](http://flarum.org/download) page. You'll need a server with **PHP 5.5+** and **MySQL 5.5+**.
 
 If you want to hack on Flarum, you'll need to set up a development environment. Read how in the [Contributing docs](http://flarum.org/docs/contributing)!
 
