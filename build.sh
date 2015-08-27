@@ -22,7 +22,6 @@ rm -rf ${release}/flarum/studio.json
 # Install all Composer dependencies
 cd ${release}/flarum
 composer install --prefer-dist --optimize-autoloader --ignore-platform-reqs --no-dev
-composer config repositories.flarum git https://github.com/flarum/core-private.git
 composer require flarum/core:dev-master@dev --prefer-dist --update-no-dev
 
 # Copy public files
