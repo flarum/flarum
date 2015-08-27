@@ -11,7 +11,7 @@
 [Contact](mailto:toby@flarum.org) -
 [Donate](http://flarum.org/donate)
 
-![screenshot](http://127.0.0.1:4000/img/screenshot.png)
+![screenshot](http://flarum.org/img/screenshot.png)
 
 ## Goals
 
