@@ -80,4 +80,7 @@ done
 
 # Finally, create the release archive
 cd ${release}
+chmod -R 0644 *
+chmod 0775 .
+chmod -R 0775 assets flarum/storage
 zip -r release.zip ./
