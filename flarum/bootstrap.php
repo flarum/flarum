@@ -102,15 +102,13 @@ $serviceProviders = [
     'Illuminate\Validation\ValidationServiceProvider',
 ];
 
-if (Core::isInstalled()) {
-    $serviceProviders[] = 'Flarum\Core\CoreServiceProvider';
-}
-
 foreach ($serviceProviders as $provider) {
     $app->register(new $provider($app));
 }
 
 if (Core::isInstalled()) {
+    $app->register(new \Flarum\Core\CoreServiceProvider($app));
+
     $config->set('mail.driver', Core::config('mail_driver'));
     $config->set('mail.host', Core::config('mail_host'));
     $config->set('mail.port', Core::config('mail_port'));
