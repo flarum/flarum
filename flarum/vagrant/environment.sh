@@ -74,6 +74,7 @@ mysql -u root -proot -e 'create database flarum'
 
 ### Setup flarum/core and install dependencies ###
 cd /vagrant/flarum/core
+git pull
 composer install --prefer-dist
 
 cd /vagrant/flarum
