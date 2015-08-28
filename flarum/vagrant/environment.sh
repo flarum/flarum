@@ -91,5 +91,5 @@ cd /vagrant/flarum/core/js/admin
 npm install
 gulp
 
-cd /vagrant/system
+cd /vagrant/flarum
 php flarum install --defaults
