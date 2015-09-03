@@ -20,7 +20,7 @@ $app = require __DIR__.'/flarum/bootstrap.php';
 // If Flarum's configuration exists, then we can assume that installation has
 // been completed. We will set up a middleware pipe to route the request through
 // to one of the main forum actions.
-if ($app->bound('flarum.config')) {
+if (Core::isInstalled()) {
     $app->register('Flarum\Forum\ForumServiceProvider');
 
     $flarum = new MiddlewarePipe();
