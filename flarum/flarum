@@ -12,6 +12,7 @@
 
 use Flarum\Console\GenerateExtensionCommand;
 use Flarum\Console\UpgradeCommand;
+use Flarum\Core;
 use Flarum\Install\Console\InstallCommand;
 use Symfony\Component\Console\Application;
 
@@ -19,7 +20,11 @@ $app = require_once __DIR__.'/bootstrap.php';
 
 $console = new Application('Flarum', $app::VERSION);
 
-$console->add(new InstallCommand($app));
+if (!Core::isInstalled()) {
+    $app->register(new \Flarum\Install\InstallServiceProvider($app));
+    $console->add(new InstallCommand($app));
+}
+
 $console->add(new UpgradeCommand($app));
 $console->add(new GenerateExtensionCommand($app));
 
