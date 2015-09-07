@@ -9,4 +9,7 @@
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule ^(.*)$ index.php [QSA,L]
+  
+  # MultiViews can mess up our rewriting scheme
+  Options -MultiViews
 </IfModule>
