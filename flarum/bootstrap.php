@@ -111,26 +111,6 @@ if (Core::isInstalled()) {
 
     $app->register(new \Flarum\Core\CoreServiceProvider($app));
 
-    // If the version stored in the database doesn't match the version of the
-    // code, then run the upgrade script (migrations). This is temporary - a
-    // proper, more secure upgrade method is planned.
-    if ($settings->get('version') !== $app::VERSION) {
-        $input = new \Symfony\Component\Console\Input\StringInput('');
-        $output = new \Symfony\Component\Console\Output\BufferedOutput;
-
-        app('Flarum\Console\UpgradeCommand')->run($input, $output);
-
-        $settings->set('version', $app::VERSION);
-
-        app('flarum.formatter')->flush();
-
-        $forum = app('Flarum\Forum\Actions\ClientAction');
-        $forum->flushAssets();
-
-        $admin = app('Flarum\Admin\Actions\ClientAction');
-        $admin->flushAssets();
-    }
-
     $config->set('mail.driver', Core::config('mail_driver'));
     $config->set('mail.host', Core::config('mail_host'));
     $config->set('mail.port', Core::config('mail_port'));
@@ -145,5 +125,25 @@ if (Core::isInstalled()) {
 }
 
 $app->boot();
+
+// If the version stored in the database doesn't match the version of the
+// code, then run the upgrade script (migrations). This is temporary - a
+// proper, more secure upgrade method is planned.
+if (Core::isInstalled() && $settings->get('version') !== $app::VERSION) {
+    $input = new \Symfony\Component\Console\Input\StringInput('');
+    $output = new \Symfony\Component\Console\Output\BufferedOutput;
+
+    app('Flarum\Console\UpgradeCommand')->run($input, $output);
+
+    $settings->set('version', $app::VERSION);
+
+    app('flarum.formatter')->flush();
+
+    $forum = app('Flarum\Forum\Actions\ClientAction');
+    $forum->flushAssets();
+
+    $admin = app('Flarum\Admin\Actions\ClientAction');
+    $admin->flushAssets();
+}
 
 return $app;
