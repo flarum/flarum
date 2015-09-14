@@ -28,11 +28,7 @@ $router = $app->make('Flarum\Http\RouterMiddleware', ['routes' => $app->make('fl
 
 $api->pipe($apiPath, $router);
 
-if (Core::inDebugMode()) {
-    $api->pipe(new WhoopsMiddleware());
-} else {
-    $api->pipe(new JsonApiErrors());
-}
+$api->pipe(new JsonApiErrors());
 
 $server = Server::createServer(
     $api,
