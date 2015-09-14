@@ -21,8 +21,8 @@ rm -rf ${release}/flarum/studio.json
 
 # Install all Composer dependencies
 cd ${release}/flarum
-composer install --prefer-dist --optimize-autoloader --ignore-platform-reqs --no-dev
 composer require flarum/core:dev-master@dev --prefer-dist --update-no-dev
+composer install --prefer-dist --optimize-autoloader --ignore-platform-reqs --no-dev
 
 # Copy public files
 cp -R ${release}/flarum/vendor/flarum/core/public/* ${release}/assets
