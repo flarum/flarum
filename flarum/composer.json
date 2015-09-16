@@ -8,8 +8,7 @@
         "illuminate/container": "5.1.*",
         "monolog/monolog": "^1.16.0",
         "zendframework/zend-stratigility": "^1.1",
-        "franzl/whoops-middleware": "dev-master",
-        "flarum/core": "0.1.x@dev"
+        "franzl/whoops-middleware": "dev-master"
     },
     "require-dev": {
         "franzl/studio": "1.0.x@dev"
