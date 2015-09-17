@@ -1,3 +1,7 @@
+# Allow access if Flarum is installed in a subdirectory and another .htaccess deny access in a higher directory
+Order allow,deny
+Allow from all
+
 <IfModule mod_rewrite.c>
   RewriteEngine on
 
