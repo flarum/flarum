@@ -3,6 +3,10 @@
 Order Allow,Deny
 Allow from all
 
+<Files flarum/*>
+  Deny from All
+</Files>
+
 <IfModule mod_rewrite.c>
   RewriteEngine on
 
