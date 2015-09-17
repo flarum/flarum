@@ -1,6 +1,5 @@
 #!/usr/bin/env php
 <?php
-
 /*
  * This file is part of Flarum.
  *
@@ -10,10 +9,7 @@
  * file that was distributed with this source code.
  */
 
-use Flarum\Console\GenerateExtensionCommand;
-use Flarum\Console\UpgradeCommand;
 use Flarum\Core;
-use Flarum\Install\Console\InstallCommand;
 use Symfony\Component\Console\Application;
 
 $app = require_once __DIR__.'/bootstrap.php';
@@ -21,11 +17,12 @@ $app = require_once __DIR__.'/bootstrap.php';
 $console = new Application('Flarum', $app::VERSION);
 
 if (!Core::isInstalled()) {
-    $app->register(new \Flarum\Install\InstallServiceProvider($app));
-    $console->add(new InstallCommand($app));
+    $app->register('Flarum\Install\InstallServiceProvider');
+    $console->add($app->make('Flarum\Install\Console\InstallCommand'));
 }
 
-$console->add(new UpgradeCommand($app));
-$console->add(new GenerateExtensionCommand($app));
+$console->add($app->make('Flarum\Console\UpgradeCommand'));
+$console->add($app->make('Flarum\Console\GenerateExtensionCommand'));
+$console->add($app->make('Flarum\Console\GenerateMigrationCommand'));
 
 exit($console->run());
