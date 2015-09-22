@@ -6,11 +6,9 @@ release=/tmp/flarum-release
 rm -rf ${release}
 mkdir ${release}
 
-git archive --format zip --worktree-attributes HEAD > ${release}/release.zip
+git archive --format tar --worktree-attributes HEAD | tar -xC ${release}
 
 cd ${release}
-unzip release.zip -d ./
-rm release.zip
 
 # Delete files
 rm -rf ${release}/build.sh
