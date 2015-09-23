@@ -10,8 +10,8 @@ block="
         # Make site accessible from ...
         server_name 192.168.29.29.xip.io flarum.dev;
 
-        access_log /var/log/nginx/vagrant.com-access.log;
-        error_log  /var/log/nginx/vagrant.com-error.log error;
+        access_log /var/log/nginx/flarum-access.log;
+        error_log  /var/log/nginx/flarum-error.log error;
 
         charset utf-8;
 
