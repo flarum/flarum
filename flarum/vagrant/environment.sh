@@ -8,7 +8,7 @@ block="
         index index.html index.htm index.php;
 
         # Make site accessible from ...
-        server_name 192.168.29.29.xip.io flarum.dev;
+        server_name flarum.dev 192.168.29.29.xip.io;
 
         access_log /var/log/nginx/flarum-access.log;
         error_log  /var/log/nginx/flarum-error.log error;
