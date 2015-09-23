@@ -5,7 +5,7 @@ block="
         listen 80;
 
         root /vagrant;
-        index index.html index.htm index.php app.php app_dev.php;
+        index index.html index.htm index.php;
 
         # Make site accessible from ...
         server_name 192.168.29.29.xip.io flarum.dev;
@@ -16,7 +16,7 @@ block="
         charset utf-8;
 
         location / {
-            try_files \$uri \$uri/ /app.php?\$query_string /index.php?\$query_string;
+            try_files \$uri \$uri/ /index.php?\$query_string;
         }
 
         location /api {
