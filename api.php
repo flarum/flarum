@@ -11,7 +11,6 @@
 
 use Flarum\Api\Middleware\JsonApiErrors;
 use Flarum\Core;
-use Franzl\Middleware\Whoops\Middleware as WhoopsMiddleware;
 use Zend\Diactoros\Server;
 use Zend\Stratigility\MiddlewarePipe;
 
