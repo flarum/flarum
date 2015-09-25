@@ -20,9 +20,9 @@
             cd $flarum_source
             echo latest commit $(git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10) - flarum
             # Ensure Core is up to date - https://github.com/flarum/core
-	    if [ -d core ]; then ( cd core; echo latest commit $(git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10) - flarum/core) > $flarum_source/INCR_COMPILE; fi
-            echo latest commit $(git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10) - flarum/core
-            git clone https://github.com/flarum/core 2> /dev/null || (cd flarum/core/ && git pull)
+            if [ -d flarum/core ]; then ( cd flarum/core; echo latest commit $(git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10) - flarum/core) > $flarum_source/INCR_COMPILE; fi
+            ( cd flarum/core; echo latest commit $(git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10) - flarum/core)
+            git clone https://github.com/flarum/core flarum/core 2> /dev/null || (cd flarum/core/ && git pull)
 
             # Ensure Extensions are up to date
             for extension in $default_extensions;
@@ -30,7 +30,7 @@
             (
                 cd extensions/
                 mkdir -p $extension
-		if [ -d $extension ]; then ( cd $extension; echo latest commit $(git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10) - flarum/$extension) >> $flarum_source/INCR_COMPILE; fi
+                if [ -d $extension ]; then ( cd $extension; echo latest commit $(git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10) - flarum/$extension) >> $flarum_source/INCR_COMPILE; fi
                 git clone https://github.com/flarum/"$extension" || (cd $extension; git pull)
                 (cd $extension; echo latest commit $(git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10) - flarum/$extension)
             )
