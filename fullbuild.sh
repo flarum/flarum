@@ -20,8 +20,9 @@
             cd $flarum_source
             echo latest commit $(git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10) - flarum
             # Ensure Core is up to date - https://github.com/flarum/core
-            git clone https://github.com/flarum/core 2> /dev/null || (cd flarum/core/ && git pull)
+	    if [ -d core ]; then ( cd core; echo latest commit $(git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10) - flarum/core) > $flarum_source/INCR_COMPILE; fi
             echo latest commit $(git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10) - flarum/core
+            git clone https://github.com/flarum/core 2> /dev/null || (cd flarum/core/ && git pull)
 
             # Ensure Extensions are up to date
             for extension in $default_extensions;
@@ -29,6 +30,7 @@
             (
                 cd extensions/
                 mkdir -p $extension
+		if [ -d $extension ]; then ( cd $extension; echo latest commit $(git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10) - flarum/$extension) >> $flarum_source/INCR_COMPILE; fi
                 git clone https://github.com/flarum/"$extension" || (cd $extension; git pull)
                 (cd $extension; echo latest commit $(git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10) - flarum/$extension)
             )
@@ -129,16 +131,104 @@
         ## | Compile Extensions
     }
 
+    incrementalupdate() {
+        ### Incremental Compile
+        
+        ## Incremental Compile Core
+        (
+            echo -e '\nWarning! Incremental update Not heavily tested!\n'
+            cd $compiled_flarum
+            orginal_sum="$(grep "flarum/core" $flarum_source/INCR_COMPILE | awk '{ print $3 }')"
+            new_sum="$(cd $flarum_source/core; git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10)"
+            
+            if [ "$orginal_sum" != "$new_sum" ]
+              then
+            (
+                cd flarum
+                composer require flarum/core:dev-master@dev --prefer-dist --update-no-dev
+                composer install --prefer-dist --optimize-autoloader --ignore-platform-reqs --no-dev
+                # Copy public files
+                rsync -av $compiled_flarum/flarum/vendor/flarum/core/public/* $compiled_flarum/assets
+            )
+           
+            (
+                cd flarum/vendor/flarum/core/js
+                bower install
+            )
+            
+            (
+                cd flarum/vendor/flarum/core/js
+                for app in forum admin
+                      do
+                              (
+                              cd $app
+                              npm link gulp flarum-gulp babel-core
+                              gulp --production
+                              rm -rf "$app"/node_modules
+                              )
+                done
+            )
+            
+              rm -rf flarum/vendor/flarum/core/js/bower_components
+            else
+              echo core has not changed
+            fi
+        )
+        ## | Compile Core
+        
+        
+        ## Incremental Compile Extensions
+        (
+            cd $compiled_flarum
+            for extension in $default_extensions;
+                    do
+                            (
+                                orginal_sum="$(grep "flarum/$extension" $flarum_source/INCR_COMPILE | awk '{ print $3 }')"
+                                new_sum="$(cd $flarum_source/extensions/$extension; git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10)"
+                                if [ "$orginal_sum" != "$new_sum" ]
+                                        then
+                                                cd extensions/$extension
+                                                composer install --prefer-dist --optimize-autoloader --ignore-platform-reqs --no-dev
+                                                if [ -f js/bower.json ]; then ( cd js && bower install ); fi
+                
+                                                for app in forum admin
+                                                        do
+                
+                                                                if [ -d js/$app ];
+                                                                        then
+                                                                                (
+                                                                                    echo -e \\n$extension changed. Compiling\\n
+                                                                                    cd js/$app
+                                                                                    if [ -f bower.json ]; then bower install; fi
+                                                                                    npm link gulp flarum-gulp
+                                                                                    gulp --production
+                                                                                    rm -rf node_modules bower_components
+                                                                                )
+                                                                fi
+                                                done
+                                else
+                                        echo $extension has not changed
+                                fi
+                            )
+            rm -rf "$compiled_flarum/extensions/$extension/js/bower_components"
+            done
+        
+    )
+    
+    ## | Incremental Compile Extensions
+    }
+
+
     removeextras() {
         ### Remove Extra Files
         (
-            cd $compiled_flarum
-
-            rm -rf build.sh
-            rm -rf Vagrantfile
-            rm -rf flarum/vagrant
-            rm -rf flarum/core
-            rm -rf flarum/studio.json
+                cd $compiled_flarum
+    
+                rm -rf build.sh
+                rm -rf Vagrantfile
+                rm -rf flarum/vagrant
+                rm -rf flarum/core
+                rm -rf flarum/studio.json
         )
     }
 
@@ -187,13 +277,15 @@
                 echo -e "-c Compiles whatever files exist at -d\n"
                 echo -e "-d Designate where to place temporary compile files - defaults to /tmp/tmp.nn directory\n"
                 echo -e "-e Where to export .zip / tar of flarum\n"
-                echo -e "-i Full update and creation of latest Flarum\n"
+                echo -e "-i Incremental update and creation of latest flarum\nOnly use use -d and -s\n-i must be after all other flags\n"
                 echo -e "-h Display this help\n"
                 echo -e "-s Designate source of flarum files\n"
                 exit
                 ;;
             i)
-                #
+                update_repos
+                incrementalupdate
+                removeextras
                 wrapup
                 exit
                 ;;
