@@ -224,6 +224,7 @@
         # Set compiled_flarum location if not already set - default to random /tmp/tmp.* location
         if [ -v $compiled_flarum ]; then compiled_flarum=$(mktemp -d); removetmp=yes; fi
         if [ -v $export ]; then export=/tmp/; fi
+    }
 
     removeextras() {
         ### Remove Extra Files
