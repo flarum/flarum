@@ -316,6 +316,7 @@
         esac
     done
 
+    setvariables
     update_repos
     copytorelease
     compilereleaseflarum
