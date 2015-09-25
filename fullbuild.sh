@@ -139,7 +139,7 @@
             echo -e '\nWarning! Incremental update Not heavily tested!\n'
             cd $compiled_flarum
             orginal_sum="$(grep "flarum/core" $flarum_source/INCR_COMPILE | awk '{ print $3 }')"
-            new_sum="$(cd $flarum_source/core; git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10)"
+            new_sum="$(cd $flarum_source/flarum/core; git log -1 | head -n1 | cut -d\  -f2 | cut -b1-10)"
             
             if [ "$orginal_sum" != "$new_sum" ]
               then
