@@ -218,6 +218,12 @@
     ## | Incremental Compile Extensions
     }
 
+    setvariables() {
+        # Set flarum_source if not already set - default to script location
+        if [ -v $flarum_source ]; then flarum_source=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd); fi
+        # Set compiled_flarum location if not already set - default to random /tmp/tmp.* location
+        if [ -v $compiled_flarum ]; then compiled_flarum=$(mktemp -d); removetmp=yes; fi
+        if [ -v $export ]; then export=/tmp/; fi
 
     removeextras() {
         ### Remove Extra Files
@@ -283,6 +289,7 @@
                 exit
                 ;;
             i)
+                setvariables
                 update_repos
                 incrementalupdate
                 removeextras
@@ -307,14 +314,6 @@
                 ;;
         esac
     done
-
-
-    # Set flarum_source if not already set - default to script location
-    if [ -v $flarum_source ]; then flarum_source=$(cd `dirname "${BASH_SOURCE[0]}"` && pwd); fi
-    # Set compiled_flarum location if not already set - default to random /tmp/tmp.* location
-    if [ -v $compiled_flarum ]; then compiled_flarum=$(mktemp -d); removetmp=yes; fi
-    if [ -v $export ]; then export=/tmp/; fi
-
 
     update_repos
     copytorelease
