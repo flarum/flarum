@@ -4,7 +4,7 @@
 # Config Github Settings
 github_username = "fideloper"
 github_repo     = "Vaprobash"
-github_branch   = "1.3.0"
+github_branch   = "1.4.1"
 github_url      = "https://raw.githubusercontent.com/#{github_username}/#{github_repo}/#{github_branch}"
 
 # Server Configuration
