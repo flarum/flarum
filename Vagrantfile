@@ -251,7 +251,7 @@ Vagrant.configure("2") do |config|
   ##########
 
   # Install Memcached
-  config.vm.provision "shell", path: "#{github_url}/scripts/memcached.sh"
+  # config.vm.provision "shell", path: "#{github_url}/scripts/memcached.sh"
 
   # Provision Redis (without journaling and persistence)
   # config.vm.provision "shell", path: "#{github_url}/scripts/redis.sh"
@@ -266,7 +266,7 @@ Vagrant.configure("2") do |config|
   ##########
 
   # Install Beanstalkd
-  config.vm.provision "shell", path: "#{github_url}/scripts/beanstalkd.sh"
+  # config.vm.provision "shell", path: "#{github_url}/scripts/beanstalkd.sh"
 
   # Install Heroku Toolbelt
   # config.vm.provision "shell", path: "https://toolbelt.heroku.com/install-ubuntu.sh"
