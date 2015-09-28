@@ -57,7 +57,6 @@ sudo service nginx restart
 
 ### Setup NPM globals and create necessary directories ###
 sudo apt-get install -y phantomjs zsh exuberant-ctags
-mkdir /home/vagrant/npm
 sudo chown -R vagrant:vagrant /home/vagrant
 
 cp /vagrant/scripts/aliases ~/.aliases
@@ -71,9 +70,6 @@ else
 fi
 
 mysql -u root -proot -e 'create database flarum'
-
-### Fix up NPM installation
-nvm use --delete-prefix stable --silent
 
 ### Setup flarum/core and install dependencies ###
 cd /vagrant/flarum/core
