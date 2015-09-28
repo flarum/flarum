@@ -51,8 +51,8 @@ hhvm                  = "false"
 composer_packages     = [        # List any global Composer packages that you want to install
   #"phpunit/phpunit:4.0.*",
   #"codeception/codeception=*",
-  #"phpspec/phpspec:2.0.*@dev",
-  #"squizlabs/php_codesniffer:1.5.*",
+  "phpspec/phpspec:2.0.*@dev",
+  "squizlabs/php_codesniffer:1.5.*",
   "franzl/studio:dev-master"
 ]
 
