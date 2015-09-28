@@ -59,7 +59,7 @@ sudo service nginx restart
 sudo apt-get install -y phantomjs zsh exuberant-ctags
 sudo chown -R vagrant:vagrant /home/vagrant
 
-cp /vagrant/scripts/aliases ~/.aliases
+cp /vagrant/flarum/vagrant/aliases ~/.aliases
 
 ### Create rc file ###
 if [ -e "/home/vagrant/.zshrc" ]
