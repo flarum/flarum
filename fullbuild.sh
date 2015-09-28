@@ -82,7 +82,7 @@
                     cd $app
                     npm link gulp flarum-gulp babel-core
                     gulp --production
-                    rm -rf "$app"/node_modules
+                    rm -rf node_modules
                 )
                 done
             )
@@ -154,8 +154,8 @@
             # Create Checksum - run md5sum -c in extracted directory to check
             find . -type f -exec md5sum {} \; &> CHECKSUM
 
-            zip ./ /"$export"flarum_$(date +\%m_\%d_\%Y).zip
-            tar --preserve-permissions --preserve-order -zcf "$export"flarum_$(date +\%m_\%d_\%Y).tar.gz ./
+            zip -r -x@$flarum_source/INCR_COMPILE "$export"/flarum_$(date +\%m_\%d_\%Y).zip ./
+            tar --preserve-permissions -zcf "$export"/flarum_$(date +\%m_\%d_\%Y).tar.gz ./
 
             # Remove /tmp/tmp.* files if not designated by -s
             if [ ${removetmp:-no} == yes ]; then rm -fr $compiled_flarum; fi
