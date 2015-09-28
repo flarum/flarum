@@ -69,6 +69,9 @@ $app->instance('config', $config = new ConfigRepository([
             ],
         ],
     ],
+    'session' => [
+        'cookie' => 'flarum_remember'
+    ]
 ]));
 
 $logger = new Monolog\Logger($app->environment());
