@@ -72,6 +72,9 @@ fi
 
 mysql -u root -proot -e 'create database flarum'
 
+### Fix up NPM installation
+nvm use --delete-prefix stable --silent
+
 ### Setup flarum/core and install dependencies ###
 cd /vagrant/flarum/core
 git pull
