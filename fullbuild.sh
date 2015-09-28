@@ -175,12 +175,13 @@
                 exit
                 ;;
             d)
-                compiled_flarum="$OPTARG"
                 if [ ! -d "$OPTARG" ]; then mkdir -p "$OPTARG"; fi
+                compiled_flarum="$(cd -P "$OPTARG"; pwd)/"
                 ;;
             e)
                 # Where to export files
-                export="$OPTARG"/
+                if [ ! -d "$OPTARG" ]; then mkdir -p "$OPTARG"; fi
+                export="$(cd -P $OPTARG; pwd)/"
                 ;;
             h)
                 echo ""
@@ -198,7 +199,6 @@
                 exit
                 ;;
             s)
-                flarum_source="$OPTARG"
                 if [ ! -d "$OPTARG" ]; then
                     mkdir -p "$OPTARG"
                     (
@@ -206,6 +206,7 @@
                         git pull || git clone https://github.com/flarum/flarum .
                     )
                 fi
+                flarum_source="$(cd -P "$OPTARG"; pwd)/"
 
                 ;;
             \?)
