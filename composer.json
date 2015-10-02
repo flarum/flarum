@@ -1,0 +1,34 @@
+{
+    "name": "flarum/flarum",
+    "description": "Delightfully simple forum software.",
+    "type": "project",
+    "keywords": ["forum", "discussion"],
+    "homepage": "http://flarum.org",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toby Zerner",
+            "email": "toby.zerner@gmail.com",
+            "homepage": "http://tobyzerner.com"
+        },
+        {
+            "name": "Franz Liedke",
+            "email": "franz.liedke@gmail.com",
+            "homepage": "http://www.develophp.org"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/flarum/core/issues",
+        "source": "https://github.com/flarum/flarum",
+        "docs": "http://flarum.org/docs"
+    },
+    "require": {
+        "flarum/server": "dev-master"
+    },
+    "require-dev": {
+        "franzl/studio": "0.10.x@dev"
+    },
+    "config": {
+        "preferred-install": "dist"
+    }
+}

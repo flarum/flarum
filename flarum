@@ -1,5 +1,5 @@
+#!/usr/bin/env php
 <?php
-
 /*
  * This file is part of Flarum.
  *
@@ -13,6 +13,6 @@ define('FLARUM_START', microtime(true));
 
 require 'vendor/autoload.php';
 
-$server = new Flarum\Server\WebServer(__DIR__);
+$server = new Flarum\Server\ConsoleServer(__DIR__);
 
 $server->listen();

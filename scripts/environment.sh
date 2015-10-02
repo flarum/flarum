@@ -59,7 +59,7 @@ sudo service nginx restart
 sudo apt-get install -y phantomjs zsh exuberant-ctags
 sudo chown -R vagrant:vagrant /home/vagrant
 
-cp /vagrant/flarum/vagrant/aliases ~/.aliases
+cp /vagrant/scripts/aliases ~/.aliases
 
 ### Create rc file ###
 if [ -e "/home/vagrant/.zshrc" ]
@@ -75,21 +75,9 @@ mysql -u root -proot -e 'create database flarum'
 cd /vagrant/flarum/core
 git pull
 composer install --prefer-dist
+bash scripts/compile.sh
 
 cd /vagrant/flarum
 composer install --prefer-dist
 composer dump-autoload
-
-cd /vagrant/flarum/core/js
-bower install
-
-cd /vagrant/flarum/core/js/forum
-npm install
-gulp
-
-cd /vagrant/flarum/core/js/admin
-npm install
-gulp
-
-cd /vagrant/flarum
 php flarum install --defaults

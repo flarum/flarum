@@ -1,8 +1,9 @@
-.env
-.env.*
-!.env.example
 .DS_Store
 Thumbs.db
 .vagrant
 config.php
 .idea
+vendor
+server
+core
+studio.json
