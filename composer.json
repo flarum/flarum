@@ -23,6 +23,7 @@
         "docs": "http://flarum.org/docs"
     },
     "require": {
+        "flarum/composer-installer": "dev-master",
         "flarum/core": "dev-master"
     },
     "require-dev": {
