@@ -13,6 +13,6 @@ define('FLARUM_START', microtime(true));
 
 require 'vendor/autoload.php';
 
-$server = new Flarum\Server\ConsoleServer(__DIR__);
+$server = new Flarum\Console\Server(__DIR__);
 
 $server->listen();
