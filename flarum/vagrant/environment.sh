@@ -69,7 +69,7 @@ else
     echo "source ~/.aliases" >> ~/.bashrc
 fi
 
-mysql -u root -proot -e 'create database flarum'
+mysql -u root -proot -e 'create database if not exists flarum'
 
 ### Setup flarum/core and install dependencies ###
 cd /vagrant/flarum/core
