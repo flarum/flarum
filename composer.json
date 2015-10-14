@@ -8,13 +8,11 @@
     "authors": [
         {
             "name": "Toby Zerner",
-            "email": "toby.zerner@gmail.com",
-            "homepage": "http://tobyzerner.com"
+            "email": "toby.zerner@gmail.com"
         },
         {
             "name": "Franz Liedke",
-            "email": "franz.liedke@gmail.com",
-            "homepage": "http://www.develophp.org"
+            "email": "franz.liedke@gmail.com"
         }
     ],
     "support": {

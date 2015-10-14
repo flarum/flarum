@@ -56,18 +56,12 @@ echo "$block" | sudo tee /etc/nginx/sites-available/vagrant
 sudo service nginx restart
 
 ### Setup NPM globals and create necessary directories ###
-sudo apt-get install -y phantomjs zsh exuberant-ctags
 sudo chown -R vagrant:vagrant /home/vagrant
 
 cp /vagrant/scripts/aliases ~/.aliases
 
 ### Create rc file ###
-if [ -e "/home/vagrant/.zshrc" ]
-then
-    echo "source ~/.aliases" >> ~/.zshrc
-else
-    echo "source ~/.aliases" >> ~/.bashrc
-fi
+echo "source ~/.aliases" >> ~/.bashrc
 
 mysql -u root -proot -e 'create database flarum'
 
