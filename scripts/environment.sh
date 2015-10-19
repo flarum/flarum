@@ -65,13 +65,7 @@ echo "source ~/.aliases" >> ~/.bashrc
 
 mysql -u root -proot -e 'create database if not exists flarum'
 
-### Setup flarum/core and install dependencies ###
-cd /vagrant/flarum/core
-git pull
-composer install --prefer-dist
-bash scripts/compile.sh
-
-cd /vagrant/flarum
+cd /vagrant
 composer install --prefer-dist
 composer dump-autoload
 php flarum install --defaults
