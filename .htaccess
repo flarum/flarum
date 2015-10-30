@@ -3,20 +3,11 @@
 
 <IfModule mod_authz_host.c>
   Require all granted
-
-  <Files flarum/*>
-    Require all denied	  
-  </Files>
 </IfModule>
 <IfModule !mod_authz_host.c>
   Order Allow,Deny
   Allow from all
-
-  <Files flarum/*>
-    Deny from All
-  </Files>
 </IfModule>
-
 
 <IfModule mod_rewrite.c>
   RewriteEngine on
@@ -26,12 +17,13 @@
   RewriteRule ^api(.*)$ api.php [QSA,L]
   RewriteRule ^admin(.*)$ admin.php [QSA,L]
 
-  RewriteCond %{REQUEST_FILENAME} !-f
-  RewriteCond %{REQUEST_FILENAME} !-d
-  RewriteRule ^(.*)$ index.php [QSA,L]
+  RewriteRule !^assets index.php [QSA,L]
   
   # MultiViews can mess up our rewriting scheme
   Options -MultiViews
+
+  # Autoindex will list all assets files which is not so good
+  Options -Indexes
 </IfModule>
 
 <IfModule mod_deflate.c>
