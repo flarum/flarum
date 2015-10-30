@@ -1,11 +1,22 @@
 # Allow access if Flarum is installed in a subdirectory,
 # but another .htaccess in a higher directory denies access.
-Order Allow,Deny
-Allow from all
 
-<Files flarum/*>
-  Deny from All
-</Files>
+<IfModule mod_authz_host.c>
+  Require all granted
+
+  <Files flarum/*>
+    Require all denied	  
+  </Files>
+</IfModule>
+<IfModule !mod_authz_host.c>
+  Order Allow,Deny
+  Allow from all
+
+  <Files flarum/*>
+    Deny from All
+  </Files>
+</IfModule>
+
 
 <IfModule mod_rewrite.c>
   RewriteEngine on
