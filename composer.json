@@ -22,8 +22,7 @@
     },
     "require": {
         "flarum/composer-installer": "dev-master",
-        "flarum/core": "dev-master",
-        "tobscure/json-api": "@dev"
+        "flarum/core": "dev-master"
     },
     "require-dev": {
         "franzl/studio": "0.10.x@dev"
