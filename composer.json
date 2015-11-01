@@ -21,8 +21,26 @@
         "docs": "http://flarum.org/docs"
     },
     "require": {
-        "flarum/composer-installer": "dev-master",
-        "flarum/core": "dev-master"
+        "flarum/composer-installer": "^0.1.0",
+        "flarum/core": "^0.1.0",
+        "flarum/akismet": "^0.1.0",
+        "flarum/approval": "^0.1.0",
+        "flarum/auth-facebook": "^0.1.0",
+        "flarum/auth-github": "^0.1.0",
+        "flarum/auth-twitter": "^0.1.0",
+        "flarum/bbcode": "^0.1.0",
+        "flarum/emoji": "^0.1.0",
+        "flarum/english": "^0.1.0",
+        "flarum/flags": "^0.1.0",
+        "flarum/likes": "^0.1.0",
+        "flarum/lock": "^0.1.0",
+        "flarum/markdown": "^0.1.0",
+        "flarum/mentions": "^0.1.0",
+        "flarum/pusher": "^0.1.0",
+        "flarum/sticky": "^0.1.0",
+        "flarum/subscriptions": "^0.1.0",
+        "flarum/suspend": "^0.1.0",
+        "flarum/tags": "^0.1.0"
     },
     "require-dev": {
         "franzl/studio": "0.10.x@dev"
