@@ -1,10 +1,10 @@
 # Allow access if Flarum is installed in a subdirectory,
 # but another .htaccess in a higher directory denies access.
 
-<IfModule mod_authz_host.c>
+<IfModule mod_authz_core.c>
   Require all granted
 </IfModule>
-<IfModule !mod_authz_host.c>
+<IfModule !mod_authz_core.c>
   Order Allow,Deny
   Allow from all
 </IfModule>
@@ -14,11 +14,17 @@
 
   RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
+  RewriteRule ^vendor/(.*)?$ / [F,L]
+  RewriteRule ^storage/(.*)?$ / [F,L]
+  RewriteRule ^config.php$ / [F,L]
+
   RewriteRule ^api(.*)$ api.php [QSA,L]
   RewriteRule ^admin(.*)$ admin.php [QSA,L]
 
+  RewriteCond %{REQUEST_FILENAME} !-f
+  RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule !^assets index.php [QSA,L]
-  
+
   # MultiViews can mess up our rewriting scheme
   Options -MultiViews
 
