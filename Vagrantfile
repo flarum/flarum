@@ -4,7 +4,7 @@
 # Config Github Settings
 github_username = "fideloper"
 github_repo     = "Vaprobash"
-github_branch   = "1.4.1"
+github_branch   = "1.4.2"
 github_url      = "https://raw.githubusercontent.com/#{github_username}/#{github_repo}/#{github_branch}"
 
 # Server Configuration
@@ -282,7 +282,7 @@ Vagrant.configure("2") do |config|
   ##########
 
   # Install Nodejs
-  config.vm.provision "shell", path: "https://raw.githubusercontent.com/franzliedke/Vaprobash/patch-3/scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version, github_url)
+  config.vm.provision "shell", path: "#{github_url}/scripts/nodejs.sh", privileged: false, args: nodejs_packages.unshift(nodejs_version, github_url)
 
   # Install Ruby Version Manager (RVM)
   # config.vm.provision "shell", path: "#{github_url}/scripts/rvm.sh", privileged: false, args: ruby_gems.unshift(ruby_version)
