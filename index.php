@@ -18,8 +18,7 @@ if (file_exists('vendor/autoload.php')) {
     // prevent extracting composer anew if already exists
     if (!is_dir('tmp/composer')) {
         // attempt to download the latest composer file
-        if(ini_get('allow_url_fopen'))
-        {
+        if (ini_get('allow_url_fopen')) {
             file_put_contents('https://getcomposer.org/installer', 'scripts/composer.phar');
         }
         $composer = new Phar('scripts/composer.phar');
