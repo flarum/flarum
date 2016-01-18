@@ -11,6 +11,9 @@
 
 <IfModule mod_rewrite.c>
   RewriteEngine on
+  
+  #Edit this if the installation is in a subfolder 
+  RewriteBase /
 
   RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
