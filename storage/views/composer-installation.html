@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <title>Flarum is installing</title>
+    <meta name="description"
+          content="Flarum is the next-generation forum software that makes online discussion fun. It's simple, fast, and free.">
+
+    <link href='http://fonts.googleapis.com/css?family=Source+Sans+Pro:400,300,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="http://flarum.org/css/main.css">
+</head>
+
+
+<body class="home">
+
+<header class="Header">
+    <div class="container">
+        <h1 class="Header-brand">
+            <a href="/">
+                <img src="http://flarum.org/img/logo.png" alt="Flarum – Forums Made Simple" width="149" height="34">
+            </a>
+        </h1>
+    </div>
+</header>
+<header class="Intro">
+    <h1 class="Intro-brand">
+        <object data="http://flarum.org/img/logo.svg">
+            <img src="http://flarum.org/img/logo.png" alt="Flarum">
+        </object>
+    </h1>
+
+    <div class="animated fadeIn">
+        <div class="Intro-beta">BETA</div>
+
+        <h2>Forums made simple.</h2>
+
+        <p>
+            You are installing Flarum without composer. We need to download some missing packages. This will take a few
+            minutes to complete.
+        </p>
+    </div>
+</header>
+</div>
+<script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
+<script>
+    setInterval(function() {
+        $.ajax('?install-done', {
+            success: function(done) {
+                console.log(done);
+                if(done == 1) {
+                    location.reload();
+                }
+            }
+        });
+    }, 5000);
+</script>
+</body>
+</html>
