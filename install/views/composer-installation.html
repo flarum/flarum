@@ -55,7 +55,6 @@
         $.ajax('#', {
             method: 'post',
             success: function(state) {
-                console.log(state);
                 if(state == 'true') {
                     location.replace(location.pathname.replace('/install/index.php', ''));
                 } else if(statusElement.text() != state) {
