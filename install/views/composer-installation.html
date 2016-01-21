@@ -42,17 +42,24 @@
             You are installing Flarum without composer. We need to download some missing packages. This will take a few
             minutes to complete.
         </p>
+        <p class="status">
+
+        </p>
     </div>
 </header>
 </div>
 <script src="https://code.jquery.com/jquery-2.1.4.min.js"></script>
 <script>
     setInterval(function() {
-        $.ajax('?install-done', {
-            success: function(done) {
-                console.log(done);
-                if(done == 1) {
-                    location.reload();
+        var statusElement = $('p.status');
+        $.ajax('#', {
+            method: 'post',
+            success: function(state) {
+                console.log(state);
+                if(state == 'true') {
+                    location.replace(location.pathname.replace('/install/index.php', ''));
+                } else if(statusElement.text() != state) {
+                    statusElement.text(state);
                 }
             }
         });
