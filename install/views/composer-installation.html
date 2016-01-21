@@ -56,7 +56,7 @@
             method: 'post',
             success: function(state) {
                 if(state == 'true') {
-                    location.replace(location.pathname.replace('/install/index.php', ''));
+                    location.replace(location.pathname.replace('install/index.php', ''));
                 } else if(statusElement.text() != state) {
                     statusElement.text(state);
                 }
