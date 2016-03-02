@@ -21,7 +21,6 @@
         "docs": "http://flarum.org/docs"
     },
     "require": {
-        "flarum/composer-installer": "*",
         "flarum/core": "^0.1.0",
         "flarum/flarum-ext-akismet": "^0.1.0",
         "flarum/flarum-ext-approval": "^0.1.0",
@@ -48,5 +47,6 @@
     "config": {
         "preferred-install": "dist"
     },
-    "minimum-stability": "beta"
+    "minimum-stability": "beta",
+    "prefer-stable": true
 }
