@@ -42,7 +42,7 @@
         "flarum/flarum-ext-tags": "^0.1.0"
     },
     "require-dev": {
-        "franzl/studio": "0.10.x@dev"
+        "franzl/studio": "dev-master"
     },
     "config": {
         "preferred-install": "dist"
