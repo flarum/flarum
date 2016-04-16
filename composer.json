@@ -42,7 +42,9 @@
         "flarum/flarum-ext-tags": "^0.1.0"
     },
     "require-dev": {
-        "franzl/studio": "^0.11.0"
+        "franzl/studio": "^0.11.0",
+        "php-pm/php-pm": "dev-master",
+        "franzl/php-pm-psr7": "dev-master"
     },
     "config": {
         "preferred-install": "dist"
