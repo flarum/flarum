@@ -1,5 +1,5 @@
 {
-    "bridge": "Franzl\\PHPPM\\Psr7\\Psr7Bridge",
+    "bridge": "PHPPM\\Psr7\\Psr7Bridge",
     "host": "127.0.0.1",
     "port": 8080,
     "workers": 8,
