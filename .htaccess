@@ -9,6 +9,9 @@
   Allow from all
 </IfModule>
 
+# Fix for https://httpoxy.org vulnerability
+Header unset Proxy
+
 <IfModule mod_rewrite.c>
   RewriteEngine on
 
