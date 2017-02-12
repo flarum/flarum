@@ -10,7 +10,13 @@
 </IfModule>
 
 # Fix for https://httpoxy.org vulnerability
-Header unset Proxy
+<IfModule mod_headers.c>
+  RequestHeader unset Proxy
+</IfModule>
+<IfModule mod_security.c>
+  SecRule &REQUEST_HEADERS:Proxy "@gt 0" "id:1000005,log,deny,msg:'httpoxy denied'"
+</IfModule>
+
 
 <IfModule mod_rewrite.c>
   RewriteEngine on
