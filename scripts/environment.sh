@@ -42,7 +42,7 @@ block="
             include fastcgi_params;
             fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;
             fastcgi_param LARA_ENV local; # Environment variable for Laravel
-            fastcgi_param HTTP_PROXY ""; # Fix for https://httpoxy.org/ vulnerability
+            fastcgi_param HTTP_PROXY \"\"; # Fix for https://httpoxy.org/ vulnerability
             fastcgi_param HTTPS off;
         }
 
@@ -82,7 +82,7 @@ block="
                    text/plain \
                    text/xml;
         gzip_buffers 16 8k;
-        gzip_disable "MSIE [1-6]\.(?!.*SV1)";
+        gzip_disable \"MSIE [1-6]\.(?!.*SV1)\";
 
     }
 "
