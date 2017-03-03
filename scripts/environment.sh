@@ -1,5 +1,23 @@
 #! /bin/bash
 
+# Defaults:
+PHP_VERSION=5.6
+
+while [[ $# -gt 1 ]]; do
+key="$1"
+
+case "$key" in
+    --php-version)
+    PHP_VERSION="$2"
+    shift # past argument
+    ;;
+    *)
+            # unknown option
+    ;;
+esac
+shift # past argument or value
+done
+
 block="
     server {
         listen 80;
@@ -36,8 +54,8 @@ block="
         location ~ \.php$ {
             try_files \$uri =404;
             fastcgi_split_path_info ^(.+\.php)(/.+)$;
-            # With php5-fpm:
-            fastcgi_pass 127.0.0.1:9000;
+            # With php-fpm:
+            fastcgi_pass unix:/run/php/php${PHP_VERSION}-fpm.sock;
             fastcgi_index index.php;
             include fastcgi_params;
             fastcgi_param SCRIPT_FILENAME \$document_root\$fastcgi_script_name;

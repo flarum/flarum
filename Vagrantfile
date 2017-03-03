@@ -36,7 +36,7 @@ mongo_enable_remote   = "false"  # remote access enabled when true
 
 # Languages and Packages
 php_timezone          = "UTC"    # http://php.net/manual/en/timezones.php
-php_version           = "5.6"    # Options: 5.5 | 5.6
+php_version           = "7.1"    # Options: 5.6 | 7.0 | 7.1
 ruby_version          = "latest" # Choose what ruby version should be installed (will also be the default version)
 ruby_gems             = [        # List any Ruby Gems that you want to install
   #"jekyll",
@@ -175,7 +175,7 @@ Vagrant.configure("2") do |config|
   config.vm.provision "shell", path: "#{github_url}/scripts/base_box_optimizations.sh", privileged: true
 
   # Provision PHP
-  config.vm.provision "shell", path: "#{github_url}/scripts/php.sh", args: [php_timezone, hhvm, php_version]
+  config.vm.provision 'shell', inline: "sudo add-apt-repository -y ppa:ondrej/php && sudo apt-get update && sudo apt-get -y install php#{php_version}-fpm php#{php_version}-curl php#{php_version}-mbstring php#{php_version}-xml php#{php_version}-mysql php#{php_version}-gd", run: "once"
 
   # Enable MSSQL for PHP
   # config.vm.provision "shell", path: "#{github_url}/scripts/mssql.sh"
@@ -317,6 +317,6 @@ Vagrant.configure("2") do |config|
   # Any local scripts you may want to run post-provisioning.
   # Add these to the same directory as the Vagrantfile.
   ##########
-  config.vm.provision "shell", path: "./scripts/environment.sh", privileged: false
+  config.vm.provision "shell", inline: "/bin/bash /vagrant/scripts/environment.sh --php-version #{php_version}", run: "once"
 
 end
