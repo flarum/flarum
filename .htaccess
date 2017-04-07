@@ -26,7 +26,8 @@
   RewriteRule ^vendor/(.*)?$ / [F,L]
   RewriteRule ^storage/(.*)?$ / [F,L]
   RewriteRule ^config.php$ / [F,L]
-  RewriteRule ^.git/(.*)?$ / [F,L]
+  RewriteRule /\.git / [F,L]
+  RewriteRule ^composer\.lock$ / [F,L]
 
   RewriteRule ^api(.*)$ api.php [QSA,L]
   RewriteRule ^admin(.*)$ admin.php [QSA,L]
