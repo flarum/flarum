@@ -1,5 +1,4 @@
 <?php
-
 /*
  * This file is part of Flarum.
  *
@@ -9,8 +8,13 @@
  * file that was distributed with this source code.
  */
 
-require 'vendor/autoload.php';
+if (file_exists('vendor/autoload.php')) {
+    require_once 'vendor/autoload.php';
 
-$server = new Flarum\Forum\Server(__DIR__);
+    (new Flarum\Forum\Server(__DIR__))->listen();
 
-$server->listen();
+} elseif (file_exists('install/index.php')) {
+    $url = 'http://' . $_SERVER['HTTP_HOST'] . rtrim(dirname($_SERVER['PHP_SELF']), '/') . '/install/index.php';
+    header("Location:{$url}", true, 301);
+    exit;
+}
