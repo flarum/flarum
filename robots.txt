@@ -1,0 +1,1 @@
+Disallow: /*?*nojs=1
