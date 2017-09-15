@@ -15,13 +15,19 @@
             "email": "franz@develophp.org"
         }
     ],
+    "repositories": [
+        {
+            "type": "vcs",
+            "url": "https://github.com/pipindex/core"
+        }
+    ],
     "support": {
         "issues": "https://github.com/flarum/core/issues",
         "source": "https://github.com/flarum/flarum",
         "docs": "http://flarum.org/docs"
     },
     "require": {
-        "flarum/core": "^0.1.0",
+        "flarum/core": "master",
         "flarum/flarum-ext-akismet": "^0.1.0",
         "flarum/flarum-ext-approval": "^0.1.0",
         "flarum/flarum-ext-auth-facebook": "^0.1.0",
@@ -47,6 +53,6 @@
     "config": {
         "preferred-install": "dist"
     },
-    "minimum-stability": "beta",
+    "minimum-stability": "dev",
     "prefer-stable": true
 }
