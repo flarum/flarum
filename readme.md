@@ -6,6 +6,6 @@
 
 `launch.php` is a custom script that gives you a reproducable development environment. 
 ___
-Last revision on 16/09/2017
-@aligajani
+* Last revision on 16/09/2017
+* @aligajani
 
