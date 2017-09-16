@@ -6,9 +6,10 @@
 
 `launch.php` is a custom script that gives you a reproducable development environment. 
 
-## SSO documentation
+## SSO Mock
 
-Access the sample SSO website on `localhost:8888` and follow click through.
+* Step 1: Navigate to `/sso` and run `php -S localhost:8888`
+* Step 2: Access the sample SSO website on `localhost:8888` 
 ___
 * Last revision on 16/09/2017
 * @aligajani
