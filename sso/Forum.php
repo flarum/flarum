@@ -1,5 +1,7 @@
 <?php
 
+namespace SSO;
+
 class Forum
 {
     const REMEMBER_ME_KEY = 'flarum_remember';
@@ -17,13 +19,13 @@ class Forum
      * @param $username
      * @param $email
      */
-    public function login($username, $email)
+    public function login($username, $email, $avatarUrl)
     {
         $password = $this->createPassword($username);
         $token = $this->getToken($username, $password);
 
         if (empty($token)) {
-            $this->signup($username, $password, $email);
+            $this->signup($username, $password, $email, $avatarUrl);
             $token = $this->getToken($username, $password);
         }
 
@@ -65,7 +67,7 @@ class Forum
         return isset($response['token']) ? $response['token'] : '';
     }
 
-    private function signup($username, $password, $email)
+    private function signup($username, $password, $email, $avatarUrl)
     {
         $data = [
             "data" => [
@@ -74,7 +76,7 @@ class Forum
                     "username" => $username,
                     "password" => $password,
                     "email" => $email,
-                    "avatarUrl" => "https://cyantificdsgn.files.wordpress.com/2009/11/spidey.png"
+                    "avatarUrl" => $avatarUrl
                 ]
             ]
         ];

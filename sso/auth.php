@@ -1,16 +1,9 @@
 <?php
 
-require_once __DIR__ . '/Forum.php';
+use SSO\Flarum;
 
-$users = [
-    'user' => [
-        'password' => 'password',
-        'email' => 'test@mailinator.com',
-    ],
-];
+$auth_token = $_GET['auth_token'];
 
-$username = empty($_POST['username']) ? '' : $_POST['username'];
-$password = empty($_POST['password']) ? '' : $_POST['password'];
 
 if (isset($users[$username]) && $users[$username]['password'] === $password) {
     $email = $users[$username]['email'];
