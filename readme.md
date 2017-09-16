@@ -1,3 +1,12 @@
+#### How to launch with one command?
+
+* Step 1: `composer install`
+* Step 2: `php -S localhost:9999 launch.php`
+
+`launch.php` is a custom script that gives you a reproducable development environment. 
+##### By Ali Gajani 
+---
+
 ![Flarum](http://flarum.org/img/logo.png)
 
 **[Flarum](http://flarum.org) is free, open-source forum software** built with PHP and [Mithril.js](http://mithril.js.org). It is:
