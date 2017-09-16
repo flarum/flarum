@@ -8,7 +8,7 @@
 
 ## SSO Mock
 
-* Step 1: Navigate to `/flarum/sso` folder and run `php -S localhost:8888`
+* Step 1: Navigate to `sso` folder and run `php -S localhost:8888`
 * Step 2: Access the sample SSO website on `localhost:8888` 
 ___
 * Last revision on 16/09/2017
