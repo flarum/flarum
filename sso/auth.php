@@ -1,15 +1,15 @@
 <?php
 
 use SSO\Flarum;
+use SSO\Forum;
 
-$auth_token = $_GET['auth_token'];
+$authToken = $_GET['auth_token'];
+$decodedTestData = json_decode(base64_decode($auth_token));
 
+$email = $decodedTestData['email'];
+$username = $decodedTestData['username'];
+$avatarUrl = $decodedTestData['avatarUrl'];
 
-if (isset($users[$username]) && $users[$username]['password'] === $password) {
-    $email = $users[$username]['email'];
-    $forum = new Forum();
-    $forum->login($username, $email);
-    $forum->redirectToForum();
-} elseif (!empty($username) || !empty($password)) {
-    echo 'Login failed';
-}
+$forum = new Forum();
+$forum->login($username, $email, $avatarUrl);
+$forum->redirectToForum();
