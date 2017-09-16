@@ -1,11 +1,8 @@
 <?php
 
-require_once __DIR__ . '/Forum.php';
+require_once('SSOController.php');
 
-$forum = new Forum();
+$forum = new SSOController();
 
 $forum->logout();
-
-if ($_GET['forum']) {
-    $forum->redirectToForum();
-}
+$forum->redirectToForum();

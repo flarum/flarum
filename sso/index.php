@@ -189,7 +189,8 @@
     var randomEmail = faker.internet.email();
     var randomName = faker.name.findName();
     var fake = {
-        username: randomUsername,
+        dotusername: randomUsername,
+        username: randomUsername.replace('.',''),
         avatarUrl: randomAvatar,
         email: randomEmail,
         name: randomName

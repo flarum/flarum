@@ -1,8 +1,6 @@
 <?php
 
-namespace SSO;
-
-class Forum
+class SSOController
 {
     const REMEMBER_ME_KEY = 'flarum_remember';
 
@@ -18,6 +16,7 @@ class Forum
      *
      * @param $username
      * @param $email
+     * @param $avatarUrl
      */
     public function login($username, $email, $avatarUrl)
     {
