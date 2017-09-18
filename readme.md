@@ -10,10 +10,10 @@
 
 * Step 1: Before you try this out, make sure you paste `6cdVzOYGVW` in the api_keys of the flarum database in MySQL.
 * Step 2: Create a `config.php` file in the `sso` folder with the contents given at the very bottom.
-* Step 2: Head to [here](http://localhost:9999/admin#/extensions) and enable *Single Sign On* extension.
-* Step 3: Fill in the details as shown in the image below.
-* Step 3: Now, navigate to `sso` folder and run `php -S localhost:8888`
-* Step 4: Access the sample SSO website on `localhost:8888` 
+* Step 3: Head to [here](http://localhost:9999/admin#/extensions) and enable *Single Sign On* extension.
+* Step 4: Fill in the details as shown in the image below.
+* Step 5: Now, navigate to `sso` folder and run `php -S localhost:8888`
+* Step 6: Access the sample SSO website on `localhost:8888` 
 
 ![](https://i.imgur.com/umGJsnx.png)
 
