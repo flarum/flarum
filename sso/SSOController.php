@@ -41,10 +41,12 @@ class SSOController
 
     /**
      * Redirects a user back to the forum.
+     * @param $targetUrl
      */
-    public function redirectToForum()
+    public function redirectToForum($targetUrl)
     {
-        header('Location: ' . $this->config['flarum_url']);
+        $targetUrl = (!is_null($targetUrl)) ? $targetUrl : '';
+        header('Location: ' . $this->config['flarum_url'] . $targetUrl);
         die();
     }
 

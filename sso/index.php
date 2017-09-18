@@ -200,7 +200,8 @@
     console.log(fake);
     console.log(encoded);
 
-    var authRedirect = "/auth.php?auth_token=" + encoded;
+    var targetUrl = "&target_url=/t/parent-tag";
+    var authRedirect = "/auth.php?auth_token=" + encoded + targetUrl;
     $('.visit-link').attr("href", authRedirect);
 
     $('.profile-userpic .img-responsive').attr("src", randomAvatar);
