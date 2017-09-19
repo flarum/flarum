@@ -19,6 +19,10 @@
         {
             "type": "vcs",
             "url": "https://github.com/pipindex/core"
+        },
+        {
+            "type":"vcs",
+            "url": "https://github.com/romanzpolski/flarum-ext-shawTheme"
         }
     ],
     "support": {
@@ -59,11 +63,5 @@
         "preferred-install": "dist"
     },
     "minimum-stability": "dev",
-    "prefer-stable": true,
-    "repositories": {
-        "workbench": {
-            "type": "path",
-            "url": "workbench/*/"
-        }
-    }
+    "prefer-stable": true
 }
