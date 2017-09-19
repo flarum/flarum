@@ -1,8 +1,8 @@
 // ---------------------------------
 // CONFIG
 
-@config-primary-color:             #4FA4CE;
-@config-secondary-color:           #4FA4CE;
+@config-primary-color:             #4EA1CA;
+@config-secondary-color:           #4EA1CA;
 @config-dark-mode:                 false;
 @config-colored-header:            false;
 
@@ -79,16 +79,16 @@
 
 .define-header(@config-colored-header);
 .define-header(false) {
-  @header-bg:                      @body-bg;
-  @header-color:                   @primary-color;
-  @header-control-bg:              @control-bg;
-  @header-control-color:           @control-color;
+  @header-bg:                      #4FA4CE;
+  @header-color:                   @body-bg;
+  @header-control-bg:              hsl(@secondary-hue, min(15%, @secondary-sat), 50%);
+  @header-control-color:           #000;
 }
 .define-header(true) {
-  @header-bg:                      @primary-color;
+  @header-bg:                      #4FA4CE;
   @header-color:                   @body-bg;
-  @header-control-bg:              mix(#000, @header-bg, 10%);
-  @header-control-color:           mix(@body-bg, @header-bg, 60%);
+  @header-control-bg:              hsl(@secondary-hue, min(15%, @secondary-sat), 50%);
+  @header-control-color:           @control-bg;
 }
 
 // ---------------------------------
