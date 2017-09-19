@@ -1,33 +1,40 @@
-![Flarum](http://flarum.org/img/logo.png)
+![](https://dt9ph4xofvj87.cloudfront.net/user/sites/shawacademy.com/themes/mytheme/images/logo/logo-284-50/png/regular.png)
+## How to launch with one command?
 
-**[Flarum](http://flarum.org) is free, open-source forum software** built with PHP and [Mithril.js](http://mithril.js.org). It is:
+* Step 1: `composer install`
+* Step 2: `php -S localhost:9999 launch.php`
 
-* **Simple**, with a responsive UI that is optimized for touch devices
-* **Fast**, with a total JS payload size of ~130 KB gzipped
-* **Extensible**, so you can tailor it to your use-case
+`launch.php` is a custom script that gives you a reproducable development environment. 
 
-![screenshot](http://flarum.org/img/screenshot.png)
+## SSO Mock
 
-## Installation
+* Step 1: Before you try this out, make sure you paste `6cdVzOYGVW` in the api_keys of the flarum database in MySQL.
+* Step 2: Create a `config.php` file in the `sso` folder with the contents given at the very bottom.
+* Step 3: Head to [here](http://localhost:9999/admin#/extensions) and enable *Single Sign On* extension.
+* Step 4: Fill in the details as shown in the image below.
+* Step 5: Now, navigate to `sso` folder and run `php -S localhost:8888`
+* Step 6: Access the sample SSO website on `localhost:8888` 
 
-> **Flarum is currently in beta and should not be used in production.** It is being developed openly on GitHub. Check out the [Roadmap](http://flarum.org/roadmap) to follow along with our progress.
-
-You must have SSH access to a server with **PHP 5.5+** and **MySQL 5.5+**, and install [Composer](https://getcomposer.org).
+![](https://i.imgur.com/umGJsnx.png)
 
 ```
-composer create-project flarum/flarum . --stability=beta
+<?php
+return [
+    // URL to your Flarum forum
+    'flarum_url' => 'http://localhost:9999',
+    // Domain of your main site (without http://)
+    'root_domain' => 'localhost',
+    // Create a random key in the api_keys table of your Flarum forum
+    'flarum_api_key' => '6cdVzOYGVW',
+    // Random token to create passwords
+    'password_token' => 'NotSecureToken',
+    // How many days should the login be valid
+    'lifetime_in_days' => 14,
+];
+
 ```
 
-Read the [Installation Guide](http://flarum.org/docs/installation) for more information.
+___
+* Last revision on 16/09/2017
+* @aligajani
 
-## Support
-
-Refer to the [FAQ](http://flarum.org/docs/faq), [Documentation](http://flarum.org/docs), and ask questions on the [Community Forum](http://discuss.flarum.org) or [Gitter Chat](https://gitter.im/flarum/flarum).
-
-## Contributing
-
-Flarum is open-source and we would love your help building it! Please read the [Contributing Guide](https://github.com/flarum/flarum/blob/master/CONTRIBUTING.md) to learn how you can help.
-
-## License
-
-Copyright (c) 2015 Toby Zerner. Code released under the [MIT License](https://github.com/flarum/flarum/blob/master/LICENSE).
