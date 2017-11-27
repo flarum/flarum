@@ -29,9 +29,6 @@
   RewriteRule /\.git / [F,L]
   RewriteRule ^composer\.(lock|json)$ / [F,L]
 
-  RewriteRule ^api(.*)$ api.php [QSA,L]
-  RewriteRule ^admin(.*)$ admin.php [QSA,L]
-
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule !^assets index.php [QSA,L]

@@ -21,32 +21,18 @@
         "docs": "http://flarum.org/docs"
     },
     "require": {
-        "flarum/core": "^0.1.0",
-        "flarum/flarum-ext-akismet": "^0.1.0",
-        "flarum/flarum-ext-approval": "^0.1.0",
-        "flarum/flarum-ext-auth-facebook": "^0.1.0",
-        "flarum/flarum-ext-auth-github": "^0.1.0",
-        "flarum/flarum-ext-auth-twitter": "^0.1.0",
-        "flarum/flarum-ext-bbcode": "^0.1.0",
-        "flarum/flarum-ext-emoji": "^0.1.0",
-        "flarum/flarum-ext-english": "^0.1.0",
-        "flarum/flarum-ext-flags": "^0.1.0",
-        "flarum/flarum-ext-likes": "^0.1.0",
-        "flarum/flarum-ext-lock": "^0.1.0",
-        "flarum/flarum-ext-markdown": "^0.1.0",
-        "flarum/flarum-ext-mentions": "^0.1.0",
-        "flarum/flarum-ext-pusher": "^0.1.0",
-        "flarum/flarum-ext-sticky": "^0.1.0",
-        "flarum/flarum-ext-subscriptions": "^0.1.0",
-        "flarum/flarum-ext-suspend": "^0.1.0",
-        "flarum/flarum-ext-tags": "^0.1.0"
-    },
-    "require-dev": {
-        "franzl/studio": "^0.11.0"
+        "flarum/core": "dev-next-back-5.5 as 0.1.0-beta.99",
+        "flarum/flarum-ext-english": "dev-next-back"
     },
     "config": {
         "preferred-install": "dist"
     },
-    "minimum-stability": "beta",
-    "prefer-stable": true
+    "minimum-stability": "dev",
+    "prefer-stable": true,
+    "repositories": [
+      {
+        "type": "path",
+        "url": "../core/"
+      }
+    ]
 }
