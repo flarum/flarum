@@ -9,8 +9,10 @@
  * file that was distributed with this source code.
  */
 
-require 'vendor/autoload.php';
+require '../vendor/autoload.php';
 
-$server = new Flarum\Api\Server(__DIR__);
-
-$server->listen();
+Flarum\Http\Server::fromSite(
+    (new Flarum\Foundation\Site)
+        ->setBasePath(__DIR__.'/..')
+        ->setPublicPath(__DIR__)
+)->listen();
