@@ -22,7 +22,7 @@ Read the [Installation Guide](http://flarum.org/docs/installation) for more info
 
 ## Note
 
-[flarum/flarum](https://github.com/flarum/flarum) is a "skeleton" application which uses Composer to download [flarum/core](https://github.com/flarum/core) and main development goes in [flarum/core](https://github.com/flarum/core).
+[flarum/flarum](https://github.com/flarum/flarum) is a skeleton application that bundles all dependencies such as [flarum/core](https://github.com/flarum/core) using Composer. Main development happens in [flarum/core](https://github.com/flarum/core).
 
 ## Support
 
