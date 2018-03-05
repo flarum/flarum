@@ -23,12 +23,6 @@
 
   RewriteRule .* - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
 
-  RewriteRule ^vendor/(.*)?$ / [F,L]
-  RewriteRule ^storage/(.*)?$ / [F,L]
-  RewriteRule ^config.php$ / [F,L]
-  RewriteRule /\.git / [F,L]
-  RewriteRule ^composer\.(lock|json)$ / [F,L]
-
   RewriteCond %{REQUEST_FILENAME} !-f
   RewriteCond %{REQUEST_FILENAME} !-d
   RewriteRule !^assets index.php [QSA,L]
