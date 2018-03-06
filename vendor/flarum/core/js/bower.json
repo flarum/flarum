@@ -1,0 +1,17 @@
+{
+  "name": "flarum",
+  "dependencies": {
+    "jquery": "~2.1.3",
+    "jquery.hotkeys": "jeresig/jquery.hotkeys#0.2.0",
+    "bootstrap": "~3.3.2",
+    "spin.js": "~2.0.1",
+    "moment": "~2.8.4",
+    "color-thief": "v2.0",
+    "mithril": "lhorie/mithril.js#v0.2.5",
+    "es6-micro-loader": "caridy/es6-micro-loader#v0.2.1",
+    "fastclick": "~1.0.6",
+    "autolink": "~1.0.0",
+    "m.attrs.bidi": "tobscure/m.attrs.bidi",
+    "punycode": "http://cdnjs.cloudflare.com/ajax/libs/punycode/1.4.1/punycode.js"
+  }
+}

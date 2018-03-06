@@ -1,0 +1,13 @@
+{
+    "name": "SecurityLib/Core",
+    "description": "Common implementations",
+    "keywords": ["security"],
+    "license": "MIT",
+    "require": {
+        "php": ">=5.3"
+    },
+    "autoload": {
+        "psr-0": { "SecurityLib\\SecurityLib": "" }
+    },
+    "target-dir": "SecurityLib\\SecurityLib"
+}

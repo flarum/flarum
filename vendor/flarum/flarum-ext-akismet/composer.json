@@ -1,0 +1,41 @@
+{
+    "name": "flarum/flarum-ext-akismet",
+    "description": "Stop spam using the Akismet anti-spam service.",
+    "type": "flarum-extension",
+    "keywords": ["moderation"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toby Zerner",
+            "email": "toby.zerner@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/flarum/core/issues",
+        "source": "https://github.com/flarum/flarum-ext-akismet"
+    },
+    "require": {
+        "flarum/core": "^0.1.0-beta.6",
+        "flarum/flarum-ext-approval": "^0.1.0-beta.6",
+        "tijsverkoyen/akismet": "^1.1"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flarum\\Akismet\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        },
+        "flarum-extension": {
+            "title": "Akismet",
+            "icon": {
+                "image": "icon.jpg",
+                "backgroundSize": "cover",
+                "backgroundColor": "#5e8e14",
+                "color": "#fff"
+            }
+        }
+    }
+}

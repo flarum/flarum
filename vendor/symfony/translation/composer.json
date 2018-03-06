@@ -1,0 +1,47 @@
+{
+    "name": "symfony/translation",
+    "type": "library",
+    "description": "Symfony Translation Component",
+    "keywords": [],
+    "homepage": "https://symfony.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fabien Potencier",
+            "email": "fabien@symfony.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://symfony.com/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.9"
+    },
+    "require-dev": {
+        "symfony/config": "~2.7",
+        "symfony/intl": "~2.7.25|^2.8.18",
+        "symfony/yaml": "~2.2",
+        "psr/log": "~1.0"
+    },
+    "conflict": {
+        "symfony/config": "<2.7"
+    },
+    "suggest": {
+        "symfony/config": "",
+        "symfony/yaml": "",
+        "psr/log": "To use logging capability in translator"
+    },
+    "autoload": {
+        "psr-4": { "Symfony\\Component\\Translation\\": "" },
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.7-dev"
+        }
+    }
+}

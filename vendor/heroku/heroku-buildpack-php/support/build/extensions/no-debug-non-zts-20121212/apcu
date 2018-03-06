@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+dep_name=$(basename $BASH_SOURCE)
+
+ZEND_MODULE_API_VERSION=$(basename $(dirname $0))
+ZEND_MODULE_API_VERSION=${ZEND_MODULE_API_VERSION#no-debug-non-zts-}
+
+case ${ZEND_MODULE_API_VERSION} in
+	20121212 | 20131226)
+		MANIFEST_REPLACE='{"heroku-sys/ext-apc":"self.version"}'
+		;;
+esac
+
+source $(dirname $BASH_SOURCE)/../pecl

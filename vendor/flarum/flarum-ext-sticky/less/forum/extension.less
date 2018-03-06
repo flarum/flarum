@@ -1,0 +1,26 @@
+.Badge--sticky {
+  background: #d13e32;
+}
+.DiscussionStickiedPost {
+  & .EventPost-icon,
+  & .EventPost-info,
+  & .EventPost-info a {
+    color: #d13e32;
+  }
+}
+.DiscussionListItem-info .item-excerpt {
+  margin-top: 8px;
+  margin-right: 20px;
+  white-space: normal;
+  font-size: 12px;
+  line-height: 1.5em;
+  color: @muted-more-color;
+  display: block;
+
+  .DiscussionPage-list & {
+    display: none;
+  }
+  @media @phone {
+    display: none;
+  }
+}

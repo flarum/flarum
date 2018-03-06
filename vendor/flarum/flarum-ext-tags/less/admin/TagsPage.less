@@ -1,0 +1,90 @@
+.TagsPage-header {
+  background: @control-bg;
+  color: @control-color;
+  padding: 20px 0;
+
+  .container {
+    max-width: 600px;
+  }
+  p {
+    margin-bottom: 20px;
+  }
+  .Button {
+    margin-right: 10px;
+  }
+}
+.TagsPage-list {
+  padding: 20px 0;
+
+  .container {
+    max-width: 600px;
+  }
+}
+.TagList, .TagList ol {
+  list-style: none;
+  padding: 10px 0;
+  margin: 0;
+  color: @muted-color;
+  font-size: 13px;
+
+  > li {
+    cursor: move;
+  }
+
+  .TagIcon {
+    margin-right: 10px;
+  }
+}
+.TagListItem-info {
+  padding: 5px 10px;
+  border-radius: @border-radius;
+
+  &:hover {
+    background: @control-bg;
+  }
+
+  .Button {
+    float: right;
+    visibility: hidden;
+    margin: -8px -10px -8px 10px;
+  }
+}
+li:not(.sortable-dragging) > .TagListItem-info:hover > .Button {
+  visibility: visible;
+}
+.TagList--primary {
+  font-size: 16px;
+
+  > .sortable-placeholder {
+    height: 34px;
+    margin-bottom: 10px;
+  }
+}
+.TagList ol {
+  margin-left: 27px;
+  min-height: 10px;
+  padding: 0;
+
+  & > :last-child {
+    margin-bottom: 10px;
+  }
+}
+.sortable-placeholder {
+  border: 2px dashed @control-bg;
+  border-radius: @border-radius;
+  height: 29px;
+}
+
+.TagGroup {
+  padding-left: 150px;
+
+  &:first-child {
+    border-bottom: 2px solid @control-bg;
+  }
+  > label {
+    margin-left: -150px;
+    float: left;
+    font-weight: bold;
+    margin-top: 14px;
+  }
+}

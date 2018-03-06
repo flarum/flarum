@@ -1,0 +1,150 @@
+* {
+  &,
+  &:before,
+  &:after {
+    .box-sizing(border-box);
+  }
+}
+
+body {
+  background: @body-bg;
+  color: @text-color;
+  font-family: "Open Sans", Helvetica, Arial, sans-serif;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-y: scroll;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  line-height: 1.3;
+}
+
+input,
+button,
+select,
+textarea {
+  font-family: inherit;
+  font-size: inherit;
+  line-height: inherit;
+}
+
+a {
+  cursor: pointer;
+  color: @link-color;
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+hr {
+  margin-top: 15px;
+  margin-bottom: 15px;
+  border: 0;
+  border-top: 2px solid @control-bg;
+}
+
+p {
+  margin: 0 0 10px;
+}
+
+.container {
+  margin-right: auto;
+  margin-left: auto;
+  padding-left: 15px;
+  padding-right: 15px;
+  .clearfix();
+
+  @media @tablet {
+    width: @screen-tablet;
+  }
+  @media @desktop {
+    width: @screen-desktop;
+  }
+  @media @desktop-hd {
+    width: @screen-desktop-hd;
+  }
+}
+
+.containerNarrow {
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+mark {
+  background: #FFE300;
+  padding: 1px;
+  border-radius: @border-radius;
+  box-shadow: 0 1px 0 rgba(0, 0, 0, 0.1);
+}
+
+fieldset {
+  padding: 0;
+  margin: 0;
+  border: 0;
+
+  > ul > li {
+    margin-bottom: 10px;
+  }
+}
+legend {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: @text-color;
+}
+input[type="search"] {
+  -webkit-appearance: none;
+}
+
+.checkbox {
+  display: block;
+  padding-left: 20px;
+  margin-bottom: 5px;
+  cursor: pointer;
+
+  input[type=checkbox],
+  input[type=radio] {
+    margin-left: -20px;
+    margin-top: 2px;
+    float: left;
+  }
+}
+
+.fade {
+  opacity: 0;
+  .transition(opacity .15s linear);
+  &.in {
+    opacity: 1;
+  }
+}
+.darkenBackground {
+  background: @shadow-color;
+}
+
+blockquote p:last-child,
+blockquote ul:last-child,
+blockquote ol:last-child {
+  margin-bottom: 0;
+}
+
+@media @tablet-up {
+  .affix {
+    position: fixed;
+  }
+}
+
+.RequestErrorModal {
+  pre {
+    white-space: pre-wrap;
+    margin: 0;
+  }
+}
+
+#flarum-loading {
+  text-align: center;
+  padding: 50px 0;
+  font-size: 18px;
+  color: @muted-more-color;
+}

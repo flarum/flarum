@@ -1,0 +1,46 @@
+#!/bin/bash
+# Build Path: /app/.heroku/php/
+
+# fail hard
+set -o pipefail
+# fail harder
+set -eu
+
+source $(dirname $BASH_SOURCE)/../_util/include/manifest.sh
+
+OUT_PREFIX=$1
+
+dep_formula=${0#$WORKSPACE_DIR/}
+dep_name=$(basename $BASH_SOURCE)
+dep_version=${dep_formula##*"/${dep_name}-"}
+dep_package=pkg-${dep_name}-${dep_version}
+dep_dirname=imap-${dep_version}
+dep_archive_name=${dep_dirname}.tar.gz
+dep_url=ftp://ftp.cac.washington.edu/imap/${dep_archive_name}
+dep_manifest=${dep_package}.composer.json
+
+echo "-----> Building ${dep_package}..."
+
+# we need that for IMAP
+needed=( libpam0g-dev )
+missing=$(comm -1 -3 <(dpkg-query -W -f '${package}\n' | sort) <(IFS=$'\n'; echo "${needed[*]}" | sort))
+if [[ "$missing" ]]; then
+    apt-get update -qq || { echo "Failed to 'apt-get update'. You must build this formula using Docker."; exit 1; }
+    apt-get install -q -y $missing
+fi
+
+curl -L ${dep_url} | tar xz
+
+pushd ${dep_dirname}
+touch ip6 # so we do not get prompted
+make ldb EXTRACFLAGS=-fPIC # need PIC so relocations work in the shared imap.so ext later
+mkdir -p ${OUT_PREFIX}/opt/${dep_dirname}/include ${OUT_PREFIX}/opt/${dep_dirname}/lib
+cp c-client/*.h ${OUT_PREFIX}/opt/${dep_dirname}/include
+cp c-client/*.c ${OUT_PREFIX}/opt/${dep_dirname}/lib
+cp c-client/*.a ${OUT_PREFIX}/opt/${dep_dirname}/lib
+strip --strip-unneeded ${OUT_PREFIX}/opt/${dep_dirname}/lib/*.a
+popd
+
+python $(dirname $BASH_SOURCE)/../_util/include/manifest.py "heroku-sys-package" "heroku-sys/pkg-${dep_name}" "$dep_version" "${dep_formula}.tar.gz" > $dep_manifest
+
+print_or_export_manifest_cmd "$(generate_manifest_cmd "$dep_manifest")"

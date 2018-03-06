@@ -1,0 +1,38 @@
+{
+    "name": "flarum/flarum-ext-subscriptions",
+    "description": "Allow users to follow discussions and receive notifications for new posts.",
+    "type": "flarum-extension",
+    "keywords": ["discussion"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toby Zerner",
+            "email": "toby.zerner@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/flarum/core/issues",
+        "source": "https://github.com/flarum/flarum-ext-subscriptions"
+    },
+    "require": {
+        "flarum/core": "^0.1.0-beta.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flarum\\Subscriptions\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        },
+        "flarum-extension": {
+            "title": "Subscriptions",
+            "icon": {
+                "name": "star",
+                "backgroundColor": "#ffea7b",
+                "color": "#de8e00"
+            }
+        }
+    }
+}

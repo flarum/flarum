@@ -1,0 +1,39 @@
+// ------------------------------------
+// Sidebar
+
+@media @desktop-up {
+  .IndexPage-nav .item-newDiscussion {
+    margin-bottom: 20px;
+
+    .Button {
+      .Button--block();
+    }
+  }
+}
+
+// ------------------------------------
+// Results
+
+.IndexPage-toolbar {
+  margin-bottom: 15px;
+}
+.IndexPage-toolbar-view, .IndexPage-toolbar-action {
+  display: inline-block;
+  margin: 0;
+  list-style: none;
+  padding: 0;
+
+  > li {
+    display: inline-block;
+  }
+}
+.IndexPage-toolbar-view > li {
+  margin-right: 5px;
+}
+.IndexPage-toolbar-action {
+  float: right;
+
+  > li {
+    margin-left: 5px;
+  }
+}

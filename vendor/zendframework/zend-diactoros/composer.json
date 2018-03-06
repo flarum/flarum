@@ -1,0 +1,62 @@
+{
+  "name": "zendframework/zend-diactoros",
+  "description": "PSR HTTP Message implementations",
+  "type": "library",
+  "license": "BSD-2-Clause",
+  "keywords": [
+    "http",
+    "psr",
+    "psr-7"
+  ],
+  "homepage": "https://github.com/zendframework/zend-diactoros",
+  "support": {
+    "issues": "https://github.com/zendframework/zend-diactoros/issues",
+    "source": "https://github.com/zendframework/zend-diactoros"
+  },
+  "config": {
+      "sort-packages": true
+  },
+  "extra": {
+    "branch-alias": {
+      "dev-master": "1.7.x-dev",
+      "dev-develop": "1.8.x-dev"
+    }
+  },
+  "require": {
+    "php": "^5.6 || ^7.0",
+    "psr/http-message": "^1.0"
+  },
+  "require-dev": {
+    "ext-dom": "*",
+    "ext-libxml": "*",
+    "phpunit/phpunit": "^5.7.16 || ^6.0.8",
+    "zendframework/zend-coding-standard": "~1.0"
+  },
+  "provide": {
+    "psr/http-message-implementation": "1.0"
+  },
+  "autoload": {
+    "psr-4": {
+      "Zend\\Diactoros\\": "src/"
+    }
+  },
+  "autoload-dev": {
+    "psr-4": {
+      "ZendTest\\Diactoros\\": "test/"
+    },
+    "files": [
+      "test/TestAsset/Functions.php",
+      "test/TestAsset/SapiResponse.php"
+    ]
+  },
+  "scripts": {
+    "check": [
+      "@cs-check",
+      "@test"
+    ],
+    "cs-check": "phpcs",
+    "cs-fix": "phpcbf",
+    "test": "phpunit --colors=always",
+    "test-coverage": "phpunit --colors=always --coverage-clover clover.xml"
+  }
+}

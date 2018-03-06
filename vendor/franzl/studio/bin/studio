@@ -1,0 +1,31 @@
+#!/usr/bin/env php
+<?php
+
+$autoloaders = [
+	__DIR__.'/../vendor/autoload.php',
+	__DIR__.'/../../../autoload.php'
+];
+
+foreach ($autoloaders as $autoload) {
+	if (file_exists($autoload)) {
+		require_once $autoload;
+		break;
+	}
+}
+
+use Studio\Config\Config;
+use Studio\Config\FileStorage;
+use Studio\Console\CreateCommand;
+use Studio\Console\LoadCommand;
+use Studio\Console\UnloadCommand;
+use Studio\Console\ScrapCommand;
+use Symfony\Component\Console\Application;
+
+$config = Config::make();
+
+$application = new Application('studio', '0.11.2');
+$application->add(new CreateCommand);
+$application->add(new LoadCommand($config));
+$application->add(new UnloadCommand($config));
+$application->add(new ScrapCommand($config));
+$application->run();

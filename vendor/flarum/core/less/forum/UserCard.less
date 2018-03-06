@@ -1,0 +1,135 @@
+.UserCard {
+  background: @control-bg;
+  .light-contents();
+  background-size: 100% 100%;
+}
+.UserCard-controls {
+  float: right;
+
+  .Dropdown-menu {
+    left: auto;
+    right: 0;
+  }
+}
+.UserCard--popover {
+  width: 500px;
+  .box-shadow(0 2px 6px @shadow-color);
+
+  &, .darkenBackground {
+    border-radius: @border-radius;
+  }
+  .container {
+    width: auto !important;
+    padding: 20px !important;
+  }
+  .UserCard-identity {
+    font-size: 22px;
+  }
+}
+
+.UserCard-profile {
+  text-align: left;
+  padding-left: 130px;
+  max-width: 800px;
+
+  @media @phone {
+    padding-left: 0;
+    text-align: center;
+  }
+}
+.UserCard-identity {
+  font-weight: normal;
+  display: inline;
+  vertical-align: middle;
+}
+.UserCard-avatar {
+  float: left;
+  margin-left: -130px;
+
+  @media @phone {
+    display: block;
+    float: none;
+    margin: 0 auto 20px;
+    width: 64px + 8px;
+  }
+  .Dropdown-toggle {
+    margin: 4px;
+    line-height: 96px;
+    font-size: 26px;
+
+    @media @phone {
+      line-height: 64px;
+    }
+  }
+  .Avatar {
+    .Avatar--size(96px);
+    border: 4px solid #fff;
+    .box-shadow(0 2px 6px @shadow-color);
+
+    @media @phone {
+      .Avatar--size(64px);
+    }
+  }
+}
+.UserCard-badges {
+  list-style: none;
+  margin: 0 0 0 15px;
+  padding: 0;
+
+  &, > li {
+    display: inline-block;
+  }
+}
+.UserCard-info {
+  margin: 15px 0 0;
+  padding: 0;
+  list-style: none;
+  font-size: 12px;
+
+  > li {
+    display: inline-block;
+    margin-right: 15px;
+  }
+  .item-bio {
+    display: block;
+    margin: 0;
+  }
+}
+.UserBio {
+  margin: -10px -10px 10px;
+  border: 1px dashed transparent;
+  border-radius: @border-radius;
+
+  &.editable:not(.editing) {
+    cursor: text;
+
+    &:hover {
+      border-color: rgba(255, 255, 255, 0.2);
+    }
+  }
+  &, textarea {
+    font-size: 14px;
+  }
+  textarea {
+    padding: 10px;
+    font-size: 14px;
+    resize: none;
+  }
+}
+.UserBio-content {
+  padding: 10px 10px 1px;
+}
+.UserBio-placeholder {
+  opacity: 0.3;
+}
+.UserCard-lastSeen {
+  & .icon {
+    font-size: 14px;
+  }
+  &.online .fa-circle {
+    color: @online-user-circle-color;
+  }
+  &.online .icon {
+    font-size: 12px;
+  }
+}

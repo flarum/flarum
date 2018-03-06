@@ -1,0 +1,23 @@
+build:
+    environment:
+        php:
+            version: 7.1
+
+before_commands:
+    - "composer install --no-dev --prefer-source"
+
+tools:
+    external_code_coverage:
+        timeout: 3600
+
+filter:
+    excluded_paths:
+        - docs
+
+build_failure_conditions:
+    - 'elements.rating(<= C).new.exists'                        # No new classes/methods with a rating of C or worse allowed
+    - 'issues.label("coding-style").new.exists'                 # No new coding style issues allowed
+    - 'issues.severity(>= MAJOR).new.exists'                    # New issues of major or higher severity
+    - 'project.metric_change("scrutinizer.test_coverage", < 0)' # Code Coverage decreased from previous inspection
+    - 'patches.label("Doc Comments").new.exists'                # No new doc comments patches allowed
+    - 'patches.label("Unused Use Statements").new.exists'       # No new unused imports patches allowed

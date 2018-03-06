@@ -1,0 +1,95 @@
+// ------------------------------------
+// Stream
+
+.PostStream {
+  @media @tablet-up {
+    margin-top: 10px;
+  }
+}
+.PostStream-item {
+  &:not(:last-child) {
+    border-bottom: 1px solid @control-bg;
+
+    @media @phone {
+      margin: 0 -15px;
+      padding: 0 15px;
+    }
+  }
+}
+
+@keyframes blink {
+  0% {opacity: 0.5}
+  50% {opacity: 1}
+  100% {opacity: 0.5}
+}
+@-webkit-keyframes blink {
+  0% {opacity: 0.5}
+  50% {opacity: 1}
+  100% {opacity: 0.5}
+}
+.LoadingPost {
+  .animation(blink 1s linear);
+  .animation-iteration-count(infinite);
+}
+.fakeText {
+  display: inline-block;
+  vertical-align: middle;
+  background: @control-bg;
+  height: 12px;
+  width: 100%;
+  margin-bottom: 20px;
+  border-radius: @border-radius;
+
+  .Post-header & {
+    height: 16px;
+    width: 150px;
+
+    @media @phone {
+      margin-bottom: 0;
+    }
+  }
+}
+
+.PostStream-timeGap {
+  text-transform: uppercase;
+  font-weight: bold;
+  color: @muted-color;
+  padding: 20px 20px 20px @avatar-column-width;
+  font-size: 12px;
+
+  @media @phone {
+    margin: 0 -15px;
+    padding: 20px 15px;
+  }
+}
+
+// .item.highlight .post {
+//   &:before {
+//     content: "";
+//     position: absolute;
+//     left: -30px;
+//     top: -5px;
+//     bottom: -5px;
+//     width: 5px;
+//     border-radius: @border-radius;
+//     background: @fl-primary-color;
+//   }
+// }
+@-webkit-keyframes pulsate {
+  0% {-webkit-transform: scale(1)}
+  50% {-webkit-transform: scale(1.02)}
+  100% {-webkit-transform: scale(1)}
+}
+@keyframes pulsate {
+  0% {transform: scale(1)}
+  50% {transform: scale(1.02)}
+  100% {transform: scale(1)}
+}
+.pulsate {
+  .animation(pulsate 1s ease-in-out);
+  .animation-iteration-count(infinite);
+}
+.flash {
+  .animation(pulsate 0.2s ease-in-out);
+  .animation-iteration-count(1);
+}

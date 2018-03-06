@@ -1,0 +1,32 @@
+language: php
+
+sudo: required
+
+matrix:
+  include:
+    - php: 7.0
+      env: LIBSODIUM=1
+    - php: 5.6
+      env: LIBSODIUM=1
+    - php: 5.5
+      env: LIBSODIUM=1
+    - php: 5.4
+      env: LIBSODIUM=1
+    - php: 5.3
+      env: LIBSODIUM=0
+    - php: hhvm
+      env: LIBSODIUM=0 # libsodium extension is not supported by HHVM
+
+before_install:
+  - if [[ "$LIBSODIUM" == "1" ]]; then sudo add-apt-repository -y ppa:chris-lea/libsodium; fi
+  - if [[ "$LIBSODIUM" == "1" ]]; then sudo apt-get -q update; fi
+  - if [[ "$LIBSODIUM" == "1" ]]; then sudo apt-get -y install libsodium-dev; fi
+  - if [[ "$LIBSODIUM" == "1" ]]; then pecl install libsodium; fi
+
+before_script:
+  - travis_retry composer self-update
+  - travis_retry composer install --prefer-source
+
+script:
+  - make lint
+  - make test

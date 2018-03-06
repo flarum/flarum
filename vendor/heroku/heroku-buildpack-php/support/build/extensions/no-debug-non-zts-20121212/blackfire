@@ -1,0 +1,137 @@
+#!/usr/bin/env bash
+# Build Path: /app/.heroku/php
+
+OUT_PREFIX=$1
+
+# fail hard
+set -o pipefail
+# fail harder
+set -eu
+
+source $(dirname $BASH_SOURCE)/../../_util/include/manifest.sh
+
+ZEND_MODULE_API_VERSION=$(basename $(dirname $0))
+ZEND_MODULE_API_VERSION=${ZEND_MODULE_API_VERSION#no-debug-non-zts-}
+
+case ${ZEND_MODULE_API_VERSION} in
+	20121212)
+		series=5.5
+		;;
+	20131226)
+		series=5.6
+		;;
+	20151012)
+		series=7.0
+		;;
+	20160303)
+		series=7.1
+		;;
+	20170718)
+		series=7.2
+		;;
+	*)
+		echo "Unsupported PHP/Zend Module API version: ${ZEND_MODULE_API_VERSION}"
+		exit 1
+		;;
+esac
+
+ext_dir=${OUT_PREFIX}/lib/php/extensions/no-debug-non-zts-${ZEND_MODULE_API_VERSION}
+bin_dir=${OUT_PREFIX}/bin
+
+dep_formula=${0#$WORKSPACE_DIR/}
+dep_name=$(basename $BASH_SOURCE)
+if [[ "$dep_formula" != "$dep_name" ]]; then
+	probe_version=${dep_formula##*"/${dep_name}-"}
+	
+	echo "Using explicit version ${probe_version}"
+else
+	probe_version=`curl -I -A "Heroku" -L -s https://blackfire.io/api/v1/releases/probe/php/linux/amd64/${series/\./} | grep 'X-Blackfire-Release-Version: ' | sed "s%X-Blackfire-Release-Version: %%" | sed s%.$%%`
+	cat <<-EOF
+		
+		!!! WARNING !!!
+		You're building the generic version of this extension.
+		API returned version ${probe_version}; it will be built in five seconds.
+		If you used --overwrite (and no deploy.sh --publish), then this will replace
+		the existing version of the package under a wrong version number IMMEDIATELY,
+		even without re-generating the repository, since the archive name is identical:
+		the repo and new manifest both point to ${dep_name}.tar.gz, but the new manifest
+		information will not be exposed in the repo until you run mkrepo.sh.
+		
+	EOF
+	sleep 5
+fi
+dep_version=${probe_version}
+dep_package=ext-${dep_name}-${dep_version}
+if [[ "$dep_formula" != "$dep_name" ]]; then
+	dep_manifest=${dep_package}_php-$series.composer.json
+else
+	dep_manifest=ext-${dep_name}_php-$series.composer.json
+fi
+
+echo "-----> Packaging ${dep_package}..."
+
+curl -L -o probe.tar.gz "https://packages.blackfire.io/binaries/blackfire-php/${probe_version}/blackfire-php-linux_amd64-php-${series/\./}.tar.gz"
+
+mkdir -p ${ext_dir}
+tar -zxf probe.tar.gz
+cp blackfire-${ZEND_MODULE_API_VERSION}.so ${ext_dir}/blackfire.so
+rm probe.tar.gz blackfire-${ZEND_MODULE_API_VERSION}.so blackfire-${ZEND_MODULE_API_VERSION}.sha
+
+agent_version=`curl -A "Heroku" -o agent.tar.gz -D - -L -s https://blackfire.io/api/v1/releases/agent/linux/amd64 | grep 'X-Blackfire-Release-Version: ' | sed "s%X-Blackfire-Release-Version: %%" | sed s%.$%%`
+echo "-----> Packaging bin/blackfire-agent ${agent_version}..."
+
+mkdir -p ${OUT_PREFIX}/var/blackfire/run
+mkdir -p ${OUT_PREFIX}/etc/blackfire
+echo -e "[blackfire]\nserver-id=f1abf3a8-3f85-4743-99b2-97f066c099b9\nserver-token=5ecbc6486e9db6b780a0c0a9ef1e244709e632996fe9105cb9075ab2826944d5" > ${OUT_PREFIX}/etc/blackfire/agent.ini
+mkdir -p ${bin_dir}
+tar -zxf agent.tar.gz
+chmod +x agent
+cp agent ${bin_dir}/blackfire-agent
+rm agent.tar.gz agent agent.sha1
+
+echo "-----> Packaging bin/blackfire ${agent_version}..."
+curl https://packages.blackfire.io/binaries/blackfire-agent/${agent_version}/blackfire-cli-linux_amd64 > ${bin_dir}/blackfire
+chmod +x ${bin_dir}/blackfire
+
+find ${OUT_PREFIX} -type f \( -executable -o -name '*.a' \) -exec sh -c "file -i '{}' | grep -Eq 'application/x-(archive|executable|sharedlib); charset=binary'" \; -print | xargs strip --strip-unneeded
+
+# gets sourced on dyno boot
+cat > ${OUT_PREFIX}/bin/profile.blackfire.sh <<'EOF'
+if [[ -n "$BLACKFIRE_SERVER_TOKEN" && -n "$BLACKFIRE_SERVER_ID" ]]; then
+    if [[ -f "/app/.heroku/php/bin/blackfire-agent" ]]; then
+        touch /app/.heroku/php/var/blackfire/run/agent.sock
+        /app/.heroku/php/bin/blackfire-agent -config=/app/.heroku/php/etc/blackfire/agent.ini -socket="unix:///app/.heroku/php/var/blackfire/run/agent.sock" &
+    else
+        echo >&2 "WARNING: Add-on 'blackfire' detected, but PHP extension not yet installed. Push an update to the application to finish installation of the add-on; an empty change ('git commit --allow-empty') is sufficient."
+    fi
+fi
+EOF
+mkdir -p ${OUT_PREFIX}/etc/php/conf.d
+cat > ${OUT_PREFIX}/etc/php/conf.d/blackfire.ini-dist <<'EOF'
+extension = blackfire.so
+
+blackfire.server_token = ${BLACKFIRE_SERVER_TOKEN}
+blackfire.server_id = ${BLACKFIRE_SERVER_ID}
+blackfire.agent_socket = "unix:///app/.heroku/php/var/blackfire/run/agent.sock"
+EOF
+
+MANIFEST_REQUIRE="${MANIFEST_REQUIRE:-"{\"heroku-sys/php\":\"${series}.*\"}"}"
+MANIFEST_CONFLICT="${MANIFEST_CONFLICT:-"{\"heroku-sys/hhvm\":\"*\"}"}"
+MANIFEST_REPLACE="${MANIFEST_REPLACE:-"{}"}"
+MANIFEST_PROVIDE="${MANIFEST_PROVIDE:-"{}"}"
+MANIFEST_EXTRA="${MANIFEST_EXTRA:-"{\"config\":\"etc/php/conf.d/blackfire.ini-dist\",\"profile\":\"bin/profile.blackfire.sh\"}"}"
+
+python $(dirname $BASH_SOURCE)/../../_util/include/manifest.py "heroku-sys-php-extension" "heroku-sys/ext-${dep_name}" "$dep_version" "${dep_formula}.tar.gz" "$MANIFEST_REQUIRE" "$MANIFEST_CONFLICT" "$MANIFEST_REPLACE" "$MANIFEST_PROVIDE" "$MANIFEST_EXTRA" > $dep_manifest
+
+print_or_export_manifest_cmd "$(generate_manifest_cmd "$dep_manifest")"
+
+if [[ "$dep_formula" == "$dep_name" ]]; then
+	cat <<-EOF
+		
+		!!! WARNING !!! If you just deployed using --overwrite and without --publish:
+		the new manifest points to the updated tarball ${dep_name}.tar.gz;
+		this tarball will now already be picked up by the existing repository under a
+		wrong version number. Regenerate repository with 'mkrepo.sh --upload' at once!
+		
+	EOF
+fi

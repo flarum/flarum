@@ -1,0 +1,20 @@
+#!/usr/bin/env bash
+
+# let's see if librabbitmq is there
+needed=( librabbitmq4 )
+missing=$(comm -1 -3 <(dpkg-query -W -f '${package}\n' | sort) <(IFS=$'\n'; echo "${needed[*]}" | sort))
+if [[ "$missing" ]]; then
+    echo "Need $missing"; exit 1;
+fi
+
+# but do we need headers?
+needed=( librabbitmq-dev )
+missing=$(comm -1 -3 <(dpkg-query -W -f '${package}\n' | sort) <(IFS=$'\n'; echo "${needed[*]}" | sort))
+if [[ "$missing" ]]; then
+    apt-get update -qq || { echo "Failed to 'apt-get update'. You must build this formula using Docker."; exit 1; }
+    apt-get install -q -y $missing
+fi
+
+dep_name=$(basename $BASH_SOURCE)
+
+source $(dirname $BASH_SOURCE)/../pecl

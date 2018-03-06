@@ -1,0 +1,48 @@
+.Hero {
+  margin-top: -1px;
+  background: @hero-bg;
+  text-align: center;
+  color: @hero-color;
+
+  h2 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: normal;
+    line-height: 1.5em;
+  }
+  .container {
+    padding-top: 20px;
+    padding-bottom: 20px;
+  }
+}
+.Hero-close {
+  float: right;
+  margin-top: -10px;
+  color: inherit;
+  opacity: 0.5;
+}
+.Hero-subtitle {
+  margin: 8px 0 0;
+  line-height: 1.5em;
+}
+
+@media @phone {
+  .Hero-close {
+    margin-right: -10px;
+  }
+}
+
+@media @tablet-up {
+  .Hero {
+    h2 {
+      font-size: 22px;
+    }
+    .container {
+      padding-top: 40px;
+      padding-bottom: 30px;
+    }
+  }
+  .Hero-subtitle {
+    font-size: 15px;
+  }
+}

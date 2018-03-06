@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<phpunit processIsolation="false"
+         stopOnFailure="false"
+         syntaxCheck="false">
+    <testsuites>
+        <testsuite name="Stringy">
+            <file>tests/CommonTest.php</file>
+            <file>tests/StringyTest.php</file>
+            <file>tests/StaticStringyTest.php</file>
+            <file phpVersion="5.6.0">tests/CreateTest.php</file>
+        </testsuite>
+    </testsuites>
+</phpunit>

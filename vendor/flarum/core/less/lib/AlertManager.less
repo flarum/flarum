@@ -1,0 +1,12 @@
+.AlertManager {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  z-index: @zindex-alerts;
+
+  .Alert {
+    display: inline-block;
+    margin-top: 20px;
+    .box-shadow(0 2px 6px @shadow-color);
+  }
+}

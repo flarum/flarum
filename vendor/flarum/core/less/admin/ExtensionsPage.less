@@ -1,0 +1,83 @@
+.ExtensionsPage-header {
+  padding: 20px 0;
+  background: @control-bg;
+}
+
+.ExtensionsPage-list {
+  padding: 30px 0;
+}
+.ExtensionGroup {
+  margin-bottom: 20px;
+
+  h3 {
+    color: @muted-color;
+    text-transform: uppercase;
+    font-size: 12px;
+    margin: 0 0 10px;
+  }
+}
+
+.ExtensionList {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  .clearfix();
+
+  > li {
+    float: left;
+    text-align: left;
+    position: relative;
+  }
+}
+.ExtensionListItem.disabled {
+  .ExtensionListItem-title {
+    opacity: 0.5;
+    color: @muted-color;
+  }
+  .ExtensionListItem-icon {
+    opacity: 0.5;
+  }
+}
+.ExtensionListItem {
+  width: 120px;
+  height: 160px;
+  margin-right: 15px;
+  margin-bottom: 15px;
+}
+.ExtensionListItem-title {
+  display: block;
+  font-size: 13px;
+  font-weight: bold;
+  margin: 8px 0 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  cursor: pointer;
+}
+.ExtensionListItem-version {
+  color: @muted-more-color;
+  font-size: 11px;
+  font-weight: normal;
+}
+.ExtensionListItem-controls {
+  float: right;
+  display: none;
+  margin-right: -5px;
+  margin-top: 1px;
+
+  .ExtensionListItem:hover &, &.open {
+    display: block;
+  }
+}
+
+.ExtensionIcon {
+  width: 120px;
+  height: 120px;
+  background: @control-bg;
+  color: @control-color;
+  border-radius: 6px;
+  display: inline-block;
+  font-size: 60px;
+  line-height: 120px;
+  text-align: center;
+}

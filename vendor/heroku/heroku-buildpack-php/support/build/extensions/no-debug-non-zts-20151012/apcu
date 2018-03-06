@@ -1,0 +1,79 @@
+#!/usr/bin/env bash
+
+# fail hard
+set -o pipefail
+# fail harder
+set -eu
+
+source $(dirname $BASH_SOURCE)/../../_util/include/manifest.sh
+
+OUT_PREFIX=$1
+
+export PATH=${OUT_PREFIX}/bin:${PATH}
+
+dep_formula=${0#$WORKSPACE_DIR/}
+dep_name=$(basename $BASH_SOURCE)
+dep_version=${dep_formula##*"/${dep_name}-"}
+dep_package=ext-${dep_name}-${dep_version}
+dep_dirname=${dep_name}-${dep_version}
+dep_archive_name=${dep_dirname}.tgz
+dep_url=https://pecl.php.net/get/${dep_archive_name}
+series=$(php-config --version | cut -d. -f1,2) # get "5.5", "5.6", "7.0" etc for the php requirement in the manifest
+dep_manifest=${dep_package}_php-$series.composer.json
+
+echo "-----> Building ${dep_package} (from PECL)..."
+
+curl -L ${dep_url} | tar xz
+
+pushd ${dep_dirname}
+phpize
+./configure \
+    --prefix=${OUT_PREFIX} \
+    ${CONFIGURE_EXTRA:-}
+make -s -j 9
+make install -s
+popd
+
+dep2_name=apcu_bc
+dep2_version=1.0.4
+dep2_dirname=${dep2_name}-${dep2_version}
+dep2_archive_name=${dep2_dirname}.tgz
+dep2_url=https://pecl.php.net/get/${dep2_archive_name}
+
+echo "-----> Building ${dep2_name}-${dep2_version} (from PECL)..."
+
+curl -L ${dep2_url} | tar xz
+
+pushd ${dep2_dirname}
+phpize
+./configure \
+    --prefix=${OUT_PREFIX}
+make -s -j 9
+# php was a build dep, and it's in $OUT_PREFIX. nuke that, then make install so all we're left with is the extension
+rm -rf ${OUT_PREFIX}/*
+make install -s
+popd
+
+pushd ${dep_dirname}
+# install again, we removed it earlier
+make install -s
+popd
+
+# cleanup
+strip --strip-unneeded ${OUT_PREFIX}/lib/php/extensions/*/*.so
+
+mkdir -p ${OUT_PREFIX}/etc/php/conf.d
+cat > ${OUT_PREFIX}/etc/php/conf.d/apcu-apc.ini-dist <<'EOF'
+extension=apcu.so
+extension=apc.so
+EOF
+
+MANIFEST_REQUIRE="${MANIFEST_REQUIRE:-"{\"heroku-sys/php\":\"${series}.*\"}"}"
+MANIFEST_CONFLICT="${MANIFEST_CONFLICT:-"{\"heroku-sys/hhvm\":\"*\"}"}"
+MANIFEST_REPLACE="${MANIFEST_REPLACE:-"{\"heroku-sys/ext-apc\":\"self.version\"}"}" # despite version 1.0.3 or whatever, apcu_bc identifies itself using the apcu version number
+MANIFEST_PROVIDE="${MANIFEST_PROVIDE:-"{}"}"
+MANIFEST_EXTRA="${MANIFEST_EXTRA:-"{\"config\":\"etc/php/conf.d/apcu-apc.ini-dist\"}"}"
+
+python $(dirname $BASH_SOURCE)/../../_util/include/manifest.py "heroku-sys-php-extension" "heroku-sys/ext-${dep_name}" "$dep_version" "${dep_formula}.tar.gz" "$MANIFEST_REQUIRE" "$MANIFEST_CONFLICT" "$MANIFEST_REPLACE" "$MANIFEST_PROVIDE" "$MANIFEST_EXTRA" > $dep_manifest
+
+print_or_export_manifest_cmd "$(generate_manifest_cmd "$dep_manifest")"

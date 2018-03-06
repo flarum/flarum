@@ -1,0 +1,153 @@
+.DiscussionPage-nav {
+  > ul {
+    padding: 0;
+    margin: 0;
+    list-style: none;
+  }
+}
+
+@media @phone {
+  .DiscussionPage-nav {
+    margin: 0 -15px;
+    border-bottom: 1px solid @control-bg;
+
+    > ul > li {
+      margin: 15px;
+      display: inline-block;
+
+      &.item-controls, &.item-scrubber {
+        margin: 0;
+        display: block;
+      }
+    }
+  }
+}
+@media @tablet-up {
+  .DiscussionPage-nav {
+    float: right;
+
+    &, > ul {
+      width: 150px;
+    }
+    > ul {
+      position: fixed;
+      margin-top: 30px;
+      z-index: 1;
+
+      > li {
+        margin-bottom: 10px;
+      }
+    }
+    .ButtonGroup, .Button {
+      width: 100%;
+    }
+    .ButtonGroup:not(.itemCount1) {
+      .Button:first-child {
+        width: 77%;
+      }
+      .Dropdown-toggle {
+        width: 22%;
+      }
+    }
+  }
+}
+
+@media @tablet-up {
+  .DiscussionPage-stream {
+    margin-right: 225px;
+  }
+}
+
+// ------------------------------------
+// Discussions Pane
+
+@media @phone {
+  .DiscussionPage-list {
+    display: none;
+  }
+}
+
+@media @tablet-up {
+  .DiscussionPage-list {
+    left: -@pane-width - 6px;
+    position: absolute;
+    z-index: @zindex-pane;
+    overflow: auto;
+    top: @header-height;
+    height: ~"calc(100vh - @{header-height})";
+    width: @pane-width;
+    background: @body-bg;
+    padding-bottom: 40px;
+    border-top: 1px solid @control-bg;
+    .box-shadow(0 6px 6px @shadow-color);
+    .transition(left 0.2s);
+
+    .affix & {
+      position: fixed;
+      bottom: 0;
+      height: auto;
+    }
+    .paneShowing & {
+      left: 0;
+    }
+    .DiscussionListItem {
+      margin: 0;
+      padding: 0;
+      border-radius: 0;
+
+      &.active {
+        background: @control-bg;
+      }
+    }
+    .DiscussionListItem-controls {
+      top: 5px;
+    }
+    .DiscussionListItem-content {
+      padding-left: 52px + 15px;
+      padding-right: 65px + 15px;
+    }
+    .DiscussionListItem-title {
+      font-size: 14px;
+    }
+    .DiscussionListItem-info {
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+    .DiscussionListItem-relevantPosts {
+      margin-left: -52px;
+      margin-right: -65px;
+    }
+    .DiscussionListItem-count {
+      margin-top: 11px;
+    }
+  }
+}
+
+@media @desktop-hd {
+  .DiscussionPage-list {
+    .panePinned & {
+      left: 0;
+      .transition(none);
+    }
+  }
+  // When the pane is pinned, move the other page content inwards
+  .App-content, .App-footer {
+    .hasPane.panePinned & {
+      margin-left: @pane-width;
+
+      .container {
+        max-width: 100%;
+        padding-left: 30px;
+        padding-right: 30px;
+      }
+    }
+  }
+  .App-header .container {
+    transition: width 0.2s;
+
+    .hasPane.panePinned & {
+      width: 100%;
+    }
+  }
+}

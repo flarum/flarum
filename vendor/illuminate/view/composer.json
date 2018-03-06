@@ -1,0 +1,36 @@
+{
+    "name": "illuminate/view",
+    "description": "The Illuminate View package.",
+    "license": "MIT",
+    "homepage": "http://laravel.com",
+    "support": {
+        "issues": "https://github.com/laravel/framework/issues",
+        "source": "https://github.com/laravel/framework"
+    },
+    "authors": [
+        {
+            "name": "Taylor Otwell",
+            "email": "taylorotwell@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.5.9",
+        "illuminate/container": "5.1.*",
+        "illuminate/contracts": "5.1.*",
+        "illuminate/events": "5.1.*",
+        "illuminate/filesystem": "5.1.*",
+        "illuminate/support": "5.1.*",
+        "symfony/debug": "2.7.*"
+    },
+    "autoload": {
+        "psr-4": {
+            "Illuminate\\View\\": ""
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "5.1-dev"
+        }
+    },
+    "minimum-stability": "dev"
+}

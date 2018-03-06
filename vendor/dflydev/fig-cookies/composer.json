@@ -1,0 +1,36 @@
+{
+    "name": "dflydev/fig-cookies",
+    "description": "Cookies for PSR-7 HTTP Message Interface.",
+    "license": "MIT",
+    "keywords": ["psr7", "psr-7", "cookies"],
+    "authors": [
+        {
+            "name": "Beau Simensen",
+            "email": "beau@dflydev.com"
+        }
+    ],
+    "require": {
+        "php": ">=5.4",
+        "psr/http-message": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Dflydev\\FigCookies\\": "src/Dflydev/FigCookies"
+        }
+    },
+    "require-dev": {
+        "codeclimate/php-test-reporter": "~0.1@dev",
+        "phpunit/phpunit": "~4.5",
+        "squizlabs/php_codesniffer": "~2.3"
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Dflydev\\FigCookies\\": "tests/Dflydev/FigCookies"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}

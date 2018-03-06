@@ -1,0 +1,61 @@
+#!/usr/bin/env bash
+# Build Path: /app/.heroku/php/
+
+# fail hard
+set -o pipefail
+# fail harder
+set -eu
+
+source $(dirname $BASH_SOURCE)/../../_util/include/manifest.sh
+
+OUT_PREFIX=$1
+
+export PATH=${OUT_PREFIX}/bin:${PATH}
+
+dep_formula=${0#$WORKSPACE_DIR/}
+dep_name=$(basename $BASH_SOURCE)
+dep_version=${dep_formula##*"/${dep_name}-"}
+dep_package=ext-${dep_name}-${dep_version}
+if [[ "$dep_version" == 2.* ]]; then
+	dep_dirname=cphalcon-${dep_name}-v${dep_version}
+	dep_archive_name=${dep_name}-v${dep_version}.tar.gz
+else
+	dep_dirname=cphalcon-${dep_version}
+	dep_archive_name=v${dep_version}.tar.gz
+fi
+dep_url=https://github.com/phalcon/cphalcon/archive/${dep_archive_name}
+series=$(php-config --version | cut -d. -f1,2) # get "5.5", "5.6", "7.0" etc for the php requirement in the manifest
+dep_manifest=${dep_package}_php-$series.composer.json
+
+echo "-----> Building ${dep_package}..."
+
+curl -L ${dep_url} | tar xz
+
+if [[ "$dep_version" == 2.* ]]; then
+	workdir=64bits
+else
+	workdir=php${series:0:1}/64bits
+fi
+pushd ${dep_dirname}
+pushd build
+pushd ${workdir}
+export CC="gcc"
+export CFLAGS="-O2 -fvisibility=hidden"
+export CPPFLAGS="-DPHALCON_RELEASE"
+phpize
+./configure --prefix=${OUT_PREFIX} --enable-phalcon
+make -s -j9
+# php was a build dep, and it's in $OUT_PREFIX. nuke that, then make install so all we're left with is the extension
+rm -rf ${OUT_PREFIX}/*
+make install -s
+popd
+popd
+strip --strip-unneeded ${OUT_PREFIX}/lib/php/extensions/*/*.so
+popd
+
+MANIFEST_REQUIRE="${MANIFEST_REQUIRE:-"{\"heroku-sys/php\":\"${series}.*\"}"}"
+MANIFEST_CONFLICT="${MANIFEST_CONFLICT:-"{\"heroku-sys/hhvm\":\"*\"}"}"
+
+python $(dirname $BASH_SOURCE)/../../_util/include/manifest.py "heroku-sys-php-extension" "heroku-sys/ext-${dep_name}" "$dep_version" "${dep_formula}.tar.gz" "$MANIFEST_REQUIRE" "$MANIFEST_CONFLICT" > $dep_manifest
+
+print_or_export_manifest_cmd "$(generate_manifest_cmd "$dep_manifest")"

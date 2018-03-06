@@ -1,0 +1,5 @@
+/components/
+/data/
+/vendor/
+composer.lock
+.idea/

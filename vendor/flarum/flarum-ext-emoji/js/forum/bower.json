@@ -1,0 +1,6 @@
+{
+  "name": "flarum-emoji",
+  "devDependencies": {
+    "textarea-caret-position": "~3.0.0"
+  }
+}

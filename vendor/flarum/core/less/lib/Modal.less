@@ -1,0 +1,209 @@
+// ------------------------------------
+// Modals
+
+// Kill the scroll on the body
+.modal-open {
+  overflow: hidden;
+}
+
+// Modal background
+.modal-backdrop {
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: @zindex-modal-background;
+  background-color: @overlay-bg;
+  opacity: 0;
+  .transition(0.2s opacity);
+
+  &.in {
+    opacity: 1;
+  }
+}
+
+// Container that the modal scrolls within
+.ModalManager {
+  display: none;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: @zindex-modal;
+  -webkit-overflow-scrolling: touch;
+
+  // When fading in the modal, animate it to slide down
+  .Modal {
+    .scale(0.9);
+    .transition-transform(0.2s ease-out);
+  }
+  &.in .Modal {
+    .scale(1);
+  }
+}
+.modal-open .ModalManager {
+  overflow-x: hidden;
+  overflow-y: auto;
+}
+
+// Shell div to position the modal with bottom padding
+.Modal {
+  position: relative;
+  width: auto;
+  margin: 10px;
+  max-width: 600px;
+}
+
+// Actual modal
+.Modal-content {
+  position: relative;
+  background-color: @body-bg;
+  background-clip: padding-box;
+  margin: 0 auto;
+  overflow: hidden;
+}
+
+// Measure scrollbar width for padding body during modal show/hide
+.modal-scrollbar-measure {
+  position: absolute;
+  top: -9999px;
+  width: 50px;
+  height: 50px;
+  overflow: scroll;
+}
+
+.Modal-alert {
+  text-align: center;
+
+  .Alert {
+    border-radius: 0;
+  }
+  .Alert-controls {
+    margin: 0;
+    display: block;
+  }
+}
+
+.Modal-body {
+  background-color: @control-bg;
+  padding: 25px 30px;
+  color: @control-color;
+
+  .FormControl {
+    background-color: @body-bg;
+    color: @text-color;
+  }
+
+  .Form--centered {
+    .helpText {
+      font-size: 14px;
+      line-height: 1.5em;
+      margin-bottom: 25px;
+      text-align: left;
+    }
+  }
+}
+.Modal-footer {
+  border: 0;
+  padding: 20px;
+  text-align: center;
+  color: @muted-color;
+}
+.Modal-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: fade(@body-bg, 90%);
+  opacity: 0;
+  pointer-events: none;
+  border-radius: @border-radius;
+  .transition(opacity 0.2s);
+
+  &.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+
+@media @phone {
+  .ModalManager.fade {
+    opacity: 1;
+  }
+  .ModalManager {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    top: 0;
+    overflow: auto;
+    .transition-transform(0.2s);
+    .translate3d(0, 100vh, 0);
+
+    &.in {
+      -webkit-transform: none !important;
+              transform: none !important;
+    }
+    &:before {
+      content: " ";
+      .header-background();
+    }
+  }
+  .Modal {
+    margin: 0;
+    -webkit-transform: none !important;
+            transform: none !important;
+  }
+  .Modal-content {
+    border-radius: 0;
+    border: 0;
+    min-height: 100vh;
+    padding-top: @header-height-phone;
+    .box-shadow(none);
+  }
+  .Modal-header {
+    padding: 0;
+    border: 0;
+    min-height: 0;
+  }
+}
+
+@media @tablet-up {
+  .Modal {
+    margin: 120px auto;
+  }
+  .Modal-close {
+    position: absolute;
+    right: 10px;
+    top: 10px;
+    z-index: 1;
+  }
+  .Modal-content {
+
+    border: 0;
+    border-radius: @border-radius;
+    .box-shadow(0 7px 15px @shadow-color);
+  }
+  .Modal--small {
+    max-width: 375px;
+  }
+  .Modal--large {
+    max-width: 800px;
+  }
+  .Modal-header {
+    text-align: center;
+    border: 0;
+    padding: 25px;
+
+    & h3 {
+      font-size: 20px;
+      font-weight: normal;
+      margin: 0;
+    }
+  }
+}

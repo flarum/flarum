@@ -1,0 +1,72 @@
+.Post--flagged {
+  padding-top: 0 !important;
+  border: 2px solid @primary-color;
+}
+
+.Post-header .item-flagged {
+  display: block;
+  margin: 0;
+}
+.Post-flagged {
+  background: @primary-color;
+  margin-top: -2px;
+  margin-bottom: 20px;
+  margin-left: -22px;
+  margin-right: -22px;
+  padding: 10px;
+  border-radius: @border-radius @border-radius 0 0;
+  overflow: hidden;
+  .light-contents(@color: @body-bg; @control-color: @body-bg);
+
+  @media @tablet-up {
+    margin-left: -22px - 85px;
+  }
+
+  &, a {
+    color: @body-bg !important;
+  }
+}
+.Post-flagged-flags {
+  @media @tablet-up {
+    float: left;
+  }
+
+  font-size: 14px;
+  margin: 7px 10px;
+  text-align: left;
+  font-weight: bold;
+}
+.Post-flagged-detail {
+  font-size: 12px;
+  margin-left: 10px;
+  font-weight: normal;
+}
+.Post-flagged-actions {
+  @media @tablet-up {
+    float: right;
+  }
+}
+.Post-flagged-actions .Button {
+  margin-left: 5px;
+}
+
+.FlagsDropdown .Dropdown-toggle {
+  .Button-label,
+  .Button-caret {
+    display: none;
+  }
+}
+
+.FlagPostModal {
+  .Form-group {
+    margin-bottom: 20px;
+  }
+  .checkbox {
+    margin-bottom: 12px;
+
+    strong {
+      display: block;
+      color: @text-color;
+    }
+  }
+}

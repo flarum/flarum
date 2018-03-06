@@ -1,0 +1,34 @@
+.PostsUserPage-loadMore {
+  text-align: center;
+
+  .LoadingIndicator {
+    height: 46px;
+  }
+}
+.PostsUserPage-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  > li {
+    border-bottom: 1px solid @control-bg;
+  }
+
+  .Post {
+    padding-top: 10px;
+  }
+}
+.PostsUserPage-discussion {
+  font-weight: bold;
+  margin-top: 15px;
+  margin-bottom: 10px;
+  position: relative;
+  z-index: 1;
+
+  &, a {
+    color: @muted-color;
+  }
+  a {
+    font-style: italic;
+  }
+}

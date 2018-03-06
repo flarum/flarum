@@ -1,0 +1,101 @@
+#!/usr/bin/env bash
+# Build Path: /app/.heroku/php/
+
+# fail hard
+set -o pipefail
+# fail harder
+set -eu
+
+source $(dirname $BASH_SOURCE)/_util/include/manifest.sh
+
+OUT_PREFIX=$1
+
+STACK=${STACK:-"cedar"}
+
+dep_formula=${0#$WORKSPACE_DIR/}
+dep_name=$(basename $BASH_SOURCE)
+dep_version=${dep_formula#"${dep_name}-"}
+dep_package=${dep_name}-${dep_version}
+dep_dirname=hhvm_${dep_version}
+if [[ $STACK == "cedar" ]]; then
+    dep_archive_name=${dep_dirname}~lucid_amd64.deb
+else
+    dep_archive_name=${dep_dirname}~trusty_amd64.deb
+fi
+dep_url=http://dl.hhvm.com/ubuntu/pool/main/h/hhvm/${dep_archive_name}
+dep_manifest=${dep_package}.composer.json
+
+echo "-----> Building ${dep_package}..."
+
+mkdir -p $OUT_PREFIX
+
+if [[ $STACK == "cedar" ]]; then
+    deps="${dep_url}
+http://ppa.launchpad.net/ubuntu-toolchain-r/test/ubuntu/pool/main/b/binutils/binutils_2.22-4ubuntu1~10.04.1_amd64.deb
+http://ppa.launchpad.net/ubuntu-toolchain-r/test/ubuntu/pool/main/g/gcc-4.8/libstdc++6_4.8.1-2ubuntu1~10.04.1_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/universe/t/tbb/libtbb2_2.2+r009-1_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/universe/libo/libonig/libonig2_5.9.1-1_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/universe/libm/libmcrypt/libmcrypt4_2.5.8-3.1_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/universe/u/uw-imap/libc-client2007e_2007e~dfsg-3.1_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/main/e/elfutils/libelf1_0.143-1_amd64.deb"
+else
+    deps="${dep_url}
+http://mirrors.kernel.org/ubuntu/pool/main/b/boost1.54/libboost-filesystem1.54.0_1.54.0-4ubuntu3.1_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/main/b/boost1.54/libboost-program-options1.54.0_1.54.0-4ubuntu3.1_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/main/b/boost1.54/libboost-regex1.54.0_1.54.0-4ubuntu3.1_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/main/b/boost1.54/libboost-system1.54.0_1.54.0-4ubuntu3.1_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/main/b/boost1.54/libboost-thread1.54.0_1.54.0-4ubuntu3.1_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/universe/u/uw-imap/libc-client2007e_2007f~dfsg-4_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/main/e/elfutils/libelf1_0.160-0ubuntu3_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/main/g/gflags/libgflags2_2.0-2.1build1_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/main/g/google-glog/libgoogle-glog0_0.3.3-2build1_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/main/i/icu/libicu52_52.1-8_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/universe/j/jemalloc/libjemalloc1_3.6.0-9ubuntu1_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/universe/libm/libmcrypt/libmcrypt4_2.5.8-3.3_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/main/libm/libmemcached/libmemcached10_1.0.8-1ubuntu2_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/universe/libo/libonig/libonig2_5.9.6-1_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/main/g/gcc-4.9/libstdc%2b%2b6_4.9.2-10ubuntu13_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/universe/t/tbb/libtbb2_4.3~20150316-0ubuntu1_amd64.deb
+http://mirrors.kernel.org/ubuntu/pool/main/libu/libunwind/libunwind8_1.1-3.2_amd64.deb"
+fi
+
+for dep in $deps; do
+    depb=$(basename $dep)
+    echo "        - $depb"
+    curl -LO $dep
+    dpkg -x $depb ${OUT_PREFIX}
+done
+strip --strip-unneeded ${OUT_PREFIX}/usr/bin/*
+
+export LD_LIBRARY_PATH=/app/.heroku/php/usr/lib/x86_64-linux-gnu:/app/.heroku/php/usr/lib/hhvm:/app/.heroku/php/usr/lib
+export PATH=/app/.heroku/php/usr/bin:$PATH
+echo "-----> Generating manifest..."
+curl -sS https://getcomposer.org/installer | hhvm --php
+
+MANIFEST_REQUIRE="${MANIFEST_REQUIRE:-"{}"}"
+MANIFEST_CONFLICT="${MANIFEST_CONFLICT:-"{\"heroku-sys/php\":\"*\"}"}"
+MANIFEST_REPLACE=$(hhvm --php composer.phar show --platform | grep -E '^(ext-\S+|php-64bit\b|php\b)' | tr -s " " | cut -d " " -f1,2 | sed -e "s/ $dep_version\$/ self.version/" -e 's/^/heroku-sys\//' | python -c 'import sys, json; json.dump(dict(item.split() for item in sys.stdin), sys.stdout)')
+MANIFEST_PROVIDE="${MANIFEST_PROVIDE:-"{}"}"
+MANIFEST_EXTRA="${MANIFEST_EXTRA:-"{\"export\":\"bin/export.hhvm.sh\",\"profile\":\"bin/profile.hhvm.sh\"}"}"
+
+# remove temporary composer download
+rm composer.phar
+
+mkdir -p ${OUT_PREFIX}/bin
+# this gets sourced after package install, so that the buildpack and following buildpacks can invoke
+cat > ${OUT_PREFIX}/bin/export.hhvm.sh <<'EOF'
+export LD_LIBRARY_PATH=$HOME/.heroku/php/usr/lib/x86_64-linux-gnu:$HOME/.heroku/php/usr/lib/hhvm:$HOME/.heroku/php/usr/lib
+export PATH="$PATH:/app/.heroku/php/usr/bin"
+EOF
+# this gets sourced on dyno boot
+cat > ${OUT_PREFIX}/bin/profile.hhvm.sh <<'EOF'
+export PATH="$PATH:$HOME/.heroku/php/usr/bin"
+hhvm() { LD_LIBRARY_PATH=$HOME/.heroku/php/usr/lib/x86_64-linux-gnu:$HOME/.heroku/php/usr/lib/hhvm:$HOME/.heroku/php/usr/lib $(which hhvm) "$@"; }
+export -f hhvm
+composer() { hhvm $(which composer) "$@"; }
+export -f composer
+EOF
+
+python $(dirname $BASH_SOURCE)/_util/include/manifest.py "heroku-sys-hhvm" "heroku-sys/${dep_name}" "$dep_version" "${dep_formula}.tar.gz" "$MANIFEST_REQUIRE" "$MANIFEST_CONFLICT" "$MANIFEST_REPLACE" "$MANIFEST_PROVIDE" "$MANIFEST_EXTRA" > $dep_manifest
+
+print_or_export_manifest_cmd "$(generate_manifest_cmd "$dep_manifest")"

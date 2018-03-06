@@ -1,0 +1,117 @@
+#!/usr/bin/env bash
+# Build Path: /app/.heroku/php/
+
+# fail hard
+set -o pipefail
+# fail harder
+set -eu
+
+source $(dirname $BASH_SOURCE)/../../_util/include/manifest.sh
+
+OUT_PREFIX=$1
+
+ZEND_MODULE_API_VERSION=$(basename $(dirname $0))
+ZEND_MODULE_API_VERSION=${ZEND_MODULE_API_VERSION#no-debug-non-zts-}
+
+dep_formula=${0#$WORKSPACE_DIR/}
+dep_name=$(basename $BASH_SOURCE)
+dep_version=${dep_formula##*"/${dep_name}-"}
+dep_package=ext-${dep_name}-${dep_version}
+dep_dirname=newrelic-php5-${dep_version}-linux
+dep_archive_name=${dep_dirname}.tar.gz
+dep_url=https://download.newrelic.com/php_agent/archive/${dep_version}/${dep_archive_name}
+case ${ZEND_MODULE_API_VERSION} in
+	20121212)
+		series=5.5
+		;;
+	20131226)
+		series=5.6
+		;;
+	20151012)
+		series=7.0
+		;;
+	20160303)
+		series=7.1
+		;;
+	20170718)
+		series=7.2
+		;;
+esac
+dep_manifest=${dep_package}_php-$series.composer.json
+
+echo "-----> Packaging ${dep_package}..."
+
+curl -L ${dep_url} | tar xz
+
+pushd ${dep_dirname}
+ext_dir=${OUT_PREFIX}/lib/php/extensions/no-debug-non-zts-${ZEND_MODULE_API_VERSION}
+bin_dir=${OUT_PREFIX}/bin
+mkdir -p ${ext_dir}
+mkdir -p ${bin_dir}
+cp agent/x64/newrelic-${ZEND_MODULE_API_VERSION}.so ${ext_dir}/newrelic.so
+cp daemon/newrelic-daemon.x64 ${bin_dir}/newrelic-daemon
+find ${OUT_PREFIX} -type f \( -executable -o -name '*.a' \) -exec sh -c "file -i '{}' | grep -Eq 'application/x-(archive|executable|sharedlib); charset=binary'" \; -print | xargs strip --strip-unneeded
+popd
+
+mkdir -p ${OUT_PREFIX}/bin
+# gets sourced on dyno boot
+cat > ${OUT_PREFIX}/bin/profile.newrelic.sh <<'EOF'
+if [[ -n "$NEW_RELIC_LICENSE_KEY" ]]; then
+    if [[ -f "/app/.heroku/php/bin/newrelic-daemon" ]]; then
+        export NEW_RELIC_APP_NAME=${NEW_RELIC_APP_NAME:-${HEROKU_APP_NAME:-"PHP Application on Heroku"}}
+        export NEW_RELIC_LOG_LEVEL=${NEW_RELIC_LOG_LEVEL:-"warning"}
+
+        # The daemon is a started in foreground mode so it will not daemonize
+        # (i.e. disassociate from the controlling TTY and disappear into the
+        # background).
+        #
+        # Perpetually tail and redirect the daemon log file to stderr so that it
+        # may be observed via 'heroku logs'.
+        touch /tmp/heroku.ext-newrelic.newrelic-daemon.${PORT}.log
+        tail -qF -n 0 /tmp/heroku.ext-newrelic.newrelic-daemon.${PORT}.log 1>&2 &
+
+        # daemon start
+        /app/.heroku/php/bin/newrelic-daemon --foreground --port "@newrelic-daemon" --logfile "/tmp/heroku.ext-newrelic.newrelic-daemon.${PORT}.log" --loglevel "${NEW_RELIC_LOG_LEVEL}" --pidfile "/tmp/newrelic-daemon.pid" &
+
+        # give it a moment to connect
+        sleep 2
+    else
+        echo >&2 "WARNING: Add-on 'newrelic' detected, but PHP extension not yet installed. Push an update to the application to finish installation of the add-on; an empty change ('git commit --allow-empty') is sufficient."
+    fi
+fi
+EOF
+mkdir -p ${OUT_PREFIX}/etc/php/conf.d
+cat > ${OUT_PREFIX}/etc/php/conf.d/newrelic.ini-dist <<'EOF'
+extension = newrelic.so
+
+newrelic.daemon.location = /app/.heroku/php/bin/newrelic-
+newrelic.daemon.port = @newrelic-daemon
+
+newrelic.loglevel = ${NEW_RELIC_LOG_LEVEL}
+newrelic.daemon.loglevel = ${NEW_RELIC_LOG_LEVEL}
+
+newrelic.license = ${NEW_RELIC_LICENSE_KEY}
+newrelic.appname = ${NEW_RELIC_APP_NAME}
+newrelic.logfile = stderr ; the stdout default messes up boots as we capture output for crash detection
+
+; The daemon gets spawned by the PHP agent and is configured with the same values
+;
+; There is code in bin/compile to create .profile.d/newrelic.sh. That script
+; starts the daemon and runs a perpetual tail command which will redirect daemon
+; logs to stderr so that it may be observed via 'heroku logs'.
+newrelic.daemon.logfile = /tmp/heroku.ext-newrelic.newrelic-daemon.${PORT}.log
+
+; or else:
+; 2015-05-18 13:00:43.144 (28 28) warning: unable to find suitable pidfile location, using none
+newrelic.daemon.pidfile = /tmp/newrelic-daemon.pid
+EOF
+
+MANIFEST_REQUIRE="${MANIFEST_REQUIRE:-"{\"heroku-sys/php\":\"${series}.*\"}"}"
+MANIFEST_CONFLICT="${MANIFEST_CONFLICT:-"{\"heroku-sys/hhvm\":\"*\"}"}"
+MANIFEST_REPLACE="${MANIFEST_REPLACE:-"{}"}"
+MANIFEST_PROVIDE="${MANIFEST_PROVIDE:-"{}"}"
+MANIFEST_EXTRA="${MANIFEST_EXTRA:-"{\"config\":\"etc/php/conf.d/newrelic.ini-dist\",\"profile\":\"bin/profile.newrelic.sh\"}"}"
+
+python $(dirname $BASH_SOURCE)/../../_util/include/manifest.py "heroku-sys-php-extension" "heroku-sys/ext-${dep_name}" "$dep_version" "${dep_formula}.tar.gz" "$MANIFEST_REQUIRE" "$MANIFEST_CONFLICT" "$MANIFEST_REPLACE" "$MANIFEST_PROVIDE" "$MANIFEST_EXTRA" > $dep_manifest
+
+print_or_export_manifest_cmd "$(generate_manifest_cmd "$dep_manifest")"

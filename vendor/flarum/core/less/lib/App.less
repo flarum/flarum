@@ -1,0 +1,307 @@
+.App {
+  position: relative !important;
+  padding-top: @header-height;
+  padding-bottom: 50px;
+  overflow-x: hidden;
+  min-height: 100vh;
+
+  @media @phone {
+    padding-top: @header-height-phone;
+  }
+}
+
+// Fix a solid white box to the top of the viewport. This toolbar's contents
+// will differ depending on the device: on phones it will be content
+// controls, whereas on desktops it will be the header. We will overlay
+// these things on top of it later.
+.App:before {
+  content: " ";
+  .header-background();
+  border-bottom: 0;
+  position: absolute;
+
+  .affix& {
+    position: fixed;
+  }
+
+  .scrolled& {
+    .box-shadow(0 2px 6px @shadow-color);
+  }
+}
+
+// PHONES: Somewhere on the page there will be a .App-backControl, a
+// .App-primaryControl, and a .App-titleControl. We will position these on the
+// left, right, and center of the header respectively.
+@media @phone {
+  .App-primaryControl, .App-titleControl, .App-backControl {
+    position: absolute !important;
+    z-index: @zindex-header + 1;
+    top: 0 !important;
+    margin: 0;
+
+    .App.affix &, .Composer & {
+      position: fixed !important;
+    }
+
+    > .Button {
+      float: none;
+      background: transparent !important;
+      .box-shadow(~"none !important");
+      height: @header-height-phone;
+      width: auto;
+      padding: 13px !important;
+      margin: 0 !important;
+
+      &:active {
+        opacity: 0.5;
+      }
+    }
+  }
+  .App-primaryControl {
+    width: auto;
+    right: 0;
+
+    &.Dropdown {
+      .Button, .Button-caret {
+        display: none !important;
+      }
+      .Dropdown-toggle, .Button-icon {
+        display: block !important;
+      }
+    }
+  }
+  .App-primaryControl, .App-backControl {
+    > .Button {
+      color: @header-control-color !important;
+
+      .Button-icon {
+        display: block;
+        font-size: 20px;
+      }
+      .Button-label {
+        display: none;
+      }
+    }
+  }
+  .App-titleControl {
+    width: 200px;
+    left: 50%;
+    margin-left: -100px;
+    text-align: center;
+    color: @header-color !important;
+
+    &, > .Button {
+      font-size: 16px;
+    }
+    > .Button {
+      color: @header-color;
+      width: 100%;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+  }
+  .App-titleControl--text {
+    line-height: 46px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: normal;
+  }
+  .App-backControl {
+    left: 0;
+
+    .Navigation-pin {
+      display: none;
+    }
+  }
+}
+
+// ------------------------------------
+// Drawer
+
+// On phones, the drawer is displayed in its semantic sense: as a drawer on
+// the left side of the screen. On other devices, the drawer has no specific
+// appearance.
+@media @phone {
+  .drawerOpen {
+    overflow: hidden;
+  }
+  .App-drawer {
+    background: @header-bg;
+    width: @drawer-width;
+    position: fixed;
+    left: 0;
+    top: 0;
+    bottom: 0;
+    .box-shadow(0 2px 6px @shadow-color);
+    .translate3d(-@drawer-width - 6px, 0, 0);
+    .transition-transform(0.2s);
+    z-index: @zindex-modal;
+
+    .drawerOpen & {
+      -webkit-transform: none !important;
+              transform: none !important;
+    }
+  }
+  .drawer-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: @zindex-modal-background;
+    background-color: @overlay-bg;
+    opacity: 0;
+    .transition(0.2s opacity);
+
+    &.in {
+      opacity: 0.9;
+    }
+  }
+}
+
+// ------------------------------------
+// Header
+
+.Header-controls {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.Header-logo {
+  max-height: 30px;
+  vertical-align: middle;
+}
+
+// On phones, the header is displayed inside of the drawer. We lay its
+// contents out vertically.
+@media @phone {
+  .App-header {
+    .container {
+      padding: 0;
+    }
+  }
+  .Header-navigation {
+    display: none;
+  }
+  .Header-title {
+    padding: 13px 10px;
+    font-size: 16px;
+    font-weight: normal;
+    margin: 0;
+    text-align: center;
+  }
+  .Header-controls {
+    margin-top: 10px;
+
+    > li {
+      padding: 0 10px 0;
+    }
+    .FormControl, .ButtonGroup, .Button {
+      width: 100%;
+      text-align: left;
+    }
+    .Dropdown-menu {
+      .ButtonGroup, .Button {
+        width: auto;
+      }
+    }
+  }
+  .Header-secondary .Search {
+    margin: 10px 0;
+  }
+}
+
+// On other devices, we stick the header up the top of the page, overlaying
+// the page toolbar that we styled earlier. We lay its contents out
+// horizontally.
+@media @phone {
+  .App-drawer {
+    & when (@config-colored-header = true) {
+      .light-contents(@header-color, @header-control-bg, @header-control-color);
+    }
+  }
+}
+
+@media @tablet-up {
+  .App-navigation {
+    display: none;
+  }
+  .App-header {
+    padding: 8px;
+    height: @header-height;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    z-index: @zindex-header;
+
+    .affix & {
+      position: fixed;
+    }
+
+    & when (@config-colored-header = true) {
+      .light-contents(@header-color, @header-control-bg, @header-control-color);
+    }
+  }
+
+  .Header-navigation {
+    float: left;
+    margin-right: 25px;
+  }
+  .Header-controls {
+    &, > li {
+      display: inline-block;
+      vertical-align: middle;
+    }
+  }
+  .Header-primary {
+    float: left;
+  }
+  .Header-title {
+    float: left;
+    vertical-align: top;
+    font-size: 18px;
+    font-weight: normal;
+    margin: 0 15px 0 0;
+    line-height: 34px;
+  }
+  .Header-secondary {
+    float: right;
+
+    .Search {
+      margin-right: 10px;
+    }
+  }
+}
+
+@media @tablet {
+  .Header-secondary .Search {
+    input:not(:focus) {
+      width: 1px;
+      background: transparent;
+    }
+    &:not(.active) input {
+      padding-right: 0;
+    }
+  }
+}
+
+// ------------------------------------
+// Content Area
+
+.App-content {
+  border-top: 1px solid @control-bg;
+}
+
+// On phones, the content area overlays the drawer, so we must give it a
+// background and min-height so it cannot be seen through. When the drawer is
+// meant to be open, we slide the content to the right to reveal the drawer.
+@media @phone {
+  .App-content {
+    background: @body-bg;
+    width: 100%;
+    min-height: 100vh;
+    padding-bottom: 50px;
+  }
+}

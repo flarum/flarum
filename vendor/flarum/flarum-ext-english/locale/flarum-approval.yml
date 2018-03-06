@@ -1,0 +1,37 @@
+flarum-approval:
+
+  ##
+  # UNIQUE KEYS - The following keys are used in only one location each.
+  ##
+
+  # Translations in this namespace are used by the admin interface.
+  admin:
+
+    # These translations are used in the Permissions page of the admin interface.
+    permissions:
+      approve_posts_label: Approve posts
+      reply_without_approval_label: Reply to discussions without approval
+      start_discussions_without_approval_label: Start discussions without approval
+
+  # Translations in this namespace are used by the forum user interface.
+  forum:
+
+    # These translations are displayed as tooltips for discussion badges.
+    badge:
+      awaiting_approval_tooltip: => flarum-approval.ref.awaiting_approval
+
+    # These translations are displayed in the post header.
+    post:
+      awaiting_approval_text: => flarum-approval.ref.awaiting_approval
+
+    # These translations are used by the post control buttons.
+    post_controls:
+      approve_button: Approve
+
+  ##
+  # REUSED TRANSLATIONS - These keys should not be used directly in code!
+  ##
+
+  # Translations in this namespace are referenced by two or more unique keys.
+  ref:
+    awaiting_approval: Awaiting approval

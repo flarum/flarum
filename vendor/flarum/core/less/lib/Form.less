@@ -1,0 +1,41 @@
+.Form-group {
+  margin-bottom: 24px;
+
+  &:last-child {
+    margin-bottom: 0 !important;
+  }
+}
+
+.Form--centered {
+  text-align: center;
+
+  .FormControl[type=text],
+  .FormControl[type=email],
+  .FormControl[type=password],
+  .Button {
+    margin: 0 auto;
+    text-align: center;
+    height: 50px;
+    padding: 15px 20px;
+    font-size: 15px;
+
+    @media @phone {
+      font-size: 16px; // minimum font-size required to prevent page zoom on focus in iOS 10
+    }
+  }
+
+  .Form-group {
+    margin-bottom: 12px;
+  }
+  .checkbox {
+    text-align: left;
+  }
+}
+
+.Form-group > label {
+  font-size: 14px;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: @text-color;
+  display: block;
+}

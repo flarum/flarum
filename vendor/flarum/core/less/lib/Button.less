@@ -1,0 +1,240 @@
+//
+// Button groups
+// --------------------------------------------------
+
+// Make the div behave like a button
+.ButtonGroup {
+  position: relative;
+  display: inline-block;
+  vertical-align: middle;
+
+  > .Button {
+    position: relative;
+    float: left;
+    // Bring the "active" button to the front
+    &:hover,
+    &:focus,
+    &:active,
+    &.active {
+      z-index: 2;
+    }
+
+    &:not(:first-child):not(:last-child):not(.Dropdown-toggle) {
+      border-radius: 0;
+    }
+    &:first-child:not(:last-child):not(.Dropdown-toggle) {
+      margin-left: 0;
+      border-top-right-radius: 0;
+      border-bottom-right-radius: 0;
+    }
+    &:last-child:not(:first-child), &.Dropdown-toggle:not(:first-child) {
+      border-top-left-radius: 0;
+      border-bottom-left-radius: 0;
+    }
+  }
+
+  .Button + .Button {
+    margin-left: 1px;
+  }
+}
+
+//
+// Buttons
+// --------------------------------------------------
+
+.Button {
+  display: inline-block;
+  margin-bottom: 0; // For input.btn
+  text-align: center;
+  vertical-align: middle;
+  cursor: pointer;
+  white-space: nowrap;
+  line-height: 20px;
+  padding: 8px 13px;
+  border-radius: @border-radius;
+  .user-select(none);
+  .Button--color(@control-color, @control-bg);
+  border: 0;
+
+  &:hover {
+    text-decoration: none;
+  }
+
+  &:active,
+  &.active,
+  .open > &.Dropdown-toggle {
+    .box-shadow(inset 0 3px 5px rgba(0, 0, 0, .125));
+    outline: none;
+  }
+
+  &:focus,
+  &.focus {
+    outline: none;
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    cursor: default;
+    opacity: 0.65;
+    .box-shadow(none);
+  }
+
+  a& {
+    &.disabled,
+    fieldset[disabled] & {
+      pointer-events: none; // Future-proof disabling of clicks on `<a>` elements
+    }
+  }
+
+  .Button-label {
+    .transition(margin-right 0.1s);
+  }
+  .LoadingIndicator {
+    color: inherit;
+    margin: 0 -5px 0 -15px;
+  }
+  &.loading {
+    .Button-label {
+      margin-right: 20px;
+    }
+  }
+}
+
+.Button--color(@color; @background) {
+  color: @color;
+  background: @background;
+
+  &:hover,
+  &:focus,
+  &.focus {
+    background-color: darken(fadein(@background, 5%), 5%);
+  }
+
+  &:active,
+  &.active,
+  .open > .Dropdown-toggle& {
+    background-color: darken(fadein(@background, 10%), 10%);
+  }
+
+  &.disabled,
+  &[disabled],
+  fieldset[disabled] & {
+    background: @background;
+  }
+}
+
+
+.Button--square {
+  padding-left: 9px;
+  padding-right: 9px;
+}
+.Button--rounded {
+  border-radius: 18px;
+}
+.Button--flat {
+  background: transparent;
+  border-radius: 18px;
+}
+.Button--link {
+  background: transparent !important;
+
+  &:hover {
+    background: transparent !important;
+    color: @link-color;
+  }
+  &:active,
+  &.active,
+  &:focus,
+  &.focus,
+  .open > &.Dropdown-toggle {
+    background: transparent !important;
+    .box-shadow(none);
+    color: @link-color;
+  }
+}
+.Button--text {
+  background: transparent !important;
+  padding: 0;
+  color: inherit !important;
+  line-height: inherit;
+
+  &:hover {
+    text-decoration: underline;
+  }
+  &:active,
+  &.active,
+  .open > &.Dropdown-toggle {
+    .box-shadow(none);
+  }
+}
+.Button--primary {
+  .Button--color(@body-bg, @primary-color);
+  font-weight: bold;
+  padding-left: 20px;
+  padding-right: 20px;
+
+  .Button-icon {
+    display: none;
+  }
+}
+.Button--danger {
+  .Button--color(@control-danger-color, @control-danger-bg);
+}
+.Button--more {
+  padding: 2px 4px;
+  line-height: 1;
+
+  .Button-icon {
+    margin: 0;
+  }
+}
+.Button--block {
+  display: block;
+  width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+
+  // Vertically space out multiple block buttons
+  + .Button--block {
+    margin-top: 5px;
+  }
+}
+// Little round icon buttons
+.Button--icon {
+  width: 36px;
+  text-align: center;
+  padding: 8px 0;
+
+  .Button-label, .Button-caret {
+    display: none;
+  }
+  .Button-icon {
+    font-size: 16px;
+    vertical-align: -1px;
+    margin: 0;
+  }
+}
+.SessionDropdown .Dropdown-toggle {
+  border-radius: 18px;
+
+  .Avatar {
+    margin: -2px 5px -2px -6px;
+    .Avatar--size(24px);
+  }
+}
+.Button-icon {
+  margin-right: 7px;
+}
+.Button-icon,
+.Button-caret {
+  font-size: 14px;
+}
+.Button-caret {
+  margin-left: 7px;
+}
+.Button-badge {
+  font-size: 12px;
+  font-weight: bold;
+  margin-left: 10px;
+}

@@ -1,0 +1,81 @@
+.Search {
+  position: relative;
+}
+@media @tablet-up {
+  .Search {
+    .transition(margin-left 0.4s);
+
+    &.focused {
+      margin-left: -400px;
+
+      input, .Search-results {
+        width: 400px;
+      }
+    }
+  }
+}
+.Search-results {
+  max-height: 70vh;
+  overflow: auto;
+  left: auto;
+  right: 0;
+
+  @media @phone {
+    left: 0;
+  }
+
+  > li > a {
+    white-space: normal;
+  }
+
+  mark {
+    background: none;
+    padding: 0;
+    font-weight: bold;
+    color: inherit;
+    box-shadow: none;
+  }
+}
+
+.Search-input {
+  overflow: hidden;
+  color: @muted-color;
+
+  &:before {
+    .fa();
+    content: @fa-var-search;
+    float: left;
+    margin-right: -36px;
+    width: 36px;
+    font-size: 14px;
+    text-align: center;
+    position: relative;
+    padding: 7px 0;
+    line-height: 1.5;
+    pointer-events: none;
+  }
+  input {
+    float: left;
+    width: 225px;
+    padding-left: 32px;
+    padding-right: 32px;
+    .transition(all 0.4s);
+    box-sizing: inherit !important;
+  }
+  .Button {
+    float: left;
+    margin-left: -36px;
+    width: 36px !important;
+    outline: none;
+  }
+}
+
+.DiscussionSearchResult-excerpt {
+  margin-top: 3px;
+  color: @muted-color;
+  font-size: 11px;
+}
+.UserSearchResult .Avatar {
+  .Avatar--size(24px);
+  margin: -2px 10px -2px 0;
+}

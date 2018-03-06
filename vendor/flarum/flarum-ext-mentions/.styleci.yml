@@ -1,0 +1,14 @@
+preset: recommended
+
+enabled:
+  - logical_not_operators_with_successor_space
+
+disabled:
+  - align_double_arrow
+  - blank_line_after_opening_tag
+  - multiline_array_trailing_comma
+  - new_with_braces
+  - phpdoc_align
+  - phpdoc_order
+  - phpdoc_separation
+  - phpdoc_types

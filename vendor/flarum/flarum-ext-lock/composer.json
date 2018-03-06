@@ -1,0 +1,38 @@
+{
+    "name": "flarum/flarum-ext-lock",
+    "description": "End a discussion and don't let anyone add further replies.",
+    "type": "flarum-extension",
+    "keywords": ["moderation"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toby Zerner",
+            "email": "toby.zerner@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/flarum/core/issues",
+        "source": "https://github.com/flarum/flarum-ext-lock"
+    },
+    "require": {
+        "flarum/core": "^0.1.0-beta.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flarum\\Lock\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        },
+        "flarum-extension": {
+            "title": "Lock",
+            "icon": {
+                "name": "lock",
+                "backgroundColor": "#ddd",
+                "color": "#666"
+            }
+        }
+    }
+}

@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+# bin/test-compile <build-dir> <cache-dir> <env-dir>
+
+# fail hard
+set -o pipefail
+# fail harder
+set -eu
+
+# this will cause bin/compile to install dev platform and user dependencies
+export HEROKU_PHP_INSTALL_DEV="" # empty string is correct; it will be inserted into command strings, and Composer throws a deprecation warning if the explicit "--dev" is used
+
+bp_dir=$(cd $(dirname $0); cd ..; pwd)
+source $bp_dir/bin/compile

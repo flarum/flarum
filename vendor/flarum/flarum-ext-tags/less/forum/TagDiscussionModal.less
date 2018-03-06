@@ -1,0 +1,166 @@
+.TagDiscussionModal {
+  @media @tablet-up {
+    .Modal-header {
+      background: @control-bg;
+      padding: 20px 20px 0;
+
+      & h3 {
+        text-align: left;
+        color: @control-color;
+        font-size: 16px;
+      }
+    }
+  }
+  .Modal-body {
+    padding: 20px;
+
+    @media @phone {
+      padding: 15px;
+    }
+  }
+  .Modal-footer {
+    padding: 1px 0 0;
+    text-align: left;
+  }
+}
+
+@media @tablet, @desktop, @desktop-hd {
+  .TagDiscussionModal-form {
+    display: table;
+    width: 100%;
+  }
+  .TagDiscussionModal-form-input {
+    display: table-cell;
+    width: 100%;
+    vertical-align: top;
+  }
+  .TagDiscussionModal-form-submit {
+    display: table-cell;
+    padding-left: 15px;
+  }
+}
+.TagsInput {
+  padding-top: 0;
+  padding-bottom: 0;
+  overflow: hidden;
+  height: auto;
+
+  input {
+    display: inline;
+    outline: none;
+    margin-top: -2px;
+    border: 0 !important;
+    padding: 0;
+    width: 100%;
+    margin-right: -100%;
+    background: transparent !important;
+  }
+}
+.TagsInput-tag {
+  cursor: not-allowed;
+}
+.TagsInput-selected {
+  .TagsInput-tag {
+    margin-right: 5px;
+
+    &:last-child {
+      margin-right: 10px;
+    }
+  }
+}
+
+.SelectTagList {
+  padding: 0;
+  margin: 0;
+  list-style: none;
+  overflow: auto;
+  max-height: 50vh;
+
+  @media @phone {
+    max-height: none;
+  }
+
+  > li {
+    padding: 7px 20px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    cursor: pointer;
+
+    &.pinned:not(.child) {
+      padding-top: 10px;
+      padding-bottom: 10px;
+
+      .SelectTagListItem-name {
+        font-size: 16px;
+      }
+    }
+    &.pinned + li:not(.pinned) {
+      border-top: 2px solid @control-bg;
+    }
+    &.child {
+      padding-left: 45px;
+
+      .SelectTagListItem-name {
+        width: 125px;
+      }
+    }
+    &.active {
+      background: @control-bg;
+    }
+    &.selected {
+      .TagIcon {
+        position: relative;
+
+        &:before {
+          .fa();
+          content: @fa-var-check;
+          color: @muted-color;
+          position: absolute;
+          font-size: 14px;
+          width: 100%;
+          text-align: center;
+          padding-top: 1px;
+        }
+      }
+      &.colored .TagIcon:before {
+        color: #fff;
+      }
+    }
+    .TagIcon {
+      vertical-align: top;
+      margin-top: 3px;
+    }
+  }
+}
+.SelectTagListItem-name {
+  display: inline-block;
+  width: 150px;
+  margin-right: 10px;
+  margin-left: 10px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  vertical-align: top;
+
+  @media @phone {
+    width: auto;
+  }
+}
+.SelectTagListItem-description {
+  color: @muted-color;
+  font-size: 12px;
+  width: 370px;
+  display: inline-block;
+  vertical-align: top;
+  margin-top: 2px;
+
+  @media @phone {
+    display: none;
+  }
+}
+.SelectTagListItem mark {
+  font-weight: bold;
+  background: none;
+  box-shadow: none;
+  color: inherit;
+}

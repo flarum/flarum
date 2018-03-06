@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+# Build Path: /app/.heroku/php/
+
+# fail hard
+set -o pipefail
+# fail harder
+set -eu
+
+source $(dirname $BASH_SOURCE)/_util/include/manifest.sh
+
+OUT_PREFIX=$1
+
+dep_formula=${0#$WORKSPACE_DIR/}
+dep_name=$(basename $BASH_SOURCE)
+dep_version=${dep_formula#"${dep_name}-"}
+dep_package=pkg-${dep_name}-${dep_version}
+dep_manifest=${dep_package}.composer.json
+
+echo "-----> Bundling Composer (${dep_version})..."
+
+export PATH=${OUT_PREFIX}/bin:$PATH
+
+EXPECTED_SIGNATURE=$(wget -q -O - https://composer.github.io/installer.sig)
+php -r "copy('https://getcomposer.org/installer', 'composer-setup.php');"
+ACTUAL_SIGNATURE=$(php -r "echo hash_file('SHA384', 'composer-setup.php');")
+if [ "$EXPECTED_SIGNATURE" != "$ACTUAL_SIGNATURE" ]; then
+	>&2 echo 'ERROR: Invalid installer signature'
+	rm composer-setup.php
+	exit 1
+fi
+
+php composer-setup.php --version=${dep_version}
+
+# php is in there, so clear it first
+rm -rf ${OUT_PREFIX}/*
+mkdir -p ${OUT_PREFIX}/bin
+
+mv composer.phar ${OUT_PREFIX}/bin/composer
+
+python $(dirname $BASH_SOURCE)/_util/include/manifest.py "heroku-sys-package" "heroku-sys/pkg-${dep_name}" "$dep_version" "${dep_formula}.tar.gz" > $dep_manifest
+
+print_or_export_manifest_cmd "$(generate_manifest_cmd "$dep_manifest")"

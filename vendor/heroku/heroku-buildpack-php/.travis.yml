@@ -1,0 +1,2 @@
+sudo: false
+script: exit 0

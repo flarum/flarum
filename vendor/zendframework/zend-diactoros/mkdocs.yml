@@ -1,0 +1,16 @@
+docs_dir: doc/book
+site_dir: doc/html
+pages:
+    - index.md
+    - Overview: overview.md
+    - Installation: install.md
+    - Usage: usage.md
+    - Reference:
+        - "Custom Responses": custom-responses.md
+        - "Emitting Responses": emitting-responses.md
+        - Serialization: serialization.md
+        - API: api.md
+site_name: zend-diactoros
+site_description: 'zend-diactoros: PSR-7 HTTP message implementation'
+repo_url: 'https://github.com/zendframework/zend-diactoros'
+copyright: 'Copyright (c) 2016 <a href="http://www.zend.com/">Zend Technologies USA Inc.</a>'

@@ -1,0 +1,71 @@
+#!/usr/bin/env bash
+# Build Path: /app/.heroku/php/
+
+# fail hard
+set -o pipefail
+# fail harder
+set -eu
+
+OUT_PREFIX=$1
+
+source $(dirname $BASH_SOURCE)/_util/include/manifest.sh
+
+dep_formula=${0#$WORKSPACE_DIR/}
+dep_name=$(basename $BASH_SOURCE)
+dep_version=${dep_formula#"${dep_name}-"}
+dep_package=${dep_name}-${dep_version}
+dep_dirname=nginx-${dep_version}
+dep_archive_name=${dep_dirname}.tar.gz
+dep_url=https://nginx.org/download/${dep_archive_name}
+dep_manifest=${dep_package}.composer.json
+
+echo "-----> Building ${dep_package}..."
+
+curl -L ${dep_url} | tar xz
+
+pushd ${dep_dirname}
+ETC=${OUT_PREFIX}/etc
+VAR=${OUT_PREFIX}/var
+./configure \
+    --prefix=${OUT_PREFIX} \
+    --conf-path=${ETC}/nginx/nginx.conf \
+    --pid-path=${VAR}/run/nginx.pid \
+    --lock-path=${VAR}/run/nginx.lock \
+    --http-client-body-temp-path=${VAR}/run/nginx/client_body_temp \
+    --http-proxy-temp-path=${VAR}/run/nginx/proxy_temp \
+    --http-fastcgi-temp-path=${VAR}/run/nginx/fastcgi_temp \
+    --http-uwsgi-temp-path=${VAR}/run/nginx/uwsgi_temp \
+    --http-scgi-temp-path=${VAR}/run/nginx/scgi_temp \
+    --http-log-path=${VAR}/log/nginx/access.log \
+    --error-log-path=${VAR}/log/nginx/error.log \
+    --with-http_realip_module
+make -s -j 9
+make install -s
+find ${OUT_PREFIX} -type f \( -executable -o -name '*.a' \) -exec sh -c "file -i '{}' | grep -Eq 'application/x-(archive|executable|sharedlib); charset=binary'" \; -print | xargs strip --strip-unneeded
+popd
+
+# this doesn't get created
+mkdir -p ${VAR}/run/nginx
+
+MANIFEST_REQUIRE="${MANIFEST_REQUIRE:-"{}"}"
+MANIFEST_CONFLICT="${MANIFEST_CONFLICT:-"{}"}"
+MANIFEST_REPLACE="${MANIFEST_REPLACE:-"{}"}"
+MANIFEST_PROVIDE="${MANIFEST_PROVIDE:-"{}"}"
+MANIFEST_EXTRA="${MANIFEST_EXTRA:-"{\"export\":\"bin/export.nginx.sh\",\"profile\":\"bin/profile.nginx.sh\"}"}"
+
+mkdir -p ${OUT_PREFIX}/etc/nginx
+cp $(dirname $BASH_SOURCE)/_conf/nginx/nginx.conf ${OUT_PREFIX}/etc/nginx/nginx.conf
+
+mkdir -p ${OUT_PREFIX}/bin
+# this gets sourced after package install, so that the buildpack and following buildpacks can invoke
+cat > ${OUT_PREFIX}/bin/export.nginx.sh <<'EOF'
+export PATH="/app/.heroku/php/bin:/app/.heroku/php/sbin:$PATH"
+EOF
+# this gets sourced on dyno boot
+cat > ${OUT_PREFIX}/bin/profile.nginx.sh <<'EOF'
+export PATH="$HOME/.heroku/php/bin:$HOME/.heroku/php/sbin:$PATH"
+EOF
+
+python $(dirname $BASH_SOURCE)/_util/include/manifest.py "heroku-sys-webserver" "heroku-sys/${dep_name}" "$dep_version" "${dep_formula}.tar.gz" "$MANIFEST_REQUIRE" "$MANIFEST_CONFLICT" "$MANIFEST_REPLACE" "$MANIFEST_PROVIDE" "$MANIFEST_EXTRA" > $dep_manifest
+
+print_or_export_manifest_cmd "$(generate_manifest_cmd "$dep_manifest")"

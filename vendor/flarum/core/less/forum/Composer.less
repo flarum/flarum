@@ -1,0 +1,374 @@
+// ------------------------------------
+// Composer
+
+.Composer {
+  pointer-events: auto;
+  .box-shadow(0 2px 6px @shadow-color);
+
+  &.minimized {
+    height: 46px;
+    cursor: pointer;
+    background: @control-bg;
+  }
+}
+.Composer-controls {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+.ComposerBody-content {
+  .minimized & {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+.ComposerBody-header {
+  list-style: none;
+  padding: 1px 0;
+  margin: 0 0 10px;
+
+  .minimized & {
+    pointer-events: none;
+  }
+
+  > li {
+    display: inline-block;
+    margin-right: -4px;
+  }
+  h3 {
+    margin: 0;
+    line-height: 1.5em;
+    color: @secondary-color;
+
+    &, input, a {
+      font-size: 14px;
+      font-weight: normal;
+    }
+    input, a {
+      color: inherit;
+    }
+    input {
+      font-size: 16px;
+      width: 500px;
+
+      &, &[disabled], &:focus {
+        background: none;
+        border: 0;
+        padding: 0 20px 0 0;
+        height: auto;
+      }
+    }
+    .icon {
+      font-size: 14px;
+      margin-right: 3px;
+    }
+  }
+}
+.fa-minus.minimize {
+  vertical-align: -5px;
+}
+.Composer-controls {
+  position: absolute;
+  right: 10px;
+  top: 10px;
+  z-index: 1;
+
+  & li {
+    display: inline-block;
+  }
+  .minimized & {
+    top: 7px;
+  }
+}
+.ComposerBody-loading {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: fade(@body-bg, 90%);
+  opacity: 0;
+  pointer-events: none;
+  border-radius: @border-radius @border-radius 0 0;
+  .transition(opacity 0.2s);
+
+  &.active {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+.ComposerBody-editor {
+  .minimized & {
+    visibility: hidden;
+  }
+}
+
+// On phones, show the composer as a fixed overlay that covers the whole
+// screen. The controls are hidden (except for the 'x', which is the back-
+// control), and the avatar hidden.
+@media @phone {
+  .Composer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: @zindex-composer;
+    background: @body-bg;
+
+    &:not(.minimized) {
+      position: absolute;
+      top: 0;
+      height: 100vh !important;
+      padding-top: @header-height-phone;
+
+      &:before {
+        content: " ";
+        .header-background();
+        position: absolute;
+        opacity: 0;
+
+        .visible& {
+          opacity: 1;
+        }
+      }
+
+      & .Composer-controls {
+        position: static;
+        z-index: @zindex-header + 1;
+
+        li:not(.App-backControl) {
+          display: none;
+        }
+        .App-backControl {
+          position: absolute !important;
+        }
+      }
+    }
+  }
+  .Composer-controls .fa-minus:before {
+    content: @fa-var-times;
+  }
+  .composer-backdrop {
+    position: fixed;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    z-index: @zindex-composer - 1;
+    background-color: @overlay-bg;
+    opacity: 0.9;
+  }
+  .ComposerBody-content {
+    .minimized & {
+      margin-right: 50px;
+    }
+  }
+  .ComposerBody-avatar {
+    display: none;
+  }
+  .ComposerBody-header {
+    margin-bottom: 0;
+
+    > li {
+      display: block;
+      border-bottom: 1px solid @control-bg;
+      padding: 10px 15px;
+
+      .minimized & {
+        border-bottom: 0;
+        padding: 15px;
+      }
+
+      .normal &:first-child {
+        margin: -@header-height-phone 50px 0;
+        text-align: center;
+        position: relative;
+        z-index: @zindex-header + 1;
+        border: 0;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+
+        h3 {
+          color: @header-control-color;
+        }
+      }
+    }
+    h3 input {
+      width: 100% !important;
+    }
+  }
+  .ComposerBody-editor {
+    padding: 15px;
+  }
+  .ComposerBody-editor .TextEditor-controls .item-submit {
+    position: absolute !important;
+  }
+}
+
+// On larger screens, show the composer as a window at the bottom of the
+// content area. We hide a lot of the content when the composer is minimized.
+@media @tablet-up {
+  .App-composer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    z-index: @zindex-composer;
+    pointer-events: none;
+    .transition(left 0.2s);
+  }
+  .Composer {
+    border-radius: @border-radius @border-radius 0 0;
+    background: fade(@body-bg, 95%);
+    transform: translateZ(0); // Fix for Chrome bug where a transparent white background is actually gray
+    position: relative;
+    height: 300px;
+    .transition(~"background 0.2s, box-shadow 0.2s");
+
+    &.active, &.fullScreen {
+      background: @body-bg;
+    }
+    &.active:not(.fullScreen) {
+      .box-shadow(~"0 0 0 2px @{primary-color}, 0 2px 6px @{shadow-color}");
+    }
+    &.fullScreen {
+      position: fixed;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      right: 0;
+      margin: 0;
+      height: auto;
+      border-radius: 0;
+    }
+  }
+  .Composer-controls {
+    .fullScreen & .Button {
+      padding: 13px;
+      width: auto;
+
+      .Button-icon {
+        font-size: 20px;
+      }
+    }
+  }
+  .ComposerBody-header {
+    .fullScreen & {
+      margin-bottom: 20px;
+    }
+  }
+  .Composer-content {
+    padding: 20px 20px 0;
+
+    .minimized & {
+      padding: 12px 20px;
+    }
+    .fullScreen & {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 30px;
+    }
+  }
+  .Composer-handle {
+    height: 15px;
+    margin-bottom: -17px;
+    position: relative;
+
+    .minimized &, .fullScreen & {
+      display: none;
+    }
+  }
+  .ComposerBody-avatar {
+    float: left;
+    .Avatar--size(64px);
+
+    .minimized &, .fullScreen & {
+      display: none;
+    }
+  }
+  .ComposerBody-content {
+    margin-left: 85px;
+
+    .minimized &, .fullScreen & {
+      margin-left: 0;
+    }
+  }
+  .ComposerBody-editor {
+    .fullScreen & textarea {
+      font-size: 16px;
+    }
+  }
+  .ComposerBody--discussion .ComposerBody-header .item-title {
+    display: none;
+  }
+}
+
+@media @desktop-up {
+  .Composer:not(.fullScreen) {
+    .App--index & {
+      margin-left: 220px;
+      margin-right: -20px;
+    }
+    .App--discussion & {
+      margin-left: -20px;
+      margin-right: 205px;
+    }
+  }
+}
+
+@media @desktop-hd {
+  .hasPane.panePinned .App-composer {
+    left: @pane-width;
+  }
+}
+
+// ------------------------------------
+// Text Editor
+
+.TextEditor textarea {
+  border-radius: 0;
+  padding: 0 0 10px;
+  border: 0;
+  resize: none;
+  color: @text-color;
+  font-size: 14px;
+  line-height: 1.7;
+
+  &, &:focus, &[disabled] {
+    background: none;
+    border: 0;
+  }
+
+  @media @phone {
+    font-size: 16px; // minimum font-size required to prevent page zoom on focus in iOS 10
+  }
+}
+.TextEditor-controls {
+  margin: 0;
+  padding: 15px 0;
+  list-style-type: none;
+
+  & li {
+    display: inline-block;
+  }
+}
+
+@media @tablet-up {
+  .TextEditor-controls {
+    margin: 0 -20px 0 -105px;
+    padding: 10px 20px;
+    border-top: 1px solid @control-bg;
+
+    li {
+      margin-right: 5px;
+    }
+
+    .fullScreen & {
+      margin: 0;
+      border-top: 0;
+      padding: 20px 0;
+    }
+  }
+}

@@ -1,0 +1,231 @@
+.Dropdown {
+  position: relative;
+}
+.Dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: @zindex-dropdown;
+  display: none;
+  min-width: 160px;
+  padding: 8px 0;
+  margin: 7px 0;
+  background: @body-bg;
+  border-radius: @border-radius;
+  .box-shadow(0 2px 6px @shadow-color);
+  list-style: none;
+  text-align: left;
+  color: @text-color;
+  font-size: 13px;
+  line-height: 1.5;
+
+  .open & {
+    display: block;
+  }
+
+  > li {
+    > a, > button, > span {
+      padding: 8px 15px;
+      display: block;
+      width: 100%;
+      color: @text-color;
+      border-radius: 0;
+      border: 0;
+      background: none;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      .box-shadow(none);
+      text-align: left;
+      font-size: 13px;
+      font-weight: normal;
+      text-decoration: none;
+
+      &.hasIcon {
+        padding-left: 40px;
+      }
+
+      .Button-icon {
+        float: left;
+        margin-left: -25px;
+        margin-top: 2px;
+        .fa-fw();
+      }
+
+      &.disabled {
+        opacity: 0.4;
+        background: none !important;
+      }
+    }
+    > a, > button {
+      &:hover {
+        background: @control-bg;
+      }
+      &:focus {
+        outline: none;
+      }
+    }
+    &.active {
+      > a, > button {
+        background: @control-bg;
+      }
+    }
+  }
+}
+.Dropdown-menu--top {
+  top: auto;
+  bottom: 100%;
+}
+.Dropdown-menu--right {
+  left: auto;
+  right: 0;
+}
+.Dropdown-header {
+  padding: 10px 15px;
+  color: @heading-color;
+  text-transform: uppercase;
+  font-size: 12px;
+  font-weight: bold;
+  margin-top: 8px;
+  border-top: 1px solid @control-bg;
+  white-space: nowrap;
+
+  &:first-child {
+    margin-top: -8px;
+    border-top: 0;
+  }
+}
+.Dropdown-separator {
+  margin: 8px 0;
+  background-color: @control-bg;
+  height: 1px;
+}
+
+
+.dropdown-backdrop {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  top: 0;
+  z-index: (@zindex-dropdown - 10);
+}
+
+
+.Dropdown--split {
+  .Dropdown-toggle .Button-icon {
+    display: none;
+  }
+  .Dropdown-toggle .Button-caret {
+    display: inline;
+    margin: 0;
+  }
+
+  &.itemCount1 {
+    .Button {
+      border-radius: @border-radius !important;
+    }
+    .Dropdown-toggle {
+      display: none;
+    }
+  }
+
+  @media @tablet-up {
+    .Dropdown-menu li:first-child {
+      &, + li.Dropdown-separator {
+        display: none;
+      }
+    }
+  }
+}
+
+.Dropdown--expanded() {
+  .Dropdown-toggle {
+    display: none;
+  }
+  .Dropdown-menu {
+    display: block;
+    border: 0;
+    width: auto;
+    margin: 0;
+    padding: 0;
+    min-width: 0;
+    float: none;
+    position: static;
+    background: none;
+    .box-shadow(none);
+  }
+}
+
+
+@media @phone {
+  .Dropdown.open {
+    z-index: @zindex-modal;
+  }
+  .Dropdown .Dropdown-menu {
+    margin: 0;
+    position: fixed;
+    left: 0 !important;
+    right: 0 !important;
+    width: auto !important;
+    bottom: 0;
+    top: auto;
+    padding: 0;
+    padding-bottom: 40px !important;
+    display: block;
+    max-height: 70vh;
+    border-radius: 0;
+    .box-shadow(0 2px 6px @shadow-color);
+    visibility: hidden;
+    overflow: auto;
+    -webkit-overflow-scrolling: touch;
+    .translate3d(0, 70vh, 0);
+    .transition-transform(~" 0.3s, visibility 0s 0.3s");
+
+    > li {
+      > a, > button {
+        background: @body-bg;
+        font-size: 16px;
+        padding: 15px 20px;
+
+        &.hasIcon {
+          padding-left: 50px;
+        }
+        .Button-icon {
+          font-size: 16px;
+          margin-left: -30px;
+        }
+        &:hover {
+          background: @control-bg;
+        }
+      }
+    }
+    > .active {
+      > a, > button {
+        &, &:hover {
+          background: @primary-color !important;
+          color: #fff !important;
+        }
+      }
+    }
+    .open& {
+      -webkit-transform: none;
+              transform: none;
+      visibility: visible;
+      transition-delay: 0s;
+    }
+  }
+  .Dropdown-separator {
+    margin: 0;
+  }
+  .dropdown-backdrop {
+    background: fade(@secondary-color, 90%);
+    opacity: 0;
+    .transition(~"opacity 0.3s");
+    .translate3d(0, 0, 0);
+
+    .open & {
+      opacity: 1;
+    }
+  }
+}

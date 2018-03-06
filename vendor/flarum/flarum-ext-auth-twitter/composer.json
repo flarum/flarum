@@ -1,0 +1,39 @@
+{
+    "name": "flarum/flarum-ext-auth-twitter",
+    "description": "Allow users to log in with Twitter.",
+    "type": "flarum-extension",
+    "keywords": ["authentication"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toby Zerner",
+            "email": "toby.zerner@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/flarum/core/issues",
+        "source": "https://github.com/flarum/flarum-ext-auth-twitter"
+    },
+    "require": {
+        "flarum/core": "^0.1.0-beta.6",
+        "league/oauth1-client": "^1.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flarum\\Auth\\Twitter\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        },
+        "flarum-extension": {
+            "title": "Twitter Login",
+            "icon": {
+                "name": "twitter",
+                "backgroundColor": "#55ADEE",
+                "color": "#fff"
+            }
+        }
+    }
+}

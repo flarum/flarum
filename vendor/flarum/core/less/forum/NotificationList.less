@@ -1,0 +1,122 @@
+
+.NotificationList {
+  & .loading-indicator {
+    height: 100px;
+  }
+}
+
+.NotificationList-header {
+  @media @tablet-up {
+    padding: 12px 15px;
+    border-bottom: 1px solid @control-bg;
+
+    h4 {
+      font-size: 12px;
+      text-transform: uppercase;
+      font-weight: bold;
+      margin: 0;
+      color: @muted-color;
+    }
+  }
+  .Button {
+    float: right;
+    margin-top: -11px;
+    margin-right: -11px;
+
+    // The NotificationList may be displayed inside of the drawer as a
+    // dropdown menu – but the drawer may have .light-contents() applied to
+    // it. In this case we will need to reset the button's styles back to
+    // normal.
+    & when (@config-colored-header = true) {
+      .Button--color(@control-color, @control-bg);
+
+      &:hover {
+        color: @link-color;
+      }
+    }
+  }
+}
+.NotificationList-empty {
+  color: @muted-color;
+  text-align: center;
+  padding: 50px 0;
+  font-size: 16px;
+}
+.NotificationGroup {
+  border-top: 1px solid @control-bg;
+  margin-top: -1px;
+
+  &:not(:last-child) {
+    margin-bottom: 20px;
+  }
+}
+.NotificationGroup-header {
+  font-weight: bold;
+  color: @heading-color !important;
+  padding: 6px 15px;
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.NotificationGroup-badges {
+  margin-left: -2px;
+  margin-right: 18px;
+  vertical-align: 1px;
+
+  .Badge {
+    margin-right: -13px;
+    position: relative;
+    .Badge--size(21px);
+  }
+}
+.NotificationGroup-content {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.Notification {
+  display: block;
+  padding: 8px 15px 8px 70px;
+  color: @muted-color !important; // required to override .light-contents applied to header
+  overflow: hidden;
+
+  .unread& {
+    background: @control-bg;
+  }
+  &:hover {
+    text-decoration: none;
+    background: @control-bg;
+  }
+  .Avatar {
+    .Avatar--size(24px);
+    float: left;
+    margin: -2px 0 -2px -55px;
+  }
+  time {
+    font-size: 11px;
+    font-weight: bold;
+    text-transform: uppercase;
+  }
+}
+.Notification-icon {
+  float: left;
+  margin-left: -23px;
+  font-size: 14px;
+  margin-top: 2px;
+}
+.Notification-content {
+  margin-right: 5px;
+
+  .username {
+    font-weight: bold;
+  }
+}
+.Notification-excerpt {
+  color: @muted-more-color;
+  font-size: 11px;
+  margin-top: 3px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+}

@@ -1,0 +1,38 @@
+{
+    "name": "flarum/flarum-ext-bbcode",
+    "description": "Allow posts to be formatted with BBCode.",
+    "type": "flarum-extension",
+    "keywords": ["formatting"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toby Zerner",
+            "email": "toby.zerner@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/flarum/core/issues",
+        "source": "https://github.com/flarum/flarum-ext-bbcode"
+    },
+    "require": {
+        "flarum/core": "^0.1.0-beta.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flarum\\BBCode\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        },
+        "flarum-extension": {
+            "title": "BBCode",
+            "icon": {
+                "name": "bold",
+                "backgroundColor": "#238C59",
+                "color": "#fff"
+            }
+        }
+    }
+}

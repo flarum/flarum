@@ -1,0 +1,42 @@
+{
+    "name": "flarum/flarum-ext-pusher",
+    "description": "See new discussions and posts in real-time using Pusher.",
+    "type": "flarum-extension",
+    "keywords": ["discussion"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toby Zerner",
+            "email": "toby.zerner@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/flarum/core/issues",
+        "source": "https://github.com/flarum/flarum-ext-pusher"
+    },
+    "require": {
+        "flarum/core": "^0.1.0-beta.6",
+        "pusher/pusher-php-server": "^2.2"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flarum\\Pusher\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        },
+        "flarum-extension": {
+            "title": "Pusher",
+            "icon": {
+                "image": "icon.png",
+                "backgroundSize": "55px 75px",
+                "backgroundPosition": "center",
+                "backgroundRepeat": "no-repeat",
+                "backgroundColor": "#40bad8",
+                "color": "#fff"
+            }
+        }
+    }
+}

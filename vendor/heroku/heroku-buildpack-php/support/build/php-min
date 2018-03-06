@@ -1,0 +1,67 @@
+#!/usr/bin/env bash
+# Build Path: /app/.heroku/php-min/
+
+# fail hard
+set -o pipefail
+# fail harder
+set -eu
+
+source $(dirname $BASH_SOURCE)/_util/include/manifest.sh
+
+OUT_PREFIX=$1
+
+dep_formula=${0#$WORKSPACE_DIR/}
+dep_name=$(basename $BASH_SOURCE)
+dep_version=${dep_formula#"${dep_name}-"}
+dep_package=pkg-${dep_name}-${dep_version}
+dep_dirname=php-${dep_version}
+dep_archive_name=${dep_dirname}.tar.gz
+dep_url=https://php.net/get/${dep_archive_name}/from/this/mirror
+dep_manifest=${dep_package}.composer.json
+
+echo "-----> Building minimal PHP ${dep_version}..."
+
+curl -L ${dep_url} | tar xz
+
+pushd ${dep_dirname}
+
+export PATH=${OUT_PREFIX}/bin:$PATH
+# cannot be built shared: date, ereg, opcache (always), pcre, reflection, sockets (?), spl, standard,
+# sqlite3 and pdo_sqlite are on by default but we're building them shared on purpose
+./configure \
+    --prefix=${OUT_PREFIX} \
+    --with-config-file-path=/app/.heroku/php-min/etc/php \
+    --with-config-file-scan-dir=/app/.heroku/php-min/etc/php/conf.d \
+    --enable-static \
+    --disable-phpdbg \
+    --disable-cgi \
+    --enable-cli\
+    --with-bz2 \
+    --disable-dom \
+    --disable-libxml \
+    --with-openssl \
+    --without-pear \
+    --disable-pdo \
+    --without-pdo-sqlite \
+    --with-readline \
+    --disable-session \
+    --disable-simplexml \
+    --without-sqlite3 \
+    --enable-sockets \
+    --disable-xml \
+    --disable-xmlreader \
+    --disable-xmlwriter \
+    --enable-zip \
+    --with-zlib
+make -s -j 9
+
+mkdir -p ${OUT_PREFIX}/bin
+cp sapi/cli/php ${OUT_PREFIX}/bin/php
+popd
+
+echo "-----> Stripping..."
+strip ${OUT_PREFIX}/bin/php
+
+python $(dirname $BASH_SOURCE)/_util/include/manifest.py "heroku-sys-package" "heroku-sys/pkg-${dep_name}" "$dep_version" "${dep_formula}.tar.gz" > $dep_manifest
+
+print_or_export_manifest_cmd "$(generate_manifest_cmd "$dep_manifest")"

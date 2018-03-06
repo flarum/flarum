@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+dep_name=$(basename $BASH_SOURCE)
+
+OUT_PREFIX=$1
+export PATH=${OUT_PREFIX}/bin:${PATH}
+
+# raphf needs to be loaded at build time
+echo 'extension=raphf.so' > ${OUT_PREFIX}/etc/php/conf.d/raphf.ini
+
+# we need to declare the right version of raphf as required
+dep_formula=${0#$WORKSPACE_DIR/}
+dep_version=${dep_formula##*"/${dep_name}-"}
+series=$(php-config --version | cut -d. -f1,2) # get "5.5", "5.6", "7.0" etc for the php requirement in the manifest
+case "$dep_version" in
+	1.*)
+		MANIFEST_REQUIRE="${MANIFEST_REQUIRE:-"{\"heroku-sys/php\":\"${series}.*\",\"heroku-sys/ext-raphf\":\"^1.1.0\",\"heroku-sys/ext-json\":\"*\",\"heroku-sys/ext-spl\":\"*\"}"}"
+		;;
+	*)
+		MANIFEST_REQUIRE="${MANIFEST_REQUIRE:-"{\"heroku-sys/php\":\"${series}.*\",\"heroku-sys/ext-raphf\":\">=2.0.0\",\"heroku-sys/ext-json\":\"*\",\"heroku-sys/ext-spl\":\"*\"}"}"
+		;;
+esac
+
+source $(dirname $BASH_SOURCE)/../pecl

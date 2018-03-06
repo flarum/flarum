@@ -1,0 +1,38 @@
+{
+    "name": "flarum/flarum-ext-likes",
+    "description": "Allow users to like posts.",
+    "type": "flarum-extension",
+    "keywords": ["discussion"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toby Zerner",
+            "email": "toby.zerner@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/flarum/core/issues",
+        "source": "https://github.com/flarum/flarum-ext-likes"
+    },
+    "require": {
+        "flarum/core": "^0.1.0-beta.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flarum\\Likes\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        },
+        "flarum-extension": {
+            "title": "Likes",
+            "icon": {
+                "name": "thumbs-o-up",
+                "backgroundColor": "#3A649D",
+                "color": "#fff"
+            }
+        }
+    }
+}
