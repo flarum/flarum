@@ -1,0 +1,20 @@
+{
+  "name": "flarum",
+  "description": "",
+  "scripts": {
+    "postdeploy": "bin/setup",
+    "pr-predestroy": "bin/teardown"
+  },
+  "env": {
+  },
+  "formation": {
+  },
+  "addons": [
+
+  ],
+  "buildpacks": [
+    {
+      "url": "heroku/php"
+    }
+  ]
+}
