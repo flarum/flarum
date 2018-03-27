@@ -1,0 +1,50 @@
+.NotificationGrid {
+  background: @control-bg;
+  border-radius: @border-radius;
+
+  td, th {
+    border-bottom: 1px solid @body-bg;
+    color: @control-color;
+  }
+  td, th, .Checkbox {
+    padding: 10px 15px;
+  }
+  .NotificationGrid-checkbox {
+    padding: 0;
+  }
+  thead {
+    th {
+      text-align: center;
+      padding: 15px 25px;
+    }
+    .icon {
+      display: block;
+      font-size: 14px;
+      width: auto;
+      margin-bottom: 5px;
+    }
+  }
+}
+.NotificationGrid-groupToggle {
+  cursor: pointer;
+
+  .icon {
+    font-size: 14px;
+    margin-right: 2px;
+    .fa-fw();
+  }
+}
+.NotificationGrid-checkbox {
+  .Checkbox {
+    display: block;
+  }
+  .Checkbox-display {
+    text-align: center;
+    cursor: pointer;
+  }
+  &.highlighted .Checkbox, .Checkbox:hover {
+    &:not(.disabled) {
+      background: darken(@control-bg, 4%);
+    }
+  }
+}

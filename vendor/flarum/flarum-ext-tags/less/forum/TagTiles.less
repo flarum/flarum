@@ -1,0 +1,139 @@
+.TagTiles {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  overflow: hidden;
+
+  @media @phone {
+    margin: -15px -15px 0;
+  }
+
+  > li {
+    height: 200px;
+    overflow: hidden;
+
+    @media @tablet {
+      float: left;
+      width: 50%;
+
+      &:first-child {
+        border-top-left-radius: @border-radius;
+      }
+      &:nth-child(2) {
+        border-top-right-radius: @border-radius;
+      }
+      &:nth-last-child(2):nth-child(even), &:last-child {
+        border-bottom-right-radius: @border-radius;
+      }
+      &:nth-last-child(2):nth-child(odd), &:last-child:nth-child(odd) {
+        border-bottom-left-radius: @border-radius;
+      }
+    }
+    @media @desktop-up {
+      float: left;
+      width: 33.333%;
+
+      &:first-child {
+        border-top-left-radius: @border-radius;
+      }
+      &:nth-child(3),
+      &:nth-child(2):last-child,
+      &:first-child:last-child {
+        border-top-right-radius: @border-radius;
+      }
+      &:nth-child(3n):nth-last-child(2),
+      &:nth-child(3n):nth-last-child(3),
+      &:last-child {
+        border-bottom-right-radius: @border-radius;
+      }
+      &:nth-child(3n+1):last-child,
+      &:nth-child(3n+1):nth-last-child(2),
+      &:nth-child(3n+1):nth-last-child(3) {
+        border-bottom-left-radius: @border-radius;
+      }
+    }
+  }
+}
+
+.TagTile {
+  position: relative;
+  background: @control-bg;
+
+  &, a {
+    color: @control-color;
+  }
+  &.colored {
+    &, a {
+      color: @body-bg;
+    }
+  }
+}
+.TagTile-info, .TagTile-lastDiscussion {
+  padding: 20px;
+  text-decoration: none !important;
+  display: block;
+  position: absolute;
+  left: 0;
+  right: 0;
+}
+.TagTile-info {
+  top: 0;
+  bottom: 42px;
+  padding-right: 20px;
+  transition: background 0.2s;
+  overflow: auto;
+
+  &:hover {
+    background: fade(#000, 5%);
+  }
+}
+.TagTile-name {
+  font-size: 18px;
+  margin: 0 0 10px;
+  font-weight: bold;
+}
+.TagTile-description {
+  font-size: 14px;
+  margin: 0 0 10px;
+
+  .TagTile.colored & {
+    color: fade(@body-bg, 70%);
+  }
+}
+.TagTile-children {
+  font-weight: bold;
+  font-size: 12px;
+
+  a {
+    margin-right: 10px;
+  }
+}
+.TagTile-lastDiscussion {
+  bottom: 0;
+  height: 42px;
+  padding: 7px 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  line-height: 21px;
+  font-size: 12px;
+  border-top: 1px solid rgba(0, 0, 0, 0.15);
+  margin: 0 20px;
+
+  .TagTile.colored & {
+    color: fade(@body-bg, 70%);
+  }
+
+  &:hover .TagTile-lastDiscussion-title {
+    text-decoration: underline;
+  }
+
+  time {
+    text-transform: uppercase;
+    font-size: 11px;
+    font-weight: bold;
+  }
+}
+.TagTile-lastDiscussion-title {
+  margin-right: 10px;
+}

@@ -1,0 +1,127 @@
+.PermissionsPage-groups {
+  background: @control-bg;
+  padding: 20px 0;
+}
+.Group {
+  width: 90px;
+  display: inline-block;
+  text-align: center;
+  color: @text-color;
+  font-weight: bold;
+  padding-left: 10px;
+  padding-right: 10px;
+}
+.Group-name {
+  display: block;
+  margin-top: 5px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.Group--add {
+  color: @muted-color;
+  width: auto;
+  margin-left: 10px;
+  font-weight: normal;
+
+  .Group-icon {
+    font-size: 14px;
+    margin-top: 5px;
+  }
+}
+
+
+.PermissionsPage-permissions {
+  padding: 20px 0 200px;
+  overflow: auto;
+}
+
+.PermissionGrid {
+  white-space: nowrap;
+
+  td, th {
+    padding: 5px;
+    text-align: left;
+  }
+  td {
+    color: @muted-color;
+  }
+  thead th {
+    text-transform: uppercase;
+    font-weight: bold;
+    font-size: 12px;
+    color: @muted-color;
+    min-width: 140px;
+
+    &:not(:hover) .PermissionGrid-removeScope {
+      display: none;
+    }
+  }
+  tbody {
+    th {
+      padding-right: 50px;
+
+      .icon {
+        margin-right: 5px;
+        font-size: 14px;
+      }
+    }
+    .Dropdown {
+      display: block;
+
+      .Dropdown-toggle {
+        width: 100%;
+        display: block;
+        text-align: left;
+        float: none;
+      }
+      .Dropdown-menu {
+        margin: 0;
+      }
+    }
+    .Button {
+      text-decoration: none;
+
+      .Badge {
+        margin: -3px 2px -3px 0;
+        vertical-align: 0;
+      }
+    }
+    td:not(:hover) .Select-caret,
+    td:not(:hover) .Dropdown:not(.open) .Button-caret {
+      display: none;
+    }
+    .open .Dropdown-toggle {
+      .box-shadow(none);
+    }
+  }
+}
+.PermissionGrid-removeScope {
+  margin: -1px 0;
+}
+.PermissionDropdown {
+  .Dropdown-toggle {
+    padding: 5px 0;
+    margin: -5px 0;
+  }
+  .Badge {
+    margin: -3px 3px -3px 0;
+    vertical-align: 1px;
+    .box-shadow(none);
+  }
+}
+.PermissionGrid-section {
+  td, th {
+    padding-top: 20px;
+  }
+}
+.PermissionGrid-child {
+  td, th {
+    position: relative;
+  }
+  th {
+    font-weight: normal;
+  }
+  &:hover {
+    background: lighten(@control-bg, 3%);
+  }
+}

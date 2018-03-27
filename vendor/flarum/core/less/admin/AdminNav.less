@@ -1,0 +1,88 @@
+@admin-pane-width: 300px;
+
+.App {
+  padding-bottom: 0;
+}
+.AdminLinkButton-description {
+  display: none;
+}
+.AdminContent {
+  padding: 20px 0;
+}
+.App-content .sideNavOffset {
+  margin-top: 0;
+}
+@media @desktop, @desktop-hd {
+  .App-nav {
+    position: absolute;
+    top: @header-height;
+    height: ~"calc(100vh - @{header-height})";
+    width: @admin-pane-width;
+    .box-shadow(0 6px 6px @shadow-color);
+    background: @body-bg;
+    border-top: 1px solid @control-bg;
+    z-index: @zindex-pane;
+    overflow: auto;
+
+    .affix & {
+      position: fixed;
+      bottom: 0;
+      height: auto;
+    }
+  }
+  .App-content .sideNavOffset {
+    margin-left: @admin-pane-width;
+  }
+  .App-nav .AdminNav {
+    .Dropdown-menu > li {
+      > a {
+        padding: 15px 15px 15px 45px;
+        display: block;
+        text-decoration: none;
+        white-space: normal;
+      }
+      > a, > a:hover, &.active > a {
+        color: @muted-color;
+      }
+      > a:hover {
+        background: @control-bg;
+      }
+      &.active > a {
+        background: @control-bg;
+        font-weight: normal;
+
+        .Button-label, .Button-icon {
+          color: @text-color;
+          font-weight: bold;
+        }
+      }
+    }
+    .Button-icon {
+      float: left;
+      margin-left: -30px;
+      font-size: 14px;
+      margin-top: 4px !important;
+    }
+    .Button-label {
+      display: block;
+      font-size: 15px;
+      font-weight: normal;
+      margin: 0 0 5px;
+    }
+    .AdminLinkButton-description {
+      display: block;
+      font-size: 12px;
+    }
+  }
+  .container {
+    width: 100%;
+    margin: 0;
+
+    .App-content & {
+      padding: 0 30px;
+    }
+    .App-content > & {
+      padding: 0;
+    }
+  }
+}

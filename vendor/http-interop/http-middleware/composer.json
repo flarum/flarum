@@ -1,0 +1,35 @@
+{
+    "name": "http-interop/http-middleware",
+    "description": "Common interface for HTTP middleware",
+    "keywords": [
+        "psr",
+        "psr-7",
+        "psr-17",
+        "http",
+        "factory",
+        "middleware",
+        "request",
+        "response"
+    ],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "PHP-FIG",
+            "homepage": "http://www.php-fig.org/"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "psr/http-message": "^1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Interop\\Http\\Middleware\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "1.0.x-dev"
+        }
+    }
+}

@@ -1,0 +1,38 @@
+{
+    "name": "matthiasmullie/minify",
+    "type": "library",
+    "description": "CSS & JavaScript minifier, in PHP. Removes whitespace, strips comments, combines files (incl. @import statements and small assets in CSS files), and optimizes/shortens a few common programming patterns.",
+    "keywords": ["minify", "minifier", "css", "js", "javascript"],
+    "homepage": "http://www.minifier.org",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Matthias Mullie",
+            "homepage": "http://www.mullie.eu",
+            "email": "minify@mullie.eu",
+            "role": "Developer"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.0",
+        "ext-pcre": "*",
+        "matthiasmullie/path-converter": "~1.1"
+    },
+    "require-dev": {
+        "matthiasmullie/scrapbook": "~1.0",
+        "phpunit/phpunit": "~4.8",
+        "friendsofphp/php-cs-fixer": "~2.0"
+    },
+    "suggest": {
+        "psr/cache-implementation": "Cache implementation to use with Minify::cache"
+    },
+    "autoload": {
+        "psr-4": {
+            "MatthiasMullie\\Minify\\": "src/"
+        }
+    },
+    "bin": [
+        "bin/minifycss",
+        "bin/minifyjs"
+    ]
+}

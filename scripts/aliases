@@ -1,0 +1,69 @@
+#process & file related aliases
+alias 755='sudo chmod -R 755 *'
+alias 644='sudo chmod -R 644 *'
+
+#copy stuff to clipboard
+alias cl='fc -e - | pbcopy'
+alias cpwd='pwd | tr -d "\n" | pbcopy'
+alias pbcopy='xclip -selection clipboard'
+alias pbpaste='xclip -selection clipboard -o'
+
+#version control
+alias ga='git add -A'
+alias gc='git commit -m'
+alias gp='git push origin $(current_branch)'
+alias gpm='git push origin master'
+alias gpd='git push origin develop'
+alias gl='git log'
+alias glp='git log --pretty=format:"%an %s"'
+alias gs='git status'
+alias ungit="find . -name '.git' -exec rm -rf {} \;"
+
+#application specific
+alias art='php artisan' #laravel
+alias srv='php artisan serve' #laravel
+alias tnk='php artisan tinker' #laravel
+alias gmig='php artisan generate:migration'
+alias gcon='php artisan generate:controller'
+alias gmod='php artisan generate:model'
+alias cc='./vendor/bin/codecept'
+alias ccr='./vendor/bin/codecept run'
+alias cca='./vendor/bin/codecept Acceptance'
+alias ccf='./vendor/bin/codecept Functional'
+alias ccu='./vendor/bin/codecept run Unit'
+
+#function aliases
+alias ghc=ghc
+alias grl=grl
+alias grln=grln
+alias gac=gac
+alias gacm=gacm
+alias gacd=gacd
+alias ggacm=gulpacm
+alias ggac=gulpac
+##functions
+ghc() {
+    git clone git@github.com:$1/$2
+}
+gac() {
+    git add -A && git commit -m "$1"
+}
+
+gacm() {
+    git add -A && git commit -m "$1" && git push origin master
+}
+gacd() {
+    git add -A && git commit -m "$1" && git push origin develop
+}
+
+gulpacm() {
+    gulp && git add -A && git commit -m "$1" && git push origin master
+}
+
+gulpac() {
+    gulp && git add -A && git commit -m "$1"
+}
+
+grl() {
+    grep -rl "$1" *
+}

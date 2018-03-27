@@ -1,0 +1,30 @@
+img.emoji {
+  height: 1.5em;
+  margin: 0 .05em 0 .1em;
+  vertical-align: -0.3em;
+}
+
+.EmojiDropdown {
+  max-width: 500px;
+  max-height: 200px;
+  overflow: auto;
+  position: absolute;
+  margin: 5px 0 !important;
+
+  > li > button {
+    color: @text-color;
+    font-weight: bold;
+    padding-top: 6px;
+    padding-bottom: 6px;
+    padding-left: 45px;
+
+    .emoji {
+      float: left;
+      margin-left: -30px;
+    }
+  }
+}
+
+.ComposerBody-emojiWrapper {
+  position: relative;
+}

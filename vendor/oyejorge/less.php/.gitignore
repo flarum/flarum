@@ -1,0 +1,14 @@
+.buildpath
+.project
+.settings
+.idea
+.DS_Store?
+ehthumbs.db
+Icon?
+Thumbs.db
+*.komodoproject
+composer.lock
+vendor/
+x_*
+X_*
+_*

@@ -1,0 +1,51 @@
+.Slidable-underneath {
+  display: none;
+}
+@media @phone {
+  .Slidable {
+    position: relative;
+
+    .DiscussionListItem-controls {
+      display: block;
+      position: static;
+    }
+    .Slidable-underneath {
+      display: none;
+      background: @secondary-color !important;
+      position: absolute;
+      right: 0;
+      top: 0;
+      bottom: 0;
+      left: 0;
+      width: auto;
+      height: auto;
+      z-index: 0;
+      color: #fff !important;
+      border: 0;
+      border-radius: 0;
+      .box-shadow(none);
+      padding: 20px 0;
+      text-align: right;
+
+      .icon {
+        width: 50px;
+        text-align: center;
+        font-size: 20px;
+      }
+    }
+    .Slidable-underneath--left {
+      text-align: left;
+    }
+    .Slidable-content {
+      .transition(~"box-shadow 0.2s, border-radius 0.2s");
+
+      .sliding& {
+        position: relative;
+        background: #fff;
+        z-index: 2;
+        border-radius: 2px;
+        .box-shadow(0 2px 6px @shadow-color);
+      }
+    }
+  }
+}

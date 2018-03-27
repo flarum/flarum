@@ -1,0 +1,38 @@
+.Badge {
+  .Badge--size(22px);
+  background: @muted-color;
+  color: #fff;
+  display: inline-block;
+  vertical-align: middle;
+  text-align: center;
+  .box-shadow(0 2px 4px @shadow-color);
+
+  .Badge-label {
+    display: none;
+  }
+}
+
+.Badge--size(@size) {
+  width: @size;
+  height: @size;
+  border-radius: @size / 2;
+  line-height: @size - 1px;
+
+  &, .Badge-icon {
+    font-size: 0.56 * @size;
+  }
+}
+
+.badges {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+
+  &, > li {
+    display: inline-block;
+  }
+}
+
+.Badge--hidden {
+  background: #888;
+}

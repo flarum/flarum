@@ -1,0 +1,26 @@
+.Avatar {
+  display: inline-block;
+  box-sizing: content-box;
+  color: #fff;
+  text-align: center;
+  vertical-align: top;
+  background-color: @control-bg;
+  font-weight: normal;
+  .Avatar--size(48px);
+
+  img {
+    display: inline-block;
+    width: 100%;
+    height: 100%;
+    border-radius: 100%;
+    vertical-align: top;
+  }
+}
+
+.Avatar--size(@size) {
+  width: @size;
+  height: @size;
+  border-radius: @size;
+  font-size: @size / 2;
+  line-height: @size;
+}

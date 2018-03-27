@@ -1,0 +1,80 @@
+{
+    "name": "flarum/core",
+    "description": "Delightfully simple forum software.",
+    "keywords": ["forum", "discussion"],
+    "homepage": "http://flarum.org",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toby Zerner",
+            "email": "toby.zerner@gmail.com"
+        },
+        {
+            "name": "Franz Liedke",
+            "email": "franz@develophp.org"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/flarum/core/issues",
+        "source": "https://github.com/flarum/core",
+        "docs": "http://flarum.org/docs"
+    },
+    "require": {
+        "php": ">=5.6.0",
+        "dflydev/fig-cookies": "^1.0.2",
+        "doctrine/dbal": "^2.5",
+        "components/font-awesome": "^4.6",
+        "franzl/whoops-middleware": "^0.4.0",
+        "illuminate/bus": "5.1.*",
+        "illuminate/cache": "5.1.*",
+        "illuminate/config": "5.1.*",
+        "illuminate/container": "5.1.*",
+        "illuminate/contracts": "5.1.*",
+        "illuminate/database": "^5.1.31",
+        "illuminate/events": "5.1.*",
+        "illuminate/filesystem": "5.1.*",
+        "illuminate/hashing": "5.1.*",
+        "illuminate/mail": "5.1.*",
+        "illuminate/support": "5.1.*",
+        "illuminate/validation": "5.1.*",
+        "illuminate/view": "5.1.*",
+        "intervention/image": "^2.3.0",
+        "league/flysystem": "^1.0.11",
+        "league/oauth2-client": "~1.0",
+        "matthiasmullie/minify": "^1.3",
+        "monolog/monolog": "^1.16.0",
+        "nikic/fast-route": "^0.6",
+        "oyejorge/less.php": "~1.5",
+        "psr/http-message": "^1.0",
+        "symfony/console": "^2.7",
+        "symfony/http-foundation": "^2.7",
+        "symfony/translation": "^2.7",
+        "symfony/yaml": "^2.7",
+        "s9e/text-formatter": "^0.8.1",
+        "tobscure/json-api": "^0.3.0",
+        "zendframework/zend-diactoros": "^1.1",
+        "zendframework/zend-stratigility": "^1.3"
+    },
+    "require-dev": {
+        "mockery/mockery": "^0.9.4",
+        "phpunit/phpunit": "^4.8"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flarum\\": "src/"
+        },
+        "files": [
+            "src/helpers.php"
+        ]
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        }
+    }
+}

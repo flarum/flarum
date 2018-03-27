@@ -1,0 +1,39 @@
+{
+    "name": "flarum/flarum-ext-approval",
+    "description": "Make discussions and posts require moderator approval.",
+    "type": "flarum-extension",
+    "keywords": ["moderation"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toby Zerner",
+            "email": "toby.zerner@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/flarum/core/issues",
+        "source": "https://github.com/flarum/flarum-ext-approval"
+    },
+    "require": {
+        "flarum/core": "^0.1.0-beta.7",
+        "flarum/flarum-ext-flags": "^0.1.0-beta.6"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flarum\\Approval\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        },
+        "flarum-extension": {
+            "title": "Approval",
+            "icon": {
+                "name": "check",
+                "backgroundColor": "#ABDC88",
+                "color": "#3F8A32"
+            }
+        }
+    }
+}

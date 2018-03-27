@@ -1,0 +1,36 @@
+// This is a mixin which styles components (buttons, inputs, etc.) for use on
+// dark backgrounds.
+.light-contents(@color: #fff, @control-bg: fade(#000, 10%), @control-color: #fff) {
+  &, a {
+    color: @color;
+  }
+  .Button--link, .Search-input {
+    color: @control-color;
+  }
+  .FormControl {
+    background: @control-bg;
+    border: 0;
+    color: @control-color;
+    .placeholder(@control-color);
+
+    &:focus {
+      color: @color;
+      background: fadein(darken(@control-bg, 5%), 10%);
+    }
+  }
+  .Button, .Button:hover {
+    color: @control-color;
+    background: @control-bg;
+  }
+  .Button--flat {
+    background: transparent;
+  }
+  .Button:active,
+  .Button.active,
+  .Button:focus,
+  .Button.focus,
+  .open > .Dropdown-toggle.Button {
+    background: fadein(@control-bg, 5%);
+    color: @control-color;
+  }
+}

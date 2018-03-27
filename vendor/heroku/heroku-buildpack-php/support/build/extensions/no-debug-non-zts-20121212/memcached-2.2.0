@@ -1,0 +1,5 @@
+#!/usr/bin/env bash
+# Build Path: /app/.heroku/php/
+# Build Deps: php-5.5.38, libraries/libmemcached-1.0.18
+
+source $(dirname $0)/memcached

@@ -1,0 +1,93 @@
+.PostMention, .UserMention {
+  background: @control-bg;
+  color: @control-color;
+  border-radius: @border-radius;
+  padding: 2px 5px;
+  border: 0 !important;
+
+  blockquote & {
+    background: @body-bg;
+  }
+  &:hover,
+  &:active {
+    color: @link-color;
+  }
+}
+.PostMention {
+  margin: 0 3px;
+
+  &:first-child {
+    margin-left: 0;
+  }
+
+  &:before {
+    .fa();
+    content: @fa-var-reply;
+    margin-right: 5px;
+  }
+}
+.ComposerBody-mentionsWrapper {
+  position: relative;
+}
+.MentionsDropdown {
+  max-width: 500px;
+  max-height: 200px;
+  overflow: auto;
+  position: absolute;
+
+  mark {
+    padding: 0;
+  }
+  > li > a:hover {
+    background: none;
+  }
+}
+.MentionsDropdown, .PostMention-preview, .Post-mentionedBy-preview {
+  .PostPreview {
+    color: @muted-color;
+
+    .Avatar {
+      .Avatar--size(24px);
+      margin: 0 0 0 -37px;
+
+      .MentionsDropdown-post& {
+        margin-top: 3px;
+        margin-bottom: 3px;
+      }
+    }
+    .username {
+      color: @text-color;
+      font-weight: bold;
+    }
+  }
+  .PostPreview-content {
+    padding-left: 37px;
+    overflow: hidden;
+    line-height: 1.7em;
+    display: block;
+  }
+}
+.Post-mentionedBy {
+  position: relative;
+  display: inline-block;
+}
+.Post-mentionedBy-summary {
+  cursor: pointer;
+}
+.Post-mentionedBy-preview, .PostMention-preview, .MentionsDropdown {
+  margin: 5px 0 !important;
+
+  > li > a {
+    white-space: normal;
+    border-bottom: 0;
+  }
+}
+.PostMention-preview-discussion {
+  padding-top: 0 !important;
+  font-weight: bold !important;
+  white-space: normal !important;
+}
+.PostQuoteButton {
+  position: absolute;
+  .Button--color(@tooltip-color, @tooltip-bg);
+}

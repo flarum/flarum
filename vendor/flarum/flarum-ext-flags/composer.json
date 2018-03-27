@@ -1,0 +1,38 @@
+{
+    "name": "flarum/flarum-ext-flags",
+    "description": "Allow users to flag posts for moderator review.",
+    "type": "flarum-extension",
+    "keywords": ["moderation"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toby Zerner",
+            "email": "toby.zerner@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/flarum/core/issues",
+        "source": "https://github.com/flarum/flarum-ext-flags"
+    },
+    "require": {
+        "flarum/core": "^0.1.0-beta.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flarum\\Flags\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        },
+        "flarum-extension": {
+            "title": "Flags",
+            "icon": {
+                "name": "flag",
+                "backgroundColor": "#D659B5",
+                "color": "#fff"
+            }
+        }
+    }
+}

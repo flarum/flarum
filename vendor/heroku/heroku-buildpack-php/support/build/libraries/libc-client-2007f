@@ -1,0 +1,4 @@
+#!/bin/bash
+# Build Path: /app/.heroku/php/
+
+source $(dirname $0)/libc-client

@@ -1,0 +1,77 @@
+#!/usr/bin/env bash
+# Build Path: /app/.heroku/php/
+
+# fail hard
+set -o pipefail
+# fail harder
+set -eu
+
+OUT_PREFIX=$1
+
+source $(dirname $BASH_SOURCE)/_util/include/manifest.sh
+
+dep_formula=${0#$WORKSPACE_DIR/}
+dep_name=$(basename $BASH_SOURCE)
+dep_version=${dep_formula#"${dep_name}-"}
+dep_package=${dep_name}-${dep_version}
+dep_dirname=httpd-${dep_version}
+dep_archive_name=${dep_dirname}.tar.gz
+dep_url=https://archive.apache.org/dist/httpd/${dep_archive_name}
+apr_url=https://archive.apache.org/dist/apr/apr-1.6.3.tar.gz
+aprutil_url=https://archive.apache.org/dist/apr/apr-util-1.6.1.tar.gz
+dep_manifest=${dep_package}.composer.json
+
+echo "-----> Building ${dep_package}..."
+
+curl -L ${dep_url} | tar xz
+
+mkdir -p ${dep_dirname}/srclib/apr
+curl -L ${apr_url} | tar xz --strip-components=1 -C ${dep_dirname}/srclib/apr
+
+mkdir -p ${dep_dirname}/srclib/apr-util
+curl -L ${aprutil_url} | tar xz --strip-components=1 -C ${dep_dirname}/srclib/apr-util
+
+pushd ${dep_dirname}
+./configure \
+    --enable-layout=GNU \
+    --prefix=${OUT_PREFIX} \
+    --disable-static \
+    --with-included-apr \
+    --with-pcre \
+    --with-z \
+    --with-ssl \
+    --with-mpm=event \
+    --enable-mods-shared=all \
+    --enable-proxy \
+    --enable-proxy-fcgi \
+    --enable-rewrite \
+    --enable-deflate
+make -s -j 9
+make install -s
+find ${OUT_PREFIX} -type f \( -executable -o -name '*.a' \) -exec sh -c "file -i '{}' | grep -Eq 'application/x-(archive|executable|sharedlib); charset=binary'" \; -print | xargs strip --strip-unneeded
+popd
+
+rm -rf ${OUT_PREFIX}/man ${OUT_PREFIX}/share/apache2/manual
+
+MANIFEST_REQUIRE="${MANIFEST_REQUIRE:-"{}"}"
+MANIFEST_CONFLICT="${MANIFEST_CONFLICT:-"{}"}"
+MANIFEST_REPLACE="${MANIFEST_REPLACE:-"{}"}"
+MANIFEST_PROVIDE="${MANIFEST_PROVIDE:-"{}"}"
+MANIFEST_EXTRA="${MANIFEST_EXTRA:-"{\"export\":\"bin/export.apache2.sh\",\"profile\":\"bin/profile.apache2.sh\"}"}"
+
+mkdir -p ${OUT_PREFIX}/etc/apache2
+cp $(dirname $BASH_SOURCE)/_conf/apache2/httpd.conf ${OUT_PREFIX}/etc/apache2/httpd.conf
+
+mkdir -p ${OUT_PREFIX}/bin
+# this gets sourced after package install, so that the buildpack and following buildpacks can invoke
+cat > ${OUT_PREFIX}/bin/export.apache2.sh <<'EOF'
+export PATH="/app/.heroku/php/bin:/app/.heroku/php/sbin:$PATH"
+EOF
+# this gets sourced on dyno boot
+cat > ${OUT_PREFIX}/bin/profile.apache2.sh <<'EOF'
+export PATH="$HOME/.heroku/php/bin:$HOME/.heroku/php/sbin:$PATH"
+EOF
+
+python $(dirname $BASH_SOURCE)/_util/include/manifest.py "heroku-sys-webserver" "heroku-sys/${dep_name}" "$dep_version" "${dep_formula}.tar.gz" "$MANIFEST_REQUIRE" "$MANIFEST_CONFLICT" "$MANIFEST_REPLACE" "$MANIFEST_PROVIDE" "$MANIFEST_EXTRA" > $dep_manifest
+
+print_or_export_manifest_cmd "$(generate_manifest_cmd "$dep_manifest")"

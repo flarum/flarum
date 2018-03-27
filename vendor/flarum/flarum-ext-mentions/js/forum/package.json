@@ -1,0 +1,8 @@
+{
+  "private": true,
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "flarum-gulp": "^0.2.0",
+    "textarea-caret": "~3.0.0"
+  }
+}

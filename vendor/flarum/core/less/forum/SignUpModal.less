@@ -1,0 +1,48 @@
+.SignUpModal-welcome {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  border-radius: @border-radius;
+  text-align: center;
+  color: #fff;
+  font-size: 14px;
+
+  .light-contents();
+
+  .Avatar {
+    .Avatar--size(96px);
+    border: 4px solid @body-bg;
+    .box-shadow(0 2px 6px @shadow-color);
+  }
+  h3, p {
+    margin-bottom: 25px;
+  }
+  .Button {
+    font-size: 15px;
+    height: 50px;
+    padding: 15px 20px;
+  }
+  .darkenBackground {
+    position: absolute;
+    top: 0;
+    left: 0;
+    bottom: 0;
+    right: 0;
+  }
+  .container {
+    width: auto !important;
+    padding: 50px 30px !important;
+    position: relative;
+  }
+}
+.SignUpModal--success .Modal-close .Button {
+  color: #fff;
+}
+
+@media @phone {
+  .SignUpModal-welcome .container {
+    padding-top: 56px + 60px;
+  }
+}

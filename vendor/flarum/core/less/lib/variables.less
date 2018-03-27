@@ -1,0 +1,140 @@
+// ---------------------------------
+// CONFIG
+
+@config-primary-color:             #536F90;
+@config-secondary-color:           #536F90;
+@config-dark-mode:                 false;
+@config-colored-header:            false;
+
+// ---------------------------------
+// COLORS
+
+@primary-hue:                      hue(@primary-color);
+@primary-sat:                      saturation(@primary-color);
+
+@secondary-hue:                    hue(@secondary-color);
+@secondary-sat:                    saturation(@secondary-color);
+
+// Derive the primary/secondary colors from the config variables. In dark mode,
+// we make the user-set colors a bit darker, otherwise they will stand out too
+// much.
+.define-colors(@config-dark-mode);
+.define-colors(false) {
+  @primary-color:                  @config-primary-color;
+  @secondary-color:                @config-secondary-color;
+
+  @body-bg:                        #fff;
+  @text-color:                     #111;
+  @link-color:                     saturate(@primary-color, 10%);
+  @heading-color:                  @text-color;
+  @muted-color:                    hsl(@secondary-hue, min(20%, @secondary-sat), 50%);
+  @muted-more-color:               #aaa;
+  @shadow-color:                   rgba(0, 0, 0, 0.35);
+
+  @control-bg:                     hsl(@secondary-hue, min(50%, @secondary-sat), 93%);
+  @control-color:                  @muted-color;
+  @control-danger-bg:              #fdd;
+  @control-danger-color:           #d66;
+
+  @overlay-bg:                     fade(@secondary-color, 90%);
+
+  @code-bg:                        darken(@body-bg, 3%);
+  @code-color:                     lighten(@text-color, 30%);
+}
+.define-colors(true) {
+  @primary-color:                  @config-primary-color;
+  @secondary-color:                @config-secondary-color;
+
+  @body-bg:                        hsl(@secondary-hue, min(20%, @secondary-sat), 10%);
+  @text-color:                     #ddd;
+  @link-color:                     saturate(@primary-color, 10%);
+  @heading-color:                  @text-color;
+  @muted-color:                    hsl(@secondary-hue, min(15%, @secondary-sat), 50%);
+  @muted-more-color:               hsl(@secondary-hue, min(10%, @secondary-sat), 40%);
+  @shadow-color:                   rgba(0, 0, 0, 0.5);
+
+  @control-bg:                     hsl(@secondary-hue, min(20%, @secondary-sat), 13%);
+  @control-color:                  @muted-color;
+  @control-danger-bg:              #411;
+  @control-danger-color:           #a88;
+
+  @overlay-bg:                     fade(darken(@body-bg, 5%), 90%);
+
+  @code-bg:                        darken(@body-bg, 3%);
+  @code-color:                     #fff;
+}
+
+@hero-bg:                          @control-bg;
+@hero-color:                       @control-color;
+@hero-muted-color:                 @control-color;
+
+@alert-bg:                         #fff2ae;
+@alert-color:                      #ad6c00;
+
+@alert-error-bg:                   #d83e3e;
+@alert-error-color:                #fff;
+
+@alert-success-bg:                 #B4F1AF;
+@alert-success-color:              #33722D;
+
+.define-header(@config-colored-header);
+.define-header(false) {
+  @header-bg:                      @body-bg;
+  @header-color:                   @primary-color;
+  @header-control-bg:              @control-bg;
+  @header-control-color:           @control-color;
+}
+.define-header(true) {
+  @header-bg:                      @primary-color;
+  @header-color:                   @body-bg;
+  @header-control-bg:              mix(#000, @header-bg, 10%);
+  @header-control-color:           mix(@body-bg, @header-bg, 60%);
+}
+
+// ---------------------------------
+// LAYOUT
+
+@drawer-width:                     270px;
+@pane-width:                       400px;
+@header-height:                    52px;
+@header-height-phone:              46px;
+
+@border-radius:                    4px;
+
+@zindex-header:                    1000;
+@zindex-pane:                      1010;
+@zindex-composer:                  1020;
+@zindex-dropdown:                  1030;
+@zindex-modal-background:          1040;
+@zindex-modal:                     1050;
+@zindex-alerts:                    1060;
+@zindex-tooltip:                   1070;
+
+// ---------------------------------
+// BREAKPOINTS
+
+@screen-phone-max:                 (@screen-tablet - 1);
+
+@screen-tablet:                    768px;
+@screen-tablet-max:                (@screen-desktop - 1);
+
+@screen-desktop:                   992px;
+@screen-desktop-max:               (@screen-desktop-hd - 1);
+
+@screen-desktop-hd:                1100px;
+
+@phone:                            ~"(max-width: @{screen-phone-max})";
+@tablet:                           ~"(min-width: @{screen-tablet}) and (max-width: @{screen-tablet-max})";
+@desktop:                          ~"(min-width: @{screen-desktop}) and (max-width: @{screen-desktop-max})";
+@desktop-hd:                       ~"(min-width: @{screen-desktop-hd})";
+
+@tablet-up:                        ~"(min-width: @{screen-tablet})";
+@desktop-up:                       ~"(min-width: @{screen-desktop})";
+
+// ---------------------------------
+// COMPONENTS
+
+@tooltip-bg:                       rgba(0, 0, 0, 0.9);
+@tooltip-color:                    #fff;
+
+@online-user-circle-color:         #7FBA00;

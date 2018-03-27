@@ -1,0 +1,489 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<repository>
+
+	<bbcode name="ACRONYM">
+		<usage>[ACRONYM title={TEXT1;optional}]{TEXT2}[/ACRONYM]</usage>
+		<template><![CDATA[
+			<acronym title="{TEXT1}">{TEXT2}</acronym>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="ALIGN">
+		<usage>[ALIGN={CHOICE=left,right,center,justify}]{TEXT}[/ALIGN]</usage>
+		<template><![CDATA[
+			<div style="text-align:{CHOICE}">{TEXT}</div>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="B">
+		<usage>[B]{TEXT}[/B]</usage>
+		<template><![CDATA[
+			<b><xsl:apply-templates /></b>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="BACKGROUND">
+		<usage>[BACKGROUND={COLOR}]{TEXT}[/BACKGROUND]</usage>
+		<template><![CDATA[
+			<span style="background-color:{COLOR}">{TEXT}</span>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="C">
+		<usage>[C]{TEXT}[/C]</usage>
+		<template><![CDATA[
+			<code class="inline"><xsl:apply-templates /></code>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="CENTER">
+		<usage>[CENTER]{TEXT}[/CENTER]</usage>
+		<template><![CDATA[
+			<div style="text-align:center">{TEXT}</div>
+		]]></template>
+	</bbcode>
+
+	<!-- [CODE] BBCode, uses Hightlight.js for highlighting: https://highlightjs.org/ -->
+	<bbcode name="CODE">
+		<usage>[CODE lang={IDENTIFIER;optional}]{TEXT}[/CODE]</usage>
+		<template><![CDATA[
+			<pre data-hljs="" data-s9e-livepreview-postprocess="if('undefined'!==typeof hljs)hljs._hb(this)"><code>
+				<xsl:if test="@lang">
+					<xsl:attribute name="class">language-<xsl:value-of select="@lang"/></xsl:attribute>
+				</xsl:if>
+				<xsl:apply-templates />
+			</code></pre>
+			<script>if("undefined"!==typeof hljs)hljs._ha();else if("undefined"===typeof hljsLoading){hljsLoading=1;var a=document.getElementsByTagName("head")[0],e=document.createElement("link");e.type="text/css";e.rel="stylesheet";e.href="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css";a.appendChild(e);e=document.createElement("script");e.type="text/javascript";e.onload=function(){var d={},f=0;hljs._hb=function(b){b.removeAttribute("data-hljs");var c=b.innerHTML;c in d?b.innerHTML=d[c]:(7&lt;++f&amp;&amp;(d={},f=0),hljs.highlightBlock(b.firstChild),d[c]=b.innerHTML)};hljs._ha=function(){for(var b=document.querySelectorAll("pre[data-hljs]"),c=b.length;0&lt;c;)hljs._hb(b.item(--c))};hljs._ha()};e.async=!0;e.src="//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js";a.appendChild(e)}</script>
+		]]></template>
+		<ignore><![CDATA[
+			if (typeof hljs !== 'undefined')
+			{
+				hljs['_ha']();
+			}
+			else if (typeof hljsLoading === 'undefined')
+			{
+				hljsLoading = 1;
+
+				var head = document.getElementsByTagName('head')[0],
+					el   = document.createElement('link');
+
+				el.type = 'text/css';
+				el.rel  = 'stylesheet';
+				el.href = '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/styles/default.min.css';
+
+				head.appendChild(el);
+
+				el        = document.createElement('script');
+				el.type   = 'text/javascript';
+				el.onload = function()
+				{
+					var cache = {}, cnt = 0;
+
+					// Highlight block
+					hljs['_hb'] = function (block)
+					{
+						block.removeAttribute('data-hljs');
+
+						var html = block.innerHTML;
+						if (html in cache)
+						{
+							block.innerHTML = cache[html];
+						}
+						else
+						{
+							if (++cnt > 7)
+							{
+								cache = {};
+								cnt = 0;
+							}
+							hljs['highlightBlock'](block.firstChild);
+							cache[html] = block.innerHTML;
+						}
+					};
+
+					// Highlight all
+					hljs['_ha'] = function ()
+					{
+						var blocks = document.querySelectorAll('pre[data-hljs]'),
+							i = blocks.length;
+						while (i > 0)
+						{
+							hljs['_hb'](blocks.item(--i));
+						}
+					};
+					hljs['_ha']();
+				};
+				el.async = true;
+				el.src   = '//cdnjs.cloudflare.com/ajax/libs/highlight.js/9.7.0/highlight.min.js';
+
+				head.appendChild(el);
+			}
+		]]></ignore>
+	</bbcode>
+
+	<bbcode name="COLOR">
+		<usage>[COLOR={COLOR}]{TEXT}[/COLOR]</usage>
+		<template><![CDATA[
+			<span style="color:{COLOR}">{TEXT}</span>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="DD">
+		<usage>[DD]{TEXT}[/DD]</usage>
+		<template><![CDATA[
+			<dd>{TEXT}</dd>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="DEL">
+		<usage>[DEL]{TEXT}[/DEL]</usage>
+		<template><![CDATA[
+			<del>{TEXT}</del>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="DL">
+		<usage>[DL]{TEXT}[/DL]</usage>
+		<template><![CDATA[
+			<dl>{TEXT}</dl>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="DT">
+		<usage>[DT]{TEXT}[/DT]</usage>
+		<template><![CDATA[
+			<dt>{TEXT}</dt>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="EM">
+		<usage>[EM]{TEXT}[/EM]</usage>
+		<template><![CDATA[
+			<em>{TEXT}</em>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="EMAIL">
+		<usage>[EMAIL={EMAIL;useContent}]{TEXT}[/EMAIL]</usage>
+		<template><![CDATA[
+			<a href="mailto:{EMAIL}">{TEXT}</a>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="FLASH">
+		<!-- The size of the object is set to range from 0x0 to 1920x1080 and defaults to 80x60 -->
+		<usage><![CDATA[[FLASH={PARSE=/^(?<width>\d+),(?<height>\d+)/} width={RANGE=]]><var name="minWidth" description="Minimum width for the Flash object">0</var>,<var name="maxWidth" description="Maximum width for the Flash object">1920</var><![CDATA[;defaultValue=80} height={RANGE=]]><var name="minHeight" description="Minimum height for the Flash object">0</var>,<var name="maxHeight" description="Maximum height for the Flash object">1080</var><![CDATA[;defaultValue=60} url={URL;useContent}]
+		]]></usage>
+		<template><![CDATA[
+			<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://fpdownload.macromedia.com/get/shockwave/cabs/flash/swflash.cab#version=7,0,0,0" width="{@width}" height="{@height}">
+				<param name="movie" value="{@url}" />
+				<param name="quality" value="high" />
+				<param name="wmode" value="opaque" />
+				<param name="play" value="false" />
+				<param name="loop" value="false" />
+
+				<param name="allowScriptAccess" value="never" />
+				<param name="allowNetworking" value="internal" />
+
+				<embed src="{@url}" quality="high" width="{@width}" height="{@height}" wmode="opaque" type="application/x-shockwave-flash" pluginspage="http://www.adobe.com/go/getflashplayer" play="false" loop="false" allowscriptaccess="never" allownetworking="internal"></embed>
+			</object>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="FLOAT">
+		<usage>[float={CHOICE=left,right,none}]{TEXT}[/float]</usage>
+		<template><![CDATA[
+			<div style="float:{CHOICE}">{TEXT}</div>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="FONT">
+		<usage>[font={FONTFAMILY}]{TEXT}[/font]</usage>
+		<template><![CDATA[
+			<span style="font-family:{FONTFAMILY}">{TEXT}</span>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="H1">
+		<usage>[H1]{TEXT}[/H1]</usage>
+		<template><![CDATA[
+			<h1>{TEXT}</h1>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="H2">
+		<usage>[H2]{TEXT}[/H2]</usage>
+		<template><![CDATA[
+			<h2>{TEXT}</h2>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="H3">
+		<usage>[H3]{TEXT}[/H3]</usage>
+		<template><![CDATA[
+			<h3>{TEXT}</h3>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="H4">
+		<usage>[H4]{TEXT}[/H4]</usage>
+		<template><![CDATA[
+			<h4>{TEXT}</h4>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="H5">
+		<usage>[H5]{TEXT}[/H5]</usage>
+		<template><![CDATA[
+			<h5>{TEXT}</h5>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="H6">
+		<usage>[H6]{TEXT}[/H6]</usage>
+		<template><![CDATA[
+			<h6>{TEXT}</h6>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="HR">
+		<usage>[HR]</usage>
+		<template><![CDATA[<hr/>]]></template>
+	</bbcode>
+
+	<bbcode name="I">
+		<usage>[I]{TEXT}[/I]</usage>
+		<template><![CDATA[
+			<i>{TEXT}</i>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="IMG">
+		<usage>[IMG src={URL;useContent} title={TEXT;optional} alt={TEXT;optional}]</usage>
+		<template><![CDATA[
+			<img src="{@src}" title="{@title}" alt="{@alt}" />
+		]]></template>
+	</bbcode>
+
+	<bbcode name="INS">
+		<usage>[INS]{TEXT}[/INS]</usage>
+		<template><![CDATA[
+			<ins>{TEXT}</ins>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="JUSTIFY">
+		<usage>[JUSTIFY]{TEXT}[/JUSTIFY]</usage>
+		<template><![CDATA[
+			<div style="text-align:justify">{TEXT}</div>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="LEFT">
+		<usage>[LEFT]{TEXT}[/LEFT]</usage>
+		<template><![CDATA[
+			<div style="text-align:left">{TEXT}</div>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="LIST">
+		<usage>[LIST type={HASHMAP=1:decimal,a:lower-alpha,A:upper-alpha,i:lower-roman,I:upper-roman;optional;postFilter=#simpletext} start={UINT;optional} #createChild=LI]{TEXT}[/LIST]</usage>
+		<template><![CDATA[
+			<xsl:choose>
+				<xsl:when test="not(@type)">
+					<ul><xsl:apply-templates /></ul>
+				</xsl:when>
+				<xsl:when test="starts-with(@type,'decimal') or starts-with(@type,'lower') or starts-with(@type,'upper')">
+					<ol style="list-style-type:{@type}"><xsl:copy-of select="@start"/><xsl:apply-templates /></ol>
+				</xsl:when>
+				<xsl:otherwise>
+					<ul style="list-style-type:{@type}"><xsl:apply-templates /></ul>
+				</xsl:otherwise>
+			</xsl:choose>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="*" tagName="LI">
+		<usage>[*]{TEXT}[/*]</usage>
+		<template><![CDATA[
+			<li><xsl:apply-templates /></li>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="MAGNET">
+		<usage>[MAGNET={REGEXP=/^magnet:/;useContent}]{TEXT}[/MAGNET]</usage>
+		<!-- Includes a public domain image from http://commons.wikimedia.org/wiki/File:TPB_Magnet_Icon.gif -->
+		<template><![CDATA[
+			<a href="{REGEXP}"><img alt="" src="data:image/gif;base64,R0lGODlhDAAMALMPAOXl5ewvErW1tebm5oocDkVFRePj47a2ts0WAOTk5MwVAIkcDesuEs0VAEZGRv///yH5BAEAAA8ALAAAAAAMAAwAAARB8MnnqpuzroZYzQvSNMroUeFIjornbK1mVkRzUgQSyPfbFi/dBRdzCAyJoTFhcBQOiYHyAABUDsiCxAFNWj6UbwQAOw==" style="vertical-align:middle;border:0;margin:0 5px 0 0"/>{TEXT}</a>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="NOPARSE">
+		<usage>[NOPARSE #ignoreTags=true]{TEXT}[/NOPARSE]</usage>
+		<template>{TEXT}</template>
+	</bbcode>
+
+	<bbcode name="OL">
+		<usage>[OL]{TEXT}[/OL]</usage>
+		<template><![CDATA[
+			<ol>{TEXT}</ol>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="QUOTE">
+		<usage>[QUOTE author={TEXT;optional}]{TEXT}[/QUOTE]</usage>
+		<template><![CDATA[
+			<blockquote>
+				<xsl:if test="not(@author)">
+					<xsl:attribute name="class">uncited</xsl:attribute>
+				</xsl:if>
+				<div>
+					<xsl:if test="@author">
+						<cite>]]>
+							<var name="authorStr"><![CDATA[<xsl:value-of select="@author" /> wrote:]]></var>
+						<![CDATA[</cite>
+					</xsl:if>
+					<xsl:apply-templates />
+				</div>
+			</blockquote>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="RIGHT">
+		<usage>[RIGHT]{TEXT}[/RIGHT]</usage>
+		<template><![CDATA[
+			<div style="text-align:right">{TEXT}</div>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="S">
+		<usage>[S]{TEXT}[/S]</usage>
+		<template><![CDATA[
+			<s>{TEXT}</s>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="SIZE">
+		<usage>[SIZE={RANGE=<var name="min">8</var>,<var name="max">36</var>}]{TEXT}[/SIZE]</usage>
+		<template><![CDATA[
+			<span style="font-size:{RANGE}px">{TEXT}</span>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="SPOILER">
+		<usage>[SPOILER title={TEXT1;optional}]{TEXT2}[/SPOILER]</usage>
+		<template><![CDATA[
+			<div class="spoiler">
+				<div class="spoiler-header">
+					<!--
+						var nextSiblingStyle = parentNode.nextSibling.style,
+							firstChildStyle  = firstChild.style,
+							lastChildStyle   = lastChild.style;
+
+						if (nextSiblingStyle.display !== '')
+						{
+							nextSiblingStyle.display = lastChildStyle.display = '';
+							firstChildStyle.display  = 'none';
+						}
+						else
+						{
+							nextSiblingStyle.display = lastChildStyle.display = 'none';
+							firstChildStyle.display  = '';
+						}
+					-->
+					<button onclick="var a=parentNode.nextSibling.style,b=firstChild.style,c=lastChild.style;''!==a.display?(a.display=c.display='',b.display='none'):(a.display=c.display='none',b.display='')"><span>]]><var name="showStr">Show</var><![CDATA[</span><span style="display:none">]]><var name="hideStr">Hide</var><![CDATA[</span></button>
+					<span class="spoiler-title">]]><var name="spoilerStr">Spoiler:</var><![CDATA[ {TEXT1}</span>
+				</div>
+				<div class="spoiler-content" style="display:none">{TEXT2}</div>
+			</div>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="STRONG">
+		<usage>[STRONG]{TEXT}[/STRONG]</usage>
+		<template><![CDATA[
+			<strong>{TEXT}</strong>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="SUB">
+		<usage>[SUB]{TEXT}[/SUB]</usage>
+		<template><![CDATA[
+			<sub>{TEXT}</sub>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="SUP">
+		<usage>[SUP]{TEXT}[/SUP]</usage>
+		<template><![CDATA[
+			<sup>{TEXT}</sup>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="TABLE">
+		<usage>[TABLE]{ANYTHING}[/TABLE]</usage>
+		<template><![CDATA[
+			<table>{ANYTHING}</table>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="TD">
+		<usage>[TD align={CHOICE=left,center,right,justify;caseSensitive;optional;preFilter=strtolower} #createParagraphs=false]{TEXT}[/TD]</usage>
+		<template><![CDATA[
+			<td>
+				<xsl:if test="@align">
+					<xsl:attribute name="style">text-align:{CHOICE}</xsl:attribute>
+				</xsl:if>
+				<xsl:apply-templates/>
+			</td>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="TH">
+		<usage>[TH align={CHOICE=left,center,right,justify;caseSensitive;optional;preFilter=strtolower} #createParagraphs=false]{TEXT}[/TH]</usage>
+		<template><![CDATA[
+			<th>
+				<xsl:if test="@align">
+					<xsl:attribute name="style">text-align:{CHOICE}</xsl:attribute>
+				</xsl:if>
+				<xsl:apply-templates/>
+			</th>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="TR">
+		<usage>[TR]{ANYTHING}[/TR]</usage>
+		<template><![CDATA[
+			<tr>{ANYTHING}</tr>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="U">
+		<usage>[U]{TEXT}[/U]</usage>
+		<template><![CDATA[
+			<u>{TEXT}</u>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="UL">
+		<usage>[UL]{TEXT}[/UL]</usage>
+		<template><![CDATA[
+			<ul>{TEXT}</ul>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="URL">
+		<usage>[URL={URL;useContent} title={TEXT;optional}]{TEXT}[/URL]</usage>
+		<template><![CDATA[
+			<a href="{@url}"><xsl:copy-of select="@title" /><xsl:apply-templates /></a>
+		]]></template>
+	</bbcode>
+
+	<bbcode name="VAR">
+		<usage>[VAR]{TEXT}[/VAR]</usage>
+		<template><![CDATA[
+			<var>{TEXT}</var>
+		]]></template>
+	</bbcode>
+
+</repository>

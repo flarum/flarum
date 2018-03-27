@@ -1,0 +1,68 @@
+#!/usr/bin/env bash
+
+dep_name=$(basename $BASH_SOURCE)
+
+OUT_PREFIX=$1
+export PATH=${OUT_PREFIX}/bin:${PATH}
+
+# can't build without this
+needed=( libsasl2-2 )
+missing=$(comm -1 -3 <(dpkg-query -W -f '${package}\n' | sort) <(IFS=$'\n'; echo "${needed[*]}" | sort))
+if [[ "$missing" ]]; then
+    echo "Error! Missing libraries: $missing"
+    exit 1
+fi
+
+# let's see if libmemcached is there, if not then we have to use the vendored one
+needed=( libmemcached11 )
+missing=$(comm -1 -3 <(dpkg-query -W -f '${package}\n' | sort) <(IFS=$'\n'; echo "${needed[*]}" | sort))
+if [[ "$missing" ]]; then
+    echo "Using vendored libmemcached..."
+    # use vendored libmcrypt
+    CONFIGURE_EXTRA="--with-libmemcached-dir=${OUT_PREFIX}"
+    
+    # we need to declare the required version of libmemcached
+    dep_formula=${0#$WORKSPACE_DIR/}
+    dep_version=${dep_formula##*"/${dep_name}-"}
+    series=$(php-config --version | cut -d. -f1,2) # get "5.5", "5.6", "7.0" etc for the php requirement in the manifest
+    case "$dep_version" in
+        *)
+            MANIFEST_REQUIRE="${MANIFEST_REQUIRE:-"{\"heroku-sys/php\":\"${series}.*\",\"heroku-sys/libmemcached\":\"^1.0.18\",\"heroku-sys/libmemcached-abi\":\"^11\"}"}"
+            ;;
+    esac
+
+else
+    echo "Using system libmemcached..."
+    # use system libmemcached
+    CONFIGURE_EXTRA=
+    # but do we need headers?
+    needed=( libmemcached-dev )
+    missing=$(comm -1 -3 <(dpkg-query -W -f '${package}\n' | sort) <(IFS=$'\n'; echo "${needed[*]}" | sort))
+    if [[ "$missing" ]]; then
+        apt-get update -qq || { echo "Failed to 'apt-get update'. You must build this formula using Docker."; exit 1; }
+        apt-get install -q -y $missing
+    fi
+fi
+
+# we need libsasl2-dev for ext-memcached
+needed=( libsasl2-dev )
+missing=$(comm -1 -3 <(dpkg-query -W -f '${package}\n' | sort) <(IFS=$'\n'; echo "${needed[*]}" | sort))
+if [[ "$missing" ]]; then
+    apt-get update -qq || { echo "Failed to 'apt-get update'. You must build this formula using Docker."; exit 1; }
+    apt-get install -q -y $missing
+fi
+
+MANIFEST_EXTRA="${MANIFEST_EXTRA:-"{\"config\":\"etc/php/conf.d/memcached.ini-dist\"}"}"
+
+source $(dirname $BASH_SOURCE)/../pecl
+
+mkdir -p ${OUT_PREFIX}/etc/php/conf.d
+cat > ${OUT_PREFIX}/etc/php/conf.d/memcached.ini-dist <<'EOF'
+extension = memcached.so
+EOF
+if [[ $dep_version == 2.* ]]; then
+    # this setting is gone in v3; SASL gets initialized on demand
+    cat >> ${OUT_PREFIX}/etc/php/conf.d/memcached.ini-dist <<'EOF'
+memcached.use_sasl = 1
+EOF
+fi

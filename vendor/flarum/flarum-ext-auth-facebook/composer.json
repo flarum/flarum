@@ -1,0 +1,39 @@
+{
+    "name": "flarum/flarum-ext-auth-facebook",
+    "description": "Allow users to log in with Facebook.",
+    "type": "flarum-extension",
+    "keywords": ["authentication"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toby Zerner",
+            "email": "toby.zerner@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/flarum/core/issues",
+        "source": "https://github.com/flarum/flarum-ext-auth-facebook"
+    },
+    "require": {
+        "flarum/core": "^0.1.0-beta.6",
+        "league/oauth2-facebook": "~1.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flarum\\Auth\\Facebook\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        },
+        "flarum-extension": {
+            "title": "Facebook Login",
+            "icon": {
+                "name": "facebook",
+                "backgroundColor": "#3b5998",
+                "color": "#fff"
+            }
+        }
+    }
+}

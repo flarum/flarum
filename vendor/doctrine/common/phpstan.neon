@@ -1,0 +1,20 @@
+parameters:
+    autoload_directories:
+        - %currentWorkingDirectory%/tests/Doctrine/Tests/Common/ClassLoaderTest
+        - %currentWorkingDirectory%/tests/Doctrine/Tests/Common/Proxy/generated
+    autoload_files:
+        - %currentWorkingDirectory%/tests/Doctrine/Tests/Common/Persistence/ObjectManagerDecoratorTest.php
+        - %currentWorkingDirectory%/tests/Doctrine/Tests/Common/Persistence/PersistentObjectTest.php
+        - %currentWorkingDirectory%/tests/Doctrine/Tests/Common/Persistence/Mapping/ClassMetadataFactoryTest.php
+        - %currentWorkingDirectory%/tests/Doctrine/Tests/Common/Persistence/Mapping/_files/annotation/TestClass.php
+    excludes_analyse:
+        - %currentWorkingDirectory%/lib/vendor/doctrine-build-common
+        - %currentWorkingDirectory%/tests/Doctrine/Tests/Common/Proxy/InvalidReturnTypeClass.php
+        - %currentWorkingDirectory%/tests/Doctrine/Tests/Common/Proxy/InvalidTypeHintClass.php
+        - %currentWorkingDirectory%/tests/Doctrine/Tests/Common/Persistence/Mapping/_files/TestEntity.php
+    ignoreErrors:
+        - '#Doctrine\\Common\\Reflection\\StaticReflection[a-zA-Z0-9_]+::__construct\(\) does not call parent constructor from Reflection[a-zA-Z0-9_]+#'
+        - '#Call to an undefined method Doctrine\\Tests\\Common\\Persistence\\TestObject#'
+        - '#Access to an undefined property Doctrine\\Common\\Proxy\\Proxy::\$publicField#'
+        - '#Access to an undefined property Doctrine\\Tests\\Common\\Proxy\\MagicGetByRefClass::\$nonExisting#'
+        - '#does not accept [\\a-zA-Z0-9_|]*PHPUnit_Framework_MockObject_MockObject#'

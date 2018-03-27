@@ -1,0 +1,38 @@
+{
+    "name": "flarum/flarum-ext-sticky",
+    "description": "Pin discussions to the top of the list.",
+    "type": "flarum-extension",
+    "keywords": ["discussion"],
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Toby Zerner",
+            "email": "toby.zerner@gmail.com"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/flarum/core/issues",
+        "source": "https://github.com/flarum/flarum-ext-sticky"
+    },
+    "require": {
+        "flarum/core": "^0.1.0-beta.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Flarum\\Sticky\\": "src/"
+        }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "0.1.x-dev"
+        },
+        "flarum-extension": {
+            "title": "Sticky",
+            "icon": {
+                "name": "thumb-tack",
+                "backgroundColor": "#D13E32",
+                "color": "#fff"
+            }
+        }
+    }
+}

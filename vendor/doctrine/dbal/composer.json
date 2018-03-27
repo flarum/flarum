@@ -1,0 +1,42 @@
+{
+    "name": "doctrine/dbal",
+    "type": "library",
+    "description": "Database Abstraction Layer",
+    "keywords": ["dbal", "database", "persistence", "queryobject"],
+    "homepage": "http://www.doctrine-project.org",
+    "license": "MIT",
+    "authors": [
+        {"name": "Guilherme Blanco", "email": "guilhermeblanco@gmail.com"},
+        {"name": "Roman Borschel", "email": "roman@code-factory.org"},
+        {"name": "Benjamin Eberlei", "email": "kontakt@beberlei.de"},
+        {"name": "Jonathan Wage", "email": "jonwage@gmail.com"}
+    ],
+    "require": {
+        "php": "^7.1",
+        "ext-pdo": "*",
+        "doctrine/common": "^2.7.1"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^5.4.6",
+        "phpunit/phpunit-mock-objects": "!=3.2.4,!=3.2.5",
+        "symfony/console": "2.*||^3.0"
+    },
+    "suggest": {
+        "symfony/console": "For helpful console commands such as SQL execution and import of files."
+    },
+    "bin": ["bin/doctrine-dbal"],
+    "autoload": {
+        "psr-0": { "Doctrine\\DBAL\\": "lib/" }
+    },
+    "autoload-dev": {
+        "psr-0": { "Doctrine\\Tests\\": "tests/" }
+    },
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.6.x-dev"
+        }
+    },
+    "archive": {
+        "exclude": ["!vendor", "tests", "*phpunit.xml", ".travis.yml", "build.xml", "build.properties", "composer.phar"]
+    }
+}

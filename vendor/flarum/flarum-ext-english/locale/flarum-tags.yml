@@ -1,0 +1,101 @@
+flarum-tags:
+
+  ##
+  # UNIQUE KEYS - The following keys are used in only one location each.
+  ##
+
+  # Translations in this namespace are used by the admin interface.
+  admin:
+
+    # These translations are used in the Basics page.
+    basics:
+      tags_label: => flarum-tags.ref.tags
+
+    # These translations are used in the Edit Tag modal dialog.
+    edit_tag:
+      color_label: Color
+      delete_tag_button: Delete Tag
+      delete_tag_confirmation: "Are you sure you want to delete this tag? The tag's discussions will NOT be deleted."
+      description_label: Description
+      hide_label: Hide from All Discussions
+      name_label: => flarum-tags.ref.name
+      name_placeholder: => flarum-tags.ref.name
+      slug_label: Slug
+      submit_button: => core.ref.save_changes
+      title: => flarum-tags.ref.create_tag
+
+    # These translations are used in the navigation bar.
+    nav:
+      tags_button: => flarum-tags.ref.tags
+      tags_text: Manage the list of tags available to organise discussions with.
+
+    # These translations are used in the Permissions page of the admin interface.
+    permissions:
+      allow_edit_tags_label: Allow tag editing
+      restrict_by_tag_heading: Restrict by Tag
+      tag_discussions_label: Tag discussions
+
+    # These translations are used in the Tag Settings modal dialog.
+    tag_settings:
+      range_separator_text: " to "
+      required_primary_heading: Required Number of Primary Tags
+      required_primary_text: Enter the minimum and maximum number of primary tags that may be applied to a discussion.
+      required_secondary_heading: Required Number of Secondary Tags
+      required_secondary_text: Enter the minimum and maximum number of secondary tags that may be applied to a discussion.
+      title: Tag Settings
+
+    # These translations are used in the Tags page.
+    tags:
+      about_tags_text: "Tags are used to categorize discussions. Primary tags are like traditional forum categories: they can be arranged in a two-level hierarchy. Secondary tags do not have hierarchy or order, and are useful for micro-categorization."
+      create_tag_button: => flarum-tags.ref.create_tag
+      primary_heading: Primary Tags
+      secondary_heading: Secondary Tags
+      settings_button: Settings
+
+  # Translations in this namespace are used by the forum user interface.
+  forum:
+
+    # These translations are used by the Choose Tags modal dialog.
+    choose_tags:
+      choose_primary_placeholder: "Choose a primary tag|Choose {count} primary tags"
+      choose_secondary_placeholder: "Choose 1 more tag|Choose {count} more tags"
+      edit_title: "Edit Tags for {title}"
+      submit_button: => core.ref.okay
+      title: Choose Tags for Your Discussion
+
+    # These translations are used by the composer when starting a discussion.
+    composer_discussion:
+      choose_tags_link: Choose Tags
+
+    # These translations are used by the discussion control buttons.
+    discussion_controls:
+      edit_tags_button: Edit Tags
+
+    # These translations are used on the index page, peripheral to the discussion list.
+    index:
+      more_link: More...
+      tags_link: => flarum-tags.ref.tags
+      untagged_link: Untagged
+
+    # These translations are displayed between posts in the post stream.
+    post_stream:
+      added_tags_text: "{username} added the {tagsAdded}."
+      added_and_removed_tags_text: "{username} added the {tagsAdded} and removed the {tagsRemoved}."
+      removed_tags_text: "{username} removed the {tagsRemoved}."
+      tags_text: "{tags} tag|{tags} tags"
+
+  # Translations in this namespace are used by the forum and admin interfaces.
+  lib:
+
+    # This translation is displayed in place of the name of a tag that's been deleted.
+    deleted_tag_text: Deleted
+
+  ##
+  # REUSED TRANSLATIONS - These keys should not be used directly in code!
+  ##
+
+  # Translations in this namespace are referenced by two or more unique keys.
+  ref:
+    create_tag: Create Tag
+    name: Name
+    tags: Tags

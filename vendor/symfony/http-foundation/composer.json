@@ -1,0 +1,38 @@
+{
+    "name": "symfony/http-foundation",
+    "type": "library",
+    "description": "Symfony HttpFoundation Component",
+    "keywords": [],
+    "homepage": "https://symfony.com",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Fabien Potencier",
+            "email": "fabien@symfony.com"
+        },
+        {
+            "name": "Symfony Community",
+            "homepage": "https://symfony.com/contributors"
+        }
+    ],
+    "require": {
+        "php": ">=5.3.9",
+        "symfony/polyfill-mbstring": "~1.1"
+    },
+    "require-dev": {
+        "symfony/expression-language": "~2.4"
+    },
+    "autoload": {
+        "psr-4": { "Symfony\\Component\\HttpFoundation\\": "" },
+        "classmap": [ "Resources/stubs" ],
+        "exclude-from-classmap": [
+            "/Tests/"
+        ]
+    },
+    "minimum-stability": "dev",
+    "extra": {
+        "branch-alias": {
+            "dev-master": "2.7-dev"
+        }
+    }
+}

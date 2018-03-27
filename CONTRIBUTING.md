@@ -54,17 +54,7 @@ $ cd vendor/flarum/core
 $ ./scripts/compile.sh
 ```
 
-## Development tools
-
-Most Flarum contributors use [PHPStorm](https://www.jetbrains.com/phpstorm/download/) with an educational or open source license.
-
-For serving a local forum, [Laravel Valet](https://laravel.com/docs/master/valet) (Mac), [XAMPP](https://www.apachefriends.org/index.html) (Win) and [Docker-Flarum](https://github.com/mondediefr/docker-flarum) (Linux) are popular choices. 
-
-See also the [First Read for Extension Developers](https://discuss.flarum.org/d/1662-extension-developer-first-read) and the great [Flarum Development Workflow](https://discuss.flarum.org/d/6320-extension-developers-show-us-your-workflow) discussion.
-
-## What to work on
-
-Check out the [Roadmap](http://flarum.org/roadmap/) and [Milestones](https://github.com/flarum/core/milestones) for an overview of what needs to be done. See the [Good first issue](https://github.com/flarum/core/labels/Good%20first%20issue) label for a list of issues that should be relatively easy to get started with.
+Check out the [Roadmap](https://github.com/flarum/core/issues/74) for an overview of what needs to be done. See the [Good For New Contributors](https://github.com/flarum/core/labels/Good%20for%20New%20Contributors) label for a list of issues that should be relatively easy to get started with.
 
 ## Contributor License Agreement
 

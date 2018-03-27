@@ -13,6 +13,14 @@
         {
             "name": "Franz Liedke",
             "email": "franz@develophp.org"
+        },
+        {
+            "name": "David Zuelke",
+            "email": "dz@heroku.com"
+        },
+        {
+            "name": "Jamie Moore",
+            "email": "hypersudo@gmail.com"
         }
     ],
     "support": {
@@ -21,6 +29,7 @@
         "docs": "http://flarum.org/docs"
     },
     "require": {
+        "heroku/heroku-buildpack-php": "^132",
         "flarum/core": "^0.1.0",
         "flarum/flarum-ext-akismet": "^0.1.0",
         "flarum/flarum-ext-approval": "^0.1.0",
@@ -36,12 +45,14 @@
         "flarum/flarum-ext-markdown": "^0.1.0",
         "flarum/flarum-ext-mentions": "^0.1.0",
         "flarum/flarum-ext-pusher": "^0.1.0",
-        "flarum/flarum-ext-statistics": "^0.1.0",
         "flarum/flarum-ext-sticky": "^0.1.0",
         "flarum/flarum-ext-subscriptions": "^0.1.0",
         "flarum/flarum-ext-suspend": "^0.1.0",
         "flarum/flarum-ext-tags": "^0.1.0",
         "http-interop/http-middleware": "^0.4.0"
+    },
+    "require-dev": {
+        "franzl/studio": "^0.11.0"
     },
     "config": {
         "preferred-install": "dist"

@@ -1,0 +1,124 @@
+.sideNav > ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+// On phones, the index sidebar will pretty much take care of itself. The
+// navigation list is a .dropdown-select and will be shown as the title-
+// control; the new discussion button is the primary-control. On anything
+// larger than a phone, however, we need to affix the sidebar and expand the
+// .dropdown-select into a plain list.
+@media @tablet-up {
+  .sideNav {
+    // Expand the dropdown-select component into a normal nav list.
+    & .Dropdown--select {
+      display: block;
+
+      .Dropdown--expanded();
+
+      & .Dropdown-menu {
+        & > li > a {
+          padding: 8px 0 8px 30px;
+          color: @muted-color;
+
+          &:hover {
+            background: none;
+            color: @link-color;
+            text-decoration: none;
+          }
+
+          & .Button-icon {
+            float: left;
+            margin-left: -30px;
+            margin-top: 1px;
+            font-size: 15px;
+          }
+        }
+        & > li.active > a {
+          background: none;
+          color: @primary-color;
+          font-weight: bold;
+        }
+        & > .Dropdown-separator {
+          background: none;
+        }
+      }
+    }
+  }
+}
+
+.sideNav--horizontal {
+  padding: 15px 0;
+  white-space: nowrap;
+  overflow: auto;
+  -webkit-overflow-scrolling: touch;
+
+  &:after {
+    content: " ";
+    position: absolute;
+    left: 0;
+    right: 0;
+    margin-top: 15px;
+    border-bottom: 1px solid @control-bg;
+  }
+
+  > ul > li, .Dropdown-menu > li {
+    display: inline-block;
+    margin: 0 20px 0 0;
+    vertical-align: top;
+  }
+  .Dropdown-separator {
+    display: none;
+  }
+
+  .Dropdown--select .Dropdown-menu > li > a {
+    padding-left: 25px;
+
+    .icon {
+      margin-left: -25px;
+    }
+  }
+
+  .affix {
+    position: static;
+  }
+}
+@media @tablet {
+  .sideNav {
+    .sideNav--horizontal();
+  }
+}
+
+@media @desktop-up {
+  .sideNav {
+    float: left;
+
+    &, > ul {
+      width: 190px;
+    }
+    > ul {
+      margin-top: 30px;
+
+      &.affix {
+        top: @header-height;
+      }
+      > li {
+        margin-bottom: 10px;
+      }
+    }
+  }
+}
+
+@media @phone, @tablet {
+  .sideNavOffset {
+    margin-top: 15px;
+  }
+}
+
+@media @desktop-up {
+  .sideNavOffset {
+    margin-top: 30px;
+    margin-left: 240px;
+  }
+}

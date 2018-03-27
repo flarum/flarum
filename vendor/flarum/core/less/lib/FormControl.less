@@ -1,0 +1,51 @@
+.FormControl {
+  display: block;
+  width: 100%;
+  height: 36px;
+  padding: 8px 13px;
+  font-size: 13px;
+  line-height: 1.5;
+  color: @control-color;
+  background-color: @control-bg;
+  border: 2px solid transparent;
+  border-radius: @border-radius;
+  .transition(~"border-color .15s, background .15s");
+  -webkit-appearance: none;
+
+  &:focus,
+  &.focus {
+    background-color: @body-bg;
+    color: @text-color;
+    border-color: @primary-color;
+    outline: none;
+  }
+
+  // Placeholder
+  .placeholder(@control-color);
+
+  // Disabled and read-only inputs
+  &[disabled],
+  &[readonly],
+  fieldset[disabled] & {
+    opacity: 0.5;
+  }
+
+  &[disabled],
+  fieldset[disabled] & {
+    cursor: disallowed;
+  }
+
+  textarea& {
+    height: auto;
+  }
+
+  @media @phone {
+    font-size: 16px; // minimum font-size required to prevent page zoom on focus in iOS 10
+  }
+}
+.helpText {
+  font-size: 12px;
+  line-height: 1.5em;
+  margin-bottom: 10px;
+  color: @muted-color;
+}

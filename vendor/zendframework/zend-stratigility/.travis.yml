@@ -1,0 +1,57 @@
+sudo: false
+
+language: php
+
+cache:
+  directories:
+    - $HOME/.composer/cache
+    - $HOME/.local
+    - vendor
+    - zf-mkdoc-theme
+
+env:
+  global:
+    - SITE_URL=https://zendframework.github.io/zend-stratigility
+    - GH_USER_NAME="Matthew Weier O'Phinney"
+    - GH_USER_EMAIL=matthew@weierophinney.net
+    - GH_REF=github.com/zendframework/zend-stratigility.git
+    - secure: "XIgjYGyiogFeDNIbwrqoNif8ui7SEcmjhu5EchtLB6F84D9WWQ8LWwqB6PC4aeF4w4kgHmEUthqutX3VYOnNEHGL0zNVMyjlYQ2aQZUQMo53Lui/fIWZQbZIeVC/1AwZ/GOVdoLljvqHNlpDMM38DlGCmnlWzU9f58UtPefjfZ2e0emX4uERJODoQaIH4MqYC2YyGFVK8ki/IQAXa70tVGQqysciz1mhVHUhHJpb+EhJAlmxdh7bVg8hcgKHovPjYDcsJgHyG7/k71pLHun7FcpzGyx97iTJSqiEEQuRi01N3wHY9NOqK6XltV3klBwensrN/t7QiEmrupgAggog3yO9uiN18MkKuszGOGehXa5xKLYfpJzxq+jfwsv13gxiWqTU1DK8FtxcH5OH8168FkFF/UEzSBraFwYPI9KmfZ8BnoIXBvLnFf51clGH63dccd11Q51WxSF4+0v4ddovb/onRnVOZC0Qo3kJE00eg7k0h8A0AjgzwG88L1dZq6JlIHWAEPRonVxp1UI8ufGv0ZToZoG8ZBh+trKiRHnlO32N7fmRd3/inbd58+JTb3yMw8cH8l85dp2s0Vcp/xdW+2JYXrMXhF4SF0HBa8p4pqzIWR1n35RtHHuFUoac8e2rBkIBHmOW3puc+STLA+057zFo5T7U+hSoTK7LrTW8UU4="
+
+matrix:
+  include:
+    - php: 5.6
+      env:
+        - EXECUTE_CS_CHECK=true
+        - DEPLOY_DOCS="$(if [[ $TRAVIS_BRANCH == 'master' && $TRAVIS_PULL_REQUEST == 'false' ]]; then echo -n 'true' ; else echo -n 'false' ; fi)"
+        - PATH="$HOME/.local/bin:$PATH"
+    - php: 7
+      env:
+        - TEST_COVERAGE=true
+    - php: 7.1
+    - php: hhvm 
+  allow_failures:
+    - php: hhvm
+
+before_install:
+  - travis_retry composer self-update
+
+install:
+  - if [[ $TEST_COVERAGE == 'true' ]]; then composer require --dev satooshi/php-coveralls:^1.0 ; fi
+  - travis_retry composer install
+  - composer show --installed
+
+script:
+  - if [[ $TEST_COVERAGE == 'true' ]]; then composer test-coverage ; fi
+  - if [[ $TEST_COVERAGE != 'true' ]]; then composer test ; fi
+  - if [[ $EXECUTE_CS_CHECK == 'true' ]]; then composer cs-check ; fi
+  - if [[ $DEPLOY_DOCS == "true" && "$TRAVIS_TEST_RESULT" == "0" ]]; then wget -O theme-installer.sh "https://raw.githubusercontent.com/zendframework/zf-mkdoc-theme/master/theme-installer.sh" ; chmod 755 theme-installer.sh ; ./theme-installer.sh ; fi
+
+after_success:
+  - if [[ $DEPLOY_DOCS == "true" ]]; then echo "Preparing to build and deploy documentation" ; ./zf-mkdoc-theme/deploy.sh ; echo "Completed deploying documentation" ; fi
+
+after_script:
+  - if [[ $TEST_COVERAGE == 'true' ]]; then travis_retry composer upload-coverage ; fi
+
+notifications:
+  irc: "irc.freenode.org#zftalk.dev"
+  email: false

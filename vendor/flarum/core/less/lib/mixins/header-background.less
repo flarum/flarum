@@ -1,0 +1,18 @@
+.header-background() {
+  background: fade(@header-bg, 98%);
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: @zindex-header;
+  border-bottom: 1px solid @control-bg;
+  .translate3d(0, 0, 0);
+  .transition(~"box-shadow 0.2s, -webkit-transform 0.2s");
+
+  @media @phone {
+    height: @header-height-phone;
+  }
+  @media @tablet-up {
+    height: @header-height;
+  }
+}
