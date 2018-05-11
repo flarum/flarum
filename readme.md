@@ -1,4 +1,6 @@
 ![Flarum](http://flarum.org/img/logo.png)
+[![Backers on Open Collective](https://opencollective.com/flarum/backers/badge.svg)](#backers)
+ [![Sponsors on Open Collective](https://opencollective.com/flarum/sponsors/badge.svg)](#sponsors) 
 
 **[Flarum](http://flarum.org) is free, open-source forum software** built with PHP and [Mithril.js](http://mithril.js.org). It is:
 
@@ -32,6 +34,26 @@ Refer to the [FAQ](http://flarum.org/docs/faq), [Documentation](http://flarum.or
 ## Contributing
 
 Flarum is open-source and we would love your help building it! Please read the [Contributing Guide](https://github.com/flarum/flarum/blob/master/CONTRIBUTING.md) to learn how you can help.
+
+### Contributors
+
+This project exists thanks to all the people who contribute. [[Contribute](CONTRIBUTING.md)].
+<a href="graphs/contributors"><img src="https://opencollective.com/flarum/contributors.svg?width=890&button=false" /></a>
+
+
+### Backers
+
+Thank you to all our backers! 🙏 [[Become a backer](https://opencollective.com/flarum#backer)]
+
+<a href="https://opencollective.com/flarum#backers" target="_blank"><img src="https://opencollective.com/flarum/backers.svg?width=890”></a>
+
+
+### Sponsors
+
+Support this project by becoming a sponsor. Your logo will show up here with a link to your website. [[Become a sponsor](https://opencollective.com/flarum#sponsor)]
+
+<a href="https://opencollective.com/flarum/sponsor/0/website" target="_blank"><img src="https://opencollective.com/flarum/sponsor/0/avatar.svg"></a>
+
 
 ## License
 
