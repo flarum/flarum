@@ -22,7 +22,6 @@
     },
     "require": {
         "flarum/core": "^0.1.0",
-        "flarum/flarum-ext-akismet": "^0.1.0",
         "flarum/flarum-ext-approval": "^0.1.0",
         "flarum/flarum-ext-auth-facebook": "^0.1.0",
         "flarum/flarum-ext-auth-github": "^0.1.0",
