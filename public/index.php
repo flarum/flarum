@@ -11,8 +11,15 @@
 
 require '../vendor/autoload.php';
 
-Flarum\Http\Server::fromSite(
-    (new Flarum\Foundation\Site)
-        ->setBasePath(__DIR__.'/..')
-        ->setPublicPath(__DIR__)
-)->listen();
+$site = Flarum\Foundation\Site::fromPaths([
+    'base' => __DIR__.'/..',
+    'public' => __DIR__,
+]);
+
+$app = $site->bootApp();
+
+$server = new Flarum\Http\Server(
+    $app->getRequestHandler()
+);
+
+$server->listen();
