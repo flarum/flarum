@@ -4,7 +4,7 @@ Howdy! We're really excited that you are interested in contributing to Flarum. B
 
 ## Reporting Bugs
 
-- Before opening an issue, debug your problem by following [these instructions](http://flarum.org/docs/contributing). Only open an issue if you are confident it is a bug with Flarum, not with your own setup.
+- Before opening an issue, debug your problem by following [these instructions](https://flarum.org/docs/contributing/). Only open an issue if you are confident it is a bug with Flarum, not with your own setup.
 
 - All issues should be reported on the [flarum/core](https://github.com/flarum/core/issues) repository. Issues pertaining to a specific extension should include the extension name in their title, e.g. `[Tags] Issue title`.
 
@@ -26,7 +26,7 @@ If you discover a security vulnerability within Flarum, please send an email to 
 
 - Do NOT checkin the JavaScript `dist` files in commits.
 
-- [Squash the commits](http://davidwalsh.name/squash-commits-git) if there are too many small ones.
+- [Squash the commits](https://davidwalsh.name/squash-commits-git) if there are too many small ones.
 
 - Follow the [code style](#code-style).
 
@@ -46,7 +46,7 @@ If you discover a security vulnerability within Flarum, please send an email to 
 $ composer update --prefer-source
 ```
 
-Flarum's front-end code is written in ES6 and transpiled into JavaScript. The compiled JavaScript is only committed when we tag a release; during development you will need to do it yourself. To recompile the JavaScript you will need [Node.js](http://nodejs.org).
+Flarum's front-end code is written in ES6 and transpiled into JavaScript. The compiled JavaScript is only committed when we tag a release; during development you will need to do it yourself. To recompile the JavaScript you will need [Node.js](https://nodejs.org/).
 
 ```bash
 $ npm install -g gulp
@@ -64,7 +64,7 @@ See also the [First Read for Extension Developers](https://discuss.flarum.org/d/
 
 ## What to work on
 
-Check out the [Roadmap](http://flarum.org/roadmap/) and [Milestones](https://github.com/flarum/core/milestones) for an overview of what needs to be done. See the [Good first issue](https://github.com/flarum/core/labels/Good%20first%20issue) label for a list of issues that should be relatively easy to get started with.
+Check out the [Roadmap](https://flarum.org/roadmap/) and [Milestones](https://github.com/flarum/core/milestones) for an overview of what needs to be done. See the [Good first issue](https://github.com/flarum/core/labels/Good%20first%20issue) label for a list of issues that should be relatively easy to get started with.
 
 ## Contributor License Agreement
 
