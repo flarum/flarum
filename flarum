@@ -13,15 +13,11 @@ define('FLARUM_START', microtime(true));
 
 require 'vendor/autoload.php';
 
-$site = Flarum\Foundation\Site::fromPaths([
-    'base' => __DIR__,
-    'public' => __DIR__.'/public',
-]);
-
-$app = $site->bootApp();
-
 $server = new Flarum\Console\Server(
-    $app->getConsoleCommands()
+    Flarum\Foundation\Site::fromPaths([
+        'base' => __DIR__,
+        'public' => __DIR__.'/public',
+    ])
 );
 
 $server->listen();
