@@ -12,10 +12,7 @@
 require '../vendor/autoload.php';
 
 $server = new Flarum\Http\Server(
-    Flarum\Foundation\Site::fromPaths([
-        'base' => __DIR__.'/..',
-        'public' => __DIR__,
-    ])
+    Flarum\Foundation\Site::fromDefaultBase(__DIR__.'/..')
 );
 
 $server->listen();
