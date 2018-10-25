@@ -9,8 +9,6 @@
  * file that was distributed with this source code.
  */
 
-define('FLARUM_START', microtime(true));
-
 require 'vendor/autoload.php';
 
 $server = new Flarum\Console\Server(
