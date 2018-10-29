@@ -22,9 +22,9 @@ If you discover a security vulnerability within Flarum, please send an email to 
 
 - Read the [Contributor License Agreement](#contributor-license-agreement).
 
-- Checkout a topic branch from `master` and merge back against `master`.
+- Check out a topic branch from `master` and merge back against `master`.
 
-- Do NOT checkin the JavaScript `dist` files in commits.
+- Do NOT check-in the JavaScript `dist` files in commits.
 
 - [Squash the commits](https://davidwalsh.name/squash-commits-git) if there are too many small ones.
 
@@ -46,7 +46,7 @@ If you discover a security vulnerability within Flarum, please send an email to 
 $ composer update --prefer-source
 ```
 
-Flarum's front-end code is written in ES6 and transpiled into JavaScript. The compiled JavaScript is only committed when we tag a release; during development you will need to do it yourself. To recompile the JavaScript you will need [Node.js](https://nodejs.org/).
+Flarum's front-end code is written in ES6 and transpiled into JavaScript. The compiled JavaScript is only committed when we tag a release; during development, you will need to do it yourself. To recompile the JavaScript you will need [Node.js](https://nodejs.org/).
 
 ```bash
 $ npm install -g gulp
