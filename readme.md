@@ -1,38 +1,45 @@
-![Flarum](https://flarum.org/img/logo.png)
+<p align="center"><img src="https://flarum.org/img/logo.png"></p>
 
-**[Flarum](https://flarum.org/) is free, open-source forum software** built with PHP and [Mithril.js](https://mithril.js.org/). It is:
+<p align="center">
+<a href="https://travis-ci.org/flarum/core"><img src="https://travis-ci.org/flarum/core.svg" alt="Build Status"></a>
+<a href="https://packagist.org/packages/flarum/core"><img src="https://poser.pugx.org/flarum/core/d/total.svg" alt="Total Downloads"></a>
+<a href="https://packagist.org/packages/flarum/core"><img src="https://poser.pugx.org/flarum/core/v/stable.svg" alt="Latest Stable Version"></a>
+<a href="https://packagist.org/packages/flarum/core"><img src="https://poser.pugx.org/flarum/core/license.svg" alt="License"></a>
+</p>
 
-* **Simple**, with a responsive UI that is optimized for touch devices
-* **Fast**, with a total JS payload size of ~130 KB gzipped
-* **Extensible**, so you can tailor it to your use-case
+## About Flarum
+
+**[Flarum](https://flarum.org/) is a delightfully simple discussion platform for your website.** It's fast and easy to use, with all the features you need to run a successful community. It is designed to be:
+
+* **Fast and simple.** No clutter, no bloat, no complex dependencies. Flarum is built with PHP so it’s quick and easy to deploy. The interface is powered by Mithril, a performant JavaScript framework with a tiny footprint.
+
+* **Beautiful and responsive.** This is forum software for humans. Flarum is carefully designed to be consistent and intuitive across platforms, out-of-the-box.
+
+* **Powerful and extensible.** Customize, extend, and integrate Flarum to suit your community. Flarum’s architecture is amazingly flexible, with a powerful Extension API.
 
 ![screenshot](https://flarum.org/img/screenshot.png)
 
 ## Installation
 
-> **Flarum is currently in beta and should not be used in production.** It is being developed openly on GitHub. Check out the [Roadmap](https://flarum.org/roadmap/) to follow along with our progress.
-
-You must have SSH access to a server with **PHP 5.5+** and **MySQL 5.5+**, and install [Composer](https://getcomposer.org/).
+You must have SSH access to a server with **PHP 7.1+** and **MySQL 5.6+**, and install [Composer](https://getcomposer.org/).
 
 ```
 composer create-project flarum/flarum . --stability=beta
 ```
 
-Read the [Installation Guide](https://flarum.org/docs/installation/) for more information.
-
-## Development
-
-This repository holds the Flarum skeleton application.
-Its dependencies, such as [flarum/core](https://github.com/flarum/core) (where most development happens), have to be installed using [Composer](https://getcomposer.org/).
-
-## Support
-
-Refer to the [FAQ](https://flarum.org/docs/faq/), [Documentation](https://flarum.org/docs/), and ask questions on the [Community Forum](https://discuss.flarum.org/) or [Discord Chat](https://flarum.org/discord/).
+Read the **[Installation guide](https://flarum.org/docs/install.html)** for more information. For support, refer to the [documentation](https://flarum.org/docs/), and ask questions on the [community forum](https://discuss.flarum.org/) or [Discord chat](https://flarum.org/discord/).
 
 ## Contributing
 
-Flarum is open-source and we would love your help building it! Please read the [Contributing Guide](https://github.com/flarum/flarum/blob/master/CONTRIBUTING.md) to learn how you can help.
+Thank you for considering contributing to Flarum! Please read the **[Contributing guide](https://flarum.org/docs/contributing.html)** to learn how you can help.
+
+This repository only holds the Flarum skeleton application. Most development happens in [flarum/core](https://github.com/flarum/core).
+
+## Security Vulnerabilities
+
+If you discover a security vulnerability within Flarum, please send an e-mail to [security@flarum.org](mailto:security@flarum.org). All security vulnerabilities will be promptly addressed.
 
 ## License
 
-Copyright (c) 2015 Toby Zerner. Code released under the [MIT License](https://github.com/flarum/flarum/blob/master/LICENSE).
+Flarum is open-source software licensed under the [MIT License](https://github.com/flarum/flarum/blob/master/LICENSE).
+
