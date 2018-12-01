@@ -79,6 +79,16 @@ Options -MultiViews
   ExpiresByType text/x-cross-domain-policy            "access plus 1 week"
 </IfModule>
 
+# Resolve cache issue
+
+<FilesMatch "\.(html|htm|js|css|php)>
+FileETag None
+Header unset ETag
+Header set Cache-Control "max-age=0, no-cache, no-store, must-revalidate"
+Header set Pragma "no-cache"
+Header set Expires "Wed, 11 Jan 1984 05:00:00 GMT"
+</FilesMatch>
+
 # Gzip compression
 <IfModule mod_deflate.c>
   <IfModule mod_filter.c>
