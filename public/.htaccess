@@ -40,6 +40,7 @@ Options -MultiViews
   ExpiresByType application/ld+json                   "access plus 0 seconds"
   ExpiresByType application/schema+json               "access plus 0 seconds"
   ExpiresByType application/vnd.geo+json              "access plus 0 seconds"
+  ExpiresByType application/vnd.api+json              "access plus 0 seconds"
   ExpiresByType application/xml                       "access plus 0 seconds"
   ExpiresByType text/calendar                         "access plus 0 seconds"
   ExpiresByType text/xml                              "access plus 0 seconds"
