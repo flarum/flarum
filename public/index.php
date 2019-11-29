@@ -13,8 +13,8 @@ require '../vendor/autoload.php';
 
 $server = new Flarum\Http\Server(
     Flarum\Foundation\Site::fromPaths([
-        'base' => __DIR__.'/..',
-        'public' => __DIR__.'/../public',
+        'base'    => __DIR__.'/..',
+        'public'  => __DIR__.'/../public',
         'storage' => __DIR__.'/../storage',
     ])
 );
