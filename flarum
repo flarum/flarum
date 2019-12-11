@@ -8,14 +8,17 @@
  * LICENSE file that was distributed with this source code.
  */
 
-require 'vendor/autoload.php';
+$site = require 'site.php';
 
-$server = new Flarum\Console\Server(
-    Flarum\Foundation\Site::fromPaths([
-        'base' => __DIR__,
-        'public' => __DIR__.'/public',
-        'storage' => __DIR__.'/storage',
-    ])
-);
+/*
+|-------------------------------------------------------------------------------
+| Interpret console arguments
+|-------------------------------------------------------------------------------
+|
+| Flarum's console interprets all command-line arguments to select and then
+| execute corresponding commands for certain administrative tasks.
+|
+*/
 
+$server = new Flarum\Console\Server($site);
 $server->listen();
