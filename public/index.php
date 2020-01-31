@@ -7,14 +7,20 @@
  * LICENSE file that was distributed with this source code.
  */
 
-require '../vendor/autoload.php';
+$site = require '../site.php';
 
-$server = new Flarum\Http\Server(
-    Flarum\Foundation\Site::fromPaths([
-        'base' => __DIR__.'/..',
-        'public' => __DIR__.'/../public',
-        'storage' => __DIR__.'/../storage',
-    ])
-);
+/*
+|-------------------------------------------------------------------------------
+| Accept incoming HTTP requests
+|-------------------------------------------------------------------------------
+|
+| Every HTTP request pointed to the web server that cannot be served by simply
+| responding with one of the files in the "public" directory will be sent to
+| this file. Now is the time to boot up Flarum's internal HTTP server, which
+| will try its best to interpret the request and return the appropriate
+| response, which could be a JSON document (for API responses) or a lot of HTML.
+|
+*/
 
+$server = new Flarum\Http\Server($site);
 $server->listen();
