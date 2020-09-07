@@ -41,9 +41,6 @@
     "require": {
         "flarum/core": "^0.1.0",
         "flarum/approval": "^0.1.0",
-        "flarum/auth-facebook": "^0.1.0",
-        "flarum/auth-github": "^0.1.0",
-        "flarum/auth-twitter": "^0.1.0",
         "flarum/bbcode": "^0.1.0",
         "flarum/emoji": "^0.1.0",
         "flarum/lang-english": "^0.1.0",
