@@ -1,4 +1,4 @@
-<p align="center"><img src="https://flarum.org/img/logo.png"></p>
+<p align="center"><img src="https://flarum.org/assets/img/logo.png"></p>
 
 <p align="center">
 <a href="https://travis-ci.org/flarum/core"><img src="https://travis-ci.org/flarum/core.svg" alt="Build Status"></a>
