@@ -1,5 +1,20 @@
 # Changelog
 
+## [0.1.0-beta.14](https://github.com/flarum/flarum/compare/v0.1.0-beta.13...v0.1.0-beta.14)
+
+### Added
+- Nginx rules to prevent access to sensitive files (#65)
+- IIS configuration added (#66)
+
+### Changed
+- Minimum PHP requirement is now 7.2+
+
+### Fixed
+- Logo path in readme didn't resolve correctly (#68) 
+
+### Removed
+- Social auth drivers removed (#67)
+
 ## [0.1.0-beta.13](https://github.com/flarum/flarum/compare/v0.1.0-beta.12...v0.1.0-beta.13)
 
 ### Changed
