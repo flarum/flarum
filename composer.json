@@ -31,6 +31,10 @@
         {
             "name": "Matthew Kilgore",
             "email": "matthew@kilgore.dev"
+        },
+        {
+            "name": "Alexander (Sasha) Skvortsov",
+            "email": "askvortsov@flarum.org"
         }
     ],
     "support": {
