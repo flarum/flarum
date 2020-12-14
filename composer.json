@@ -34,6 +34,7 @@
         "flarum/lock": "^0.1.0",
         "flarum/markdown": "^0.1.0",
         "flarum/mentions": "^0.1.0",
+        "flarum/nicknames": "^0.1.0",
         "flarum/pusher": "^0.1.0",
         "flarum/statistics": "^0.1.0",
         "flarum/sticky": "^0.1.0",
