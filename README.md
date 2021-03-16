@@ -21,7 +21,7 @@
 
 ## Installation
 
-You must have SSH access to a server with **PHP 7.2+** and **MySQL 5.6+**, and install [Composer](https://getcomposer.org/).
+You must have SSH access to a server with **PHP 7.3+** and **MySQL 5.6+** or **MariaDB 10.0.5+**, and install [Composer](https://getcomposer.org/).
 
 ```
 composer create-project flarum/flarum . --stability=beta
