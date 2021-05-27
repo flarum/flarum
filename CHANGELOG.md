@@ -1,5 +1,10 @@
 # Changelog
 
+## [1.0.0](https://github.com/flarum/flarum/compare/v0.1.0-beta.16...v1.0.0)
+
+### Changed
+- Updated constraints of core and bundled extensions for v1.0.0 stable release (https://github.com/flarum/flarum/pull/74)
+
 ## [0.1.0-beta.16](https://github.com/flarum/flarum/compare/v0.1.0-beta.15...v0.1.0-beta.16)
 
 ### Changed
