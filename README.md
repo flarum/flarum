@@ -21,13 +21,7 @@
 
 ## Installation
 
-You must have SSH access to a server with **PHP 7.3+** and **MySQL 5.6+** or **MariaDB 10.0.5+**, and install [Composer](https://getcomposer.org/).
-
-```
-composer create-project flarum/flarum . --stability=beta
-```
-
-Read the **[Installation guide](https://flarum.org/docs/install.html)** for more information. For support, refer to the [documentation](https://flarum.org/docs/), and ask questions on the [community forum](https://discuss.flarum.org/) or [Discord chat](https://flarum.org/discord/).
+Read the **[Installation guide](https://flarum.org/docs/install.html)** to get started. For support, refer to the [documentation](https://flarum.org/docs/), and ask questions on the [community forum](https://discuss.flarum.org/) or [Discord chat](https://flarum.org/discord/).
 
 ## Contributing
 
