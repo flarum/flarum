@@ -21,11 +21,11 @@
 
 ## Installation
 
-Read the **[Installation guide](https://flarum.org/docs/install.html)** to get started. For support, refer to the [documentation](https://flarum.org/docs/), and ask questions on the [community forum](https://discuss.flarum.org/) or [Discord chat](https://flarum.org/discord/).
+Read the **[Installation guide](https://docs.flarum.org/install)** to get started. For support, refer to the [documentation](https://docs.flarum.org/), and ask questions on the [community forum](https://discuss.flarum.org/) or [Discord chat](https://flarum.org/discord/).
 
 ## Contributing
 
-Thank you for considering contributing to Flarum! Please read the **[Contributing guide](https://flarum.org/docs/contributing.html)** to learn how you can help.
+Thank you for considering contributing to Flarum! Please read the **[Contributing guide](https://docs.flarum.org/contributing)** to learn how you can help.
 
 This repository only holds the Flarum skeleton application. Most development happens in [flarum/core](https://github.com/flarum/core).
 
