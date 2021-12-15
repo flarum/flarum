@@ -18,7 +18,7 @@
     "support": {
         "issues": "https://github.com/flarum/core/issues",
         "source": "https://github.com/flarum/flarum",
-        "docs": "https://flarum.org/docs/"
+        "docs": "https://docs.flarum.org/"
     },
     "require": {
         "flarum/core": "^1.0",
