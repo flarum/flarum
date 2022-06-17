@@ -7,7 +7,6 @@
  * LICENSE file that was distributed with this source code.
  */
 
-use Flarum\Extend;
 
 return [
     // Register extenders here to customize your forum!
