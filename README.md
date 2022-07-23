@@ -1,4 +1,6 @@
-<p align="center"><img src="https://flarum.org/assets/img/logo.png"></p>
+<p align="center">
+<a href="https://flarum.org/"><img src="https://flarum.org/assets/img/logo.png"></a>
+</p>
 
 <p align="center">
 <a href="https://packagist.org/packages/flarum/core"><img src="https://poser.pugx.org/flarum/core/d/total.svg" alt="Total Downloads"></a>
