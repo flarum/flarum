@@ -1,5 +1,9 @@
 # Changelog
 
+## [1.8.0](https://github.com/flarum/flarum/compare/v1.7.0...v1.8.0)
+
+No changes.
+
 ## [1.7.0](https://github.com/flarum/flarum/compare/v1.6.0...v1.7.0)
 
 No changes.
