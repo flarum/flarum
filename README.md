@@ -22,7 +22,7 @@
 
 ## Installation
 
-Read the **[Installation guide](https://docs.flarum.org/install)** to get started. Or to [self-host Flarum in one-click](https://app.trydome.io/signup?package=flarum) on the cloud try [Dome](https://trydome.io) For support, refer to the [documentation](https://docs.flarum.org/), and ask questions on the [community forum](https://discuss.flarum.org/) or [Discord chat](https://flarum.org/discord/).
+Read the **[Installation guide](https://docs.flarum.org/install)** to get started. Or to [self-host Flarum in one-click](https://app.trydome.io/signup?package=flarum) on the cloud try [Dome](https://trydome.io). For support, refer to the [documentation](https://docs.flarum.org/), and ask questions on the [community forum](https://discuss.flarum.org/) or [Discord chat](https://flarum.org/discord/).
 
 ## Contributing
 
