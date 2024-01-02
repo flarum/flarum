@@ -6,6 +6,7 @@
 
   # Uncomment the following lines if you are not using a `public` directory
   # to prevent sensitive resources from being exposed.
+  # <!-- BEGIN EXPOSED RESOURCES PROTECTION -->
   # RewriteRule /\.git / [F,L]
   # RewriteRule ^auth\.json$ / [F,L]
   # RewriteRule ^composer\.(lock|json)$ / [F,L]
@@ -13,6 +14,7 @@
   # RewriteRule ^flarum$ / [F,L]
   # RewriteRule ^storage/(.*)?$ / [F,L]
   # RewriteRule ^vendor/(.*)?$ / [F,L]
+  # <!-- END EXPOSED RESOURCES PROTECTION -->
 
   # Pass requests that don't refer directly to files in the filesystem to index.php
   RewriteCond %{REQUEST_FILENAME} !-f
