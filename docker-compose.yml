@@ -27,7 +27,7 @@ services:
       - mariadb
 
   mariadb:
-    image: mariadb:10.4
+    image: mariadb:latest
     environment:
       - MYSQL_ROOT_PASSWORD=rootpass
       - MYSQL_DATABASE=flarum
