@@ -29,10 +29,10 @@ services:
   mariadb:
     image: mariadb:latest
     environment:
-      - MYSQL_ROOT_PASSWORD=rootpass
-      - MYSQL_DATABASE=flarum
-      - MYSQL_USER=flarum
-      - MYSQL_PASSWORD=flarumpass
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USER}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
     volumes:
       - db:/var/lib/mysql
     networks: 

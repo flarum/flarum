@@ -8,4 +8,4 @@ server
 core
 studio.json
 composer.lock
-
+.env
