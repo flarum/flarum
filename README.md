@@ -27,7 +27,7 @@ Read the **[Installation guide](https://docs.flarum.org/install)** to get starte
 ## Docker Compose
 
 ```sh
-git clone https://github.com/furyhawk/flarum.git -b feature/docker-compose
+git clone https://github.com/furyhawk/flarum.git -b docker-compose
 docker run --rm -it -v $PWD:/app composer install
 docker compose up -d
 ```
