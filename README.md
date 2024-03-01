@@ -24,6 +24,14 @@
 
 Read the **[Installation guide](https://docs.flarum.org/install)** to get started. For support, refer to the [documentation](https://docs.flarum.org/), and ask questions on the [community forum](https://discuss.flarum.org/) or [Discord chat](https://flarum.org/discord/).
 
+## Docker Compose
+
+```sh
+git clone https://github.com/furyhawk/flarum.git -b feature/docker-compose
+docker run --rm -it -v $PWD:/app composer install
+docker compose up -d
+```
+
 ## Contributing
 
 Thank you for considering contributing to Flarum! Please read the **[Contributing guide](https://docs.flarum.org/contributing)** to learn how you can help.
