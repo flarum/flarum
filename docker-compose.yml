@@ -2,6 +2,7 @@ version: "3"
 services:
   web:
     image: nginx:alpine
+    container_name: flarum-web
     volumes:
       - ./:/var/www
       - ./nginx/flarum.conf:/etc/nginx/conf.d/default.conf
