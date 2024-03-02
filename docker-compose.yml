@@ -19,6 +19,7 @@ services:
       context: .
       dockerfile: flarum-fpm.dockerfile
     image: flarum-fpm:1
+    container_name: flarum-php
     volumes:
       - ./:/var/www
     networks: 
@@ -29,6 +30,7 @@ services:
 
   mariadb:
     image: mariadb:latest
+    container_name: flarum-mariadb
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
