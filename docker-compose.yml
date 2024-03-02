@@ -41,6 +41,8 @@ services:
 networks:
     code-network:
         driver: bridge
+        name: web
+        external: true
     db-network:
       driver: bridge
 
