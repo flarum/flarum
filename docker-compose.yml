@@ -30,7 +30,7 @@ services:
 
   mariadb:
     image: mariadb:latest
-    # container_name: flarum-mariadb
+    container_name: flarum-mariadb
     environment:
       - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
       - MYSQL_DATABASE=${MYSQL_DATABASE}
