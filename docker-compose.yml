@@ -1,6 +1,6 @@
 version: "3"
 services:
-  web:
+  flarum-web:
     image: nginx:alpine
     container_name: flarum-web
     volumes:
@@ -12,9 +12,9 @@ services:
     networks:
       - code-network
     depends_on:
-      - php
+      - flarum-php
 
-  php:
+  flarum-php:
     build:
       context: .${PROJECT_BASE}
       dockerfile: flarum-fpm.dockerfile
@@ -26,9 +26,9 @@ services:
       - code-network
       - db-network
     depends_on:
-      - mariadb
+      - flarum-mariadb
 
-  mariadb:
+  flarum-mariadb:
     image: mariadb:latest
     container_name: flarum-mariadb
     environment:
