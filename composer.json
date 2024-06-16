@@ -1,24 +1,25 @@
 {
-    "name": "flarum/flarum",
-    "description": "Delightfully simple forum software.",
+    "name": "devmaluku/devmaluku",
+    "description": "Delightfully forum.",
     "type": "project",
     "keywords": [
         "forum",
-        "discussion"
+        "discussion",
+        "maluku"
     ],
-    "homepage": "https://flarum.org/",
+    "homepage": "https://devmaluku.org/",
     "license": "MIT",
     "authors": [
         {
-            "name": "Flarum",
-            "email": "info@flarum.org",
-            "homepage": "https://flarum.org/team"
+            "name": "Azman Abdullah",
+            "email": "azmanabdlh12@gmail.com",
+            "homepage": "https://github.com/azmanabdlh"
         }
     ],
     "support": {
-        "issues": "https://github.com/flarum/core/issues",
-        "source": "https://github.com/flarum/flarum",
-        "docs": "https://docs.flarum.org/"
+        "issues": "https://github.com/devmaluku/devmaluku/issues",
+        "source": "https://github.com/devmaluku/flarum",
+        "docs": "https://github.com/devmaluku/devmaluku/blob/master/README.md"
     },
     "require": {
         "flarum/core": "^1.8",
