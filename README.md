@@ -1,5 +1,5 @@
 <p align="center">
-<a href="https://flarum.org/"><img src="https://flarum.org/assets/img/logo.png"></a>
+<a href="https://flarum.org/"><img src="https://discuss.flarum.org/assets/logo-2q2rcevl.png"></a>
 </p>
 
 <p align="center">
