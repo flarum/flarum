@@ -21,7 +21,7 @@
         "docs": "https://docs.flarum.org/"
     },
     "require": {
-        "flarum/core": "^1.8",
+        "flarum/core": "^2.0",
         "flarum/approval": "*",
         "flarum/bbcode": "*",
         "flarum/emoji": "*",
@@ -31,6 +31,7 @@
         "flarum/lock": "*",
         "flarum/markdown": "*",
         "flarum/mentions": "*",
+        "flarum/messages": "*",
         "flarum/nicknames": "*",
         "flarum/pusher": "*",
         "flarum/statistics": "*",
