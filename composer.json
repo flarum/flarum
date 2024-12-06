@@ -21,12 +21,13 @@
         "docs": "https://docs.flarum.org/"
     },
     "require": {
-        "flarum/core": "^2.0",
+        "flarum/core": "^2.0.0-beta",
         "flarum/approval": "*",
         "flarum/bbcode": "*",
         "flarum/emoji": "*",
         "flarum/lang-english": "*",
         "flarum/flags": "*",
+        "flarum/gdpr": "*",
         "flarum/likes": "*",
         "flarum/lock": "*",
         "flarum/markdown": "*",
