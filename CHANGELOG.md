@@ -1,5 +1,11 @@
 # Changelog
 
+## [2.0.0-beta.1](https://github.com/flarum/flarum/compare/v1.8.0...v2.0.0-beta.1)
+
+### Added
+* Messages extension
+* GDPR extension
+
 ## [1.8.0](https://github.com/flarum/flarum/compare/v1.7.0...v1.8.0)
 
 No changes.
