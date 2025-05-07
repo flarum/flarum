@@ -11,11 +11,11 @@ WORKDIR /var/www/flarum
 RUN composer create-project flarum/flarum . "1.8.1" --no-dev --prefer-dist
 
 # 安装兼容 1.8.1 的简体中文语言包
-RUN composer require flarum-lang/chinese-simplified:^1.0
+RUN composer require flarum-lang/chinese-simplified
 
 # 安装兼容 1.8.1 的 TNTSearch 扩展
-RUN composer require clarkwinkelmann/flarum-ext-scout:^1.0 --ignore-platform-reqs
-RUN composer require teamtnt/laravel-scout-tntsearch-driver --ignore-platform-reqs
+RUN composer require clarkwinkelmann/flarum-ext-scout
+RUN composer require teamtnt/laravel-scout-tntsearch-driver
 
 RUN php flarum cache:clear || true
 
