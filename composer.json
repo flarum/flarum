@@ -2,11 +2,8 @@
     "name": "flarum/flarum",
     "description": "Delightfully simple forum software.",
     "type": "project",
-    "keywords": [
-        "forum",
-        "discussion"
-    ],
-    "homepage": "https://flarum.org/",
+    "keywords": ["forum", "discussion"],
+    "homepage": "https://flarum.org",
     "license": "MIT",
     "authors": [
         {
@@ -17,34 +14,31 @@
     ],
     "support": {
         "issues": "https://github.com/flarum/core/issues",
-        "source": "https://github.com/flarum/flarum",
-        "docs": "https://docs.flarum.org/"
+        "forum": "https://discuss.flarum.org",
+        "wiki": "https://flarum.org/docs",
+        "source": "https://github.com/flarum/flarum"
     },
     "require": {
-        "flarum/core": "^2.0.0-rc.1",
-        "flarum/approval": "*",
-        "flarum/bbcode": "*",
-        "flarum/emoji": "*",
-        "flarum/lang-english": "*",
-        "flarum/flags": "*",
-        "flarum/gdpr": "*",
-        "flarum/likes": "*",
-        "flarum/lock": "*",
-        "flarum/markdown": "*",
-        "flarum/mentions": "*",
-        "flarum/messages": "*",
-        "flarum/nicknames": "*",
-        "flarum/realtime": "*",
-        "flarum/statistics": "*",
-        "flarum/sticky": "*",
-        "flarum/subscriptions": "*",
-        "flarum/suspend": "*",
-        "flarum/tags": "*"
+        "php": ">=8.2.0",
+        "ext-dom": "*",
+        "ext-gd": "*",
+        "ext-json": "*",
+        "ext-mbstring": "*",
+        "ext-openssl": "*",
+        "ext-pdo_mysql": "*",
+        "ext-tokenizer": "*",
+        "flarum/core": "^2.0",
+        "flarum/tags": "^2.0",
+        "flarum/mentions": "^2.0"
     },
     "config": {
         "preferred-install": "dist",
-        "sort-packages": true
+        "sort-packages": true,
+        "optimize-autoloader": true,
+        "allow-plugins": {
+            "wikimedia/composer-merge-plugin": true
+        }
     },
-    "minimum-stability": "beta",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
