@@ -21,7 +21,7 @@
         "docs": "https://docs.flarum.org/"
     },
     "require": {
-        "flarum/core": "^2.0.0-rc.7",
+        "flarum/core": "^2.0.0-rc.8",
         "flarum/audit": "*",
         "flarum/approval": "*",
         "flarum/bbcode": "*",
