@@ -1,5 +1,68 @@
 # Changelog
 
+## [2.0.0](https://github.com/flarum/flarum/compare/v2.0.0-rc.8...v2.0.0)
+
+### Added
+- Deck extension
+
+### Changed
+- Updated constraints of core for v2.0.0 stable release
+- `minimum-stability` is now `stable`, so `composer create-project flarum/flarum` no longer needs `--stability`
+
+## [2.0.0-rc.8](https://github.com/flarum/flarum/compare/v2.0.0-rc.7...v2.0.0-rc.8)
+
+No changes.
+
+## [2.0.0-rc.7](https://github.com/flarum/flarum/compare/v2.0.0-rc.6...v2.0.0-rc.7)
+
+No changes.
+
+## [2.0.0-rc.6](https://github.com/flarum/flarum/compare/v2.0.0-rc.5...v2.0.0-rc.6)
+
+No changes.
+
+## [2.0.0-rc.5](https://github.com/flarum/flarum/compare/v2.0.0-rc.4...v2.0.0-rc.5)
+
+No changes.
+
+## [2.0.0-rc.4](https://github.com/flarum/flarum/compare/v2.0.0-rc.3...v2.0.0-rc.4)
+
+### Added
+- Audit extension
+
+## [2.0.0-rc.3](https://github.com/flarum/flarum/compare/v2.0.0-rc.2...v2.0.0-rc.3)
+
+No changes.
+
+## [2.0.0-rc.2](https://github.com/flarum/flarum/compare/v2.0.0-rc.1...v2.0.0-rc.2)
+
+No changes.
+
+## [2.0.0-rc.1](https://github.com/flarum/flarum/compare/v2.0.0-beta.8...v2.0.0-rc.1)
+
+### Changed
+- Nginx config caches `.webp` images alongside other images [#97]
+
+## [2.0.0-beta.8](https://github.com/flarum/flarum/compare/v2.0.0-beta.7...v2.0.0-beta.8)
+
+### Added
+- Realtime extension
+
+### Removed
+- Pusher extension, replaced by Realtime
+
+## [2.0.0-beta.7](https://github.com/flarum/flarum/compare/v2.0.0-beta.6...v2.0.0-beta.7)
+
+No changes.
+
+## [2.0.0-beta.6](https://github.com/flarum/flarum/compare/v2.0.0-beta.5...v2.0.0-beta.6)
+
+No changes.
+
+## [2.0.0-beta.5](https://github.com/flarum/flarum/compare/v2.0.0-beta.3...v2.0.0-beta.5)
+
+No changes.
+
 ## [2.0.0-beta.3](https://github.com/flarum/flarum/compare/v2.0.0-beta.2...v2.0.0-beta.3)
 
 No changes.
