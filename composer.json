@@ -21,11 +21,12 @@
         "docs": "https://docs.flarum.org/"
     },
     "require": {
-        "flarum/core": "^2.0.0-rc.8",
+        "flarum/core": "^2.0.0",
         "flarum/audit": "*",
         "flarum/approval": "*",
         "flarum/bbcode": "*",
         "flarum/emoji": "*",
+        "flarum/deck": "*",
         "flarum/lang-english": "*",
         "flarum/flags": "*",
         "flarum/gdpr": "*",
@@ -46,6 +47,6 @@
         "preferred-install": "dist",
         "sort-packages": true
     },
-    "minimum-stability": "beta",
+    "minimum-stability": "stable",
     "prefer-stable": true
 }
