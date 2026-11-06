@@ -81,6 +81,11 @@ Options -MultiViews
   ExpiresByType application/font-woff2                "access plus 1 month"
   ExpiresByType font/woff2                            "access plus 1 month"
   ExpiresByType text/x-cross-domain-policy            "access plus 1 week"
+
+  # Flarum's own responses (pages, the API, the manifest, the service worker) set their own caching.
+  <Files "index.php">
+    ExpiresActive off
+  </Files>
 </IfModule>
 
 # Gzip compression
